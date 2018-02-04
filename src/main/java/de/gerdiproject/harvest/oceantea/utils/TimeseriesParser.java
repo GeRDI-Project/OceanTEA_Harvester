@@ -80,7 +80,7 @@ public class TimeseriesParser {
 	public List<String> getSubjectsStrings() {
 
 		return Arrays.asList("MoLab " + ts.getDevice(), "underwater measurement", ts.getDataTypePrintName(),
-				ts.getRegionPrintName());
+				ts.getRegionPrintName(), ts.getStation());
 	}
 
 	public Description getDescription() {
