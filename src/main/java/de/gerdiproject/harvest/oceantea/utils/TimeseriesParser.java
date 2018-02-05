@@ -43,9 +43,18 @@ import de.gerdiproject.json.geo.Point;
 public class TimeseriesParser {
 
 	private Timeseries ts;
+	private TimeseriesDataset tsd;
 
+	/**
+	 * Constructor for a timeseries that immediately downloads the actual
+	 * {@linkplain TimeseriesDataset}.
+	 * 
+	 * @param Timeseries
+	 *            object
+	 */
 	public TimeseriesParser(Timeseries timeseries) {
 		this.ts = timeseries;
+		this.tsd = Downloader.getTimeseriesDataset(getDownloadUrl(), ts.getReferenceInstant());
 	}
 
 	public List<ResearchData> getResearchDataList() {
@@ -89,8 +98,13 @@ public class TimeseriesParser {
 		String geoLocationString = "(" + point.getLongitude() + ";" + point.getLatitude() + ")";
 
 		String descriptionText = String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION,
-				ts.getDataTypePrintName(), ts.getReferenceDate().toString(), ts.getRegionPrintName(), geoLocationString,
-				ts.getDepth());
+				ts.getDataTypePrintName(), tsd.getStartInstant(), tsd.getStopInstant(), tsd.getValuesMean(),
+				ts.getDataTypeUnit(), tsd.getNumberOfValues(), ts.getReferenceInstant(), ts.getRegionPrintName(),
+				geoLocationString, ts.getDepth());
+
+		if (tsd.getMissingValues() > 0) {
+			descriptionText += " " + tsd.getMissingValues() + "measurements points were missing ('NA').";
+		}
 
 		return new Description(descriptionText, DescriptionType.Abstract, OceanTeaTimeSeriesDataCiteConstants.LANG);
 	}

@@ -24,6 +24,7 @@ import java.util.Collection;
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeseriesDownloaderConstants;
 import de.gerdiproject.harvest.oceantea.json.AllDatatypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeseriesResponse;
+import de.gerdiproject.harvest.oceantea.json.TimeseriesDatasetResponse;
 import de.gerdiproject.harvest.utils.data.HttpRequester;
 
 /**
@@ -41,7 +42,8 @@ public class Downloader {
 	}
 
 	/**
-	 * Retrieve an array of timeseries data sets.
+	 * Retrieve a list of {@linkplain Timeseries} objects describing the metadata
+	 * for each timeseries data set.
 	 *
 	 * @return an array of timeseries objects
 	 */
