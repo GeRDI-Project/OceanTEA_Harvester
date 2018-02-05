@@ -23,81 +23,83 @@ import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
  *
  * @author Ingo Thomsen
  */
-public class TimeSeriesHarvester extends AbstractListHarvester<Timeseries>
-{
+public class TimeSeriesHarvester extends AbstractListHarvester<Timeseries> {
 
-    /**
-     * Default constructor, naming the harvester and ensuring one document per
-     * harvested entry
-     */
-    public TimeSeriesHarvester()
-    {
-        super("OceanTEA - Timeseries", 1);
-    }
+	/**
+	 * Default constructor, naming the harvester and ensuring one document per
+	 * harvested entry
+	 */
+	public TimeSeriesHarvester() {
+		super("OceanTEA - Timeseries", 1);
+	}
 
-    @Override
-    protected Collection<Timeseries> loadEntries()
-    {
+	@Override
+	protected Collection<Timeseries> loadEntries() {
 
-        return Downloader.getAllTimeseries();
-    }
+		return Downloader.getAllTimeseries();
+	}
 
-    @Override
-    protected List<IDocument> harvestEntry(Timeseries timeseries)
-    {
+	@Override
+	protected List<IDocument> harvestEntry(Timeseries timeseries) {
 
-        // parser to harvest non-constant information about the timeseries dataset
-        TimeseriesParser parser = new TimeseriesParser(timeseries);
+		// parser to harvest non-constant information about the timeseries dataset
+		TimeseriesParser parser = new TimeseriesParser(timeseries);
 
-        // create the document
-        DataCiteJson document = new DataCiteJson();
+		// create the document
+		DataCiteJson document = new DataCiteJson();
 
-        //
-        // derived from constants
-        //
-        document.setResourceType(OceanTeaTimeSeriesDataCiteConstants.RESOURCE_TYPE);
-        document.setPublisher(OceanTeaTimeSeriesDataCiteConstants.PROVIDER);
-        document.setRepositoryIdentifier(OceanTeaTimeSeriesDataCiteConstants.REPOSITORY_ID);
-        document.setCreators(OceanTeaTimeSeriesDataCiteConstants.CREATORS);
-        document.setContributors(OceanTeaTimeSeriesDataCiteConstants.CONTRIBUTORS);
-        document.setResearchDisciplines(OceanTeaTimeSeriesDataCiteConstants.DISCIPLINES);
-        document.setFormats(OceanTeaTimeSeriesDataCiteConstants.FORMATS);
-        List<WebLink> webLinks = new ArrayList<>();
+		//
+		// derived from constants
+		//
+		document.setResourceType(OceanTeaTimeSeriesDataCiteConstants.RESOURCE_TYPE);
+		document.setPublisher(OceanTeaTimeSeriesDataCiteConstants.PROVIDER);
+		document.setRepositoryIdentifier(OceanTeaTimeSeriesDataCiteConstants.REPOSITORY_ID);
+		document.setCreators(OceanTeaTimeSeriesDataCiteConstants.CREATORS);
+		document.setContributors(OceanTeaTimeSeriesDataCiteConstants.CONTRIBUTORS);
+		document.setResearchDisciplines(OceanTeaTimeSeriesDataCiteConstants.DISCIPLINES);
+		document.setFormats(OceanTeaTimeSeriesDataCiteConstants.FORMATS);
 
-        for (String s : OceanTeaTimeSeriesDataCiteConstants.RELATED_WEB_LINKS) {
-            WebLink webLink = new WebLink(s);
-            webLink.setType(WebLinkType.Related);
-            webLinks.add(webLink);
-        }
+		//
+		// derived from both constants and the harvested entry
+		//
+		List<Subject> subjects = new ArrayList<>();
+		Stream.concat(OceanTeaTimeSeriesDataCiteConstants.SUBJECT_STRINGS.stream(),
+				parser.getSubjectsStrings().stream()).forEach(s -> {
+					Subject subject = new Subject(s);
+					subject.setLang(OceanTeaTimeSeriesDataCiteConstants.LANG);
+					subjects.add(new Subject(s));
+				});
+		document.setSubjects(subjects);
 
-        document.setWebLinks(webLinks);
+		List<Description> descriptions = new ArrayList<>();
+		descriptions.add(parser.getDescription());
+		descriptions.add(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_COMMON);
+		document.setDescriptions(descriptions);
 
-        //
-        // derived from both constants and the harvested entry
-        //
-        List<Subject> subjects = new ArrayList<>();
-        Stream.concat(OceanTeaTimeSeriesDataCiteConstants.SUBJECT_STRINGS.stream(),
-        parser.getSubjectsStrings().stream()).forEach(s -> {
-            Subject subject = new Subject(s);
-            subject.setLang(OceanTeaTimeSeriesDataCiteConstants.LANG);
-            subjects.add(new Subject(s));
-        });
-        document.setSubjects(subjects);
+		// list of web links associated with the document
+		List<WebLink> webLinks = new ArrayList<>();
+		for (String s : OceanTeaTimeSeriesDataCiteConstants.RELATED_WEB_LINKS) {
+			WebLink webLink = new WebLink(s);
+			webLink.setType(WebLinkType.Related);
+			webLinks.add(webLink);
+		}
 
-        List<Description> descriptions = new ArrayList<>();
-        descriptions.add(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_COMMON);
-        descriptions.add(parser.getDescription());
-        document.setDescriptions(descriptions);
+		WebLink viewLink = new WebLink(OceanTeaTimeSeriesDataCiteConstants.VIEW_URL);
+		viewLink.setType(WebLinkType.ViewURL);
+		viewLink.setName(parser.getMainTitle().getValue());
+		webLinks.add(viewLink);
 
-        //
-        // derived exclusively from the harvested entry
-        //
-        document.setResearchDataList(parser.getResearchDataList());
-        document.setPublicationYear(parser.getPublicationYear());
-        document.setTitles(Arrays.asList(parser.getMainTitle()));
-        document.setGeoLocations(parser.getGeoLocations());
-        document.setDates(parser.getDates());
+		document.setWebLinks(webLinks);
 
-        return Arrays.asList(document);
-    }
+		//
+		// derived exclusively from the harvested entry
+		//
+		document.setResearchDataList(parser.getResearchDataList());
+		document.setPublicationYear(parser.getPublicationYear());
+		document.setTitles(Arrays.asList(parser.getMainTitle()));
+		document.setGeoLocations(parser.getGeoLocations());
+		document.setDates(parser.getDates());
+
+		return Arrays.asList(document);
+	}
 }

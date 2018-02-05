@@ -64,7 +64,8 @@ public class OceanTeaTimeSeriesDataCiteConstants
     public static final String OCEANTEA_DEMO_BASE_URL = "http://maui.se.informatik.uni-kiel.de:9090/";
     public static final String PROVIDER = "OceanTEA demo, Software Engineering Informatik, Kiel University";
     public static final String REPOSITORY_ID = "OCEANTEA";
-    public static final List<String> RELATED_WEB_LINKS = Arrays.asList(OCEANTEA_DEMO_BASE_URL, MOLAB_PUBLICATION_LINK);
+    public static final List<String> RELATED_WEB_LINKS = Arrays.asList(MOLAB_PUBLICATION_LINK);
+    public static final String VIEW_URL = OCEANTEA_DEMO_BASE_URL;
 
     //
     // Format of ResourceType - there is only Json for OceanTEA
