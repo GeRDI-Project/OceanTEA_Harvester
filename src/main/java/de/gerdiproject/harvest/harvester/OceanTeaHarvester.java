@@ -26,27 +26,30 @@ import de.gerdiproject.harvest.harvester.subharvester.TimeSeriesHarvester;
 /**
  * The Main Harvester for OceanTEA. It is devised as a Composite Harvester,
  * currently with one sub harvester for the timeseries data. (A
- * "PArboreaActiviy" harvester is planned as a anohter sub harvester)
+ * "PArboreaActiviy" harvester is planned as a another sub harvester)
  *
  * @author Ingo Thomsen
  */
-public class OceanTeaHarvester extends AbstractCompositeHarvester {
+public class OceanTeaHarvester extends AbstractCompositeHarvester
+{
 
-	/** Default Constructor */
-	public OceanTeaHarvester() {
-		super(createSubHarvesters());
-	}
+    /** Default Constructor */
+    public OceanTeaHarvester()
+    {
+        super(createSubHarvesters());
+    }
 
-	/**
-	 * Creates all sub-harvesters that harvest OceanTEA.
-	 *
-	 * @return all required sub-harvesters for OceanTEA
-	 */
-	private static List<AbstractHarvester> createSubHarvesters() {
-		LinkedList<AbstractHarvester> newSubHarvesters = new LinkedList<>();
+    /**
+     * Creates all sub-harvesters that harvest OceanTEA.
+     *
+     * @return all required sub-harvesters for OceanTEA
+     */
+    private static List<AbstractHarvester> createSubHarvesters()
+    {
+        LinkedList<AbstractHarvester> newSubHarvesters = new LinkedList<>();
 
-		newSubHarvesters.add(new TimeSeriesHarvester());
+        newSubHarvesters.add(new TimeSeriesHarvester());
 
-		return newSubHarvesters;
-	}
+        return newSubHarvesters;
+    }
 }

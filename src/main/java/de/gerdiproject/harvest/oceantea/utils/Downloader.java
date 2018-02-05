@@ -20,6 +20,7 @@ package de.gerdiproject.harvest.oceantea.utils;
 
 import java.time.Instant;
 import java.util.Collection;
+import java.util.List;
 
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeseriesDownloaderConstants;
 import de.gerdiproject.harvest.oceantea.json.AllDatatypesResponse;
@@ -28,48 +29,54 @@ import de.gerdiproject.harvest.oceantea.json.TimeseriesDatasetResponse;
 import de.gerdiproject.harvest.utils.data.HttpRequester;
 
 /**
- * This class is for downloading the JSON responses for datatype and timeseries
- * metadata.
+ * A static class for downloading the JSON responses for datatype and timeseries
+ * metadata and the actual timeseries datasets
  *
  * @author Ingo Thomsen
  */
-public class Downloader {
+public class Downloader
+{
 
-	static private final HttpRequester httpRequester = new HttpRequester();
+    static private final HttpRequester httpRequester = new HttpRequester();
 
-	// static class (therefore private constructor)
-	private Downloader() {
-	}
+    // static class (therefore private constructor)
+    private Downloader()
+    {
+    }
 
-	/**
-	 * Retrieve a list of {@linkplain Timeseries} objects describing the metadata
-	 * for each timeseries data set.
-	 *
-	 * @return an array of timeseries objects
-	 */
-	public Collection<Timeseries> getAllTimeseries() {
+    /**
+     * Retrieve a list of {@linkplain Timeseries} objects describing the metadata
+     * for each timeseries data set.
+     *
+     * @return an array of timeseries objects
+     */
+    static public List<Timeseries> getAllTimeseries()
+    {
 
-		String url1 = baseUrl + OceanTeaTimeseriesDownloaderConstants.TIMESERIES_URL;
-		AllTimeseriesResponse allTimeseriesResponse = httpRequester.getObjectFromUrl(url1, AllTimeseriesResponse.class);
+        String baseUrl = OceanTeaTimeseriesDownloaderConstants.BASE_URL;
 
-		String url2 = baseUrl + OceanTeaTimeseriesDownloaderConstants.DATATYPES_URL;
-		AllDatatypesResponse allDatatypesResponse = httpRequester.getObjectFromUrl(url2, AllDatatypesResponse.class);
+        String url1 = baseUrl + OceanTeaTimeseriesDownloaderConstants.TIMESERIES_URL;
+        AllTimeseriesResponse allTimeseriesResponse = httpRequester.getObjectFromUrl(url1, AllTimeseriesResponse.class);
 
-		return JsonResponsesMerger.getAllTimeseries(allTimeseriesResponse, allDatatypesResponse);
-	}
+        String url2 = baseUrl + OceanTeaTimeseriesDownloaderConstants.DATATYPES_URL;
+        AllDatatypesResponse allDatatypesResponse = httpRequester.getObjectFromUrl(url2, AllDatatypesResponse.class);
 
-	/**
-	 * Download an actual dataset.
-	 * 
-	 * @param download URL of the timeseries dataset.
-	 * @param the associated reference {@linkplain Instant}
-	 * @return a {@linkplain TimeseriesDataset} object
-	 */
-	static public TimeseriesDataset getTimeseriesDataset(String url, Instant referenceInstant) {
+        return JsonResponsesMerger.getAllTimeseries(allTimeseriesResponse, allDatatypesResponse);
+    }
 
-		TimeseriesDatasetResponse timeseriesDatasetResponse = httpRequester.getObjectFromUrl(url,
-				TimeseriesDatasetResponse.class);
+    /**
+     * Download an actual dataset.
+     *
+     * @param download URL of the timeseries dataset.
+     * @param the associated reference {@linkplain Instant}
+     * @return a {@linkplain TimeseriesDataset} object
+     */
+    static public TimeseriesDataset getTimeseriesDataset(String url, Instant referenceInstant)
+    {
 
-		return new TimeseriesDataset(timeseriesDatasetResponse, referenceInstant);
-	}
+        TimeseriesDatasetResponse timeseriesDatasetResponse = httpRequester.getObjectFromUrl(url,
+                                                              TimeseriesDatasetResponse.class);
+
+        return new TimeseriesDataset(timeseriesDatasetResponse, referenceInstant);
+    }
 }

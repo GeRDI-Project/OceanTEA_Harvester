@@ -28,17 +28,24 @@ import com.google.gson.annotations.SerializedName;
  *
  * @author Ingo Thomsen
  */
-public final class AllTimeseriesResponse {
+public final class AllTimeseriesResponse
+{
 
-	@SerializedName("timeseries")
-	private List<TimeseriesResponse> allTimeseriesResponses;
+    @SerializedName("timeseries")
+    private List<TimeseriesResponse> allTimeseriesResponses;
 
-	public List<TimeseriesResponse> getAllTimeseriesResponses() {
-		return allTimeseriesResponses;
-	}
+    //
+    // Getter and Setter
+    //
 
-	public void setAllTimeseriesResponses(List<TimeseriesResponse> value) {
-		this.allTimeseriesResponses = value;
-	}
+    public List<TimeseriesResponse> getAllTimeseriesResponses()
+    {
+        return allTimeseriesResponses;
+    }
+
+    public void setAllTimeseriesResponses(List<TimeseriesResponse> value)
+    {
+        this.allTimeseriesResponses = value;
+    }
 
 }

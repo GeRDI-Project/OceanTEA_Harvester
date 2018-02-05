@@ -26,148 +26,185 @@ import java.lang.reflect.Method;
  *
  * @author Ingo Thomsen
  */
-public final class AllDatatypesResponse {
+public final class AllDatatypesResponse
+{
 
-	private DatatypeResponse conductivity;
-	private DatatypeResponse temperature;
-	private DatatypeResponse pressure;
-	private DatatypeResponse pH;
-	private DatatypeResponse fluorescence;
-	private DatatypeResponse turbidity;
-	private DatatypeResponse oxygen;
-	private DatatypeResponse saturation;
-	private DatatypeResponse practicalSalinity;
-	private DatatypeResponse absoluteSalinity;
-	private DatatypeResponse potentialTemperature;
-	private DatatypeResponse conservativeTemperature;
-	private DatatypeResponse soundSpeed;
-	private DatatypeResponse potentialDensityAnomaly;
+    private DatatypeResponse conductivity;
+    private DatatypeResponse temperature;
+    private DatatypeResponse pressure;
+    private DatatypeResponse pH;
+    private DatatypeResponse fluorescence;
+    private DatatypeResponse turbidity;
+    private DatatypeResponse oxygen;
+    private DatatypeResponse saturation;
+    private DatatypeResponse practicalSalinity;
+    private DatatypeResponse absoluteSalinity;
+    private DatatypeResponse potentialTemperature;
+    private DatatypeResponse conservativeTemperature;
+    private DatatypeResponse soundSpeed;
+    private DatatypeResponse potentialDensityAnomaly;
 
-	public DatatypeResponse getDatatypeResponseByName(String name) {
+    /**
+     * Get more information (print name and unit) for a datatype. Uses reflection and
+     * assumes the standard naming for getter methods.
+     *
+     * @return a {@linkplain DatatypeResponse} object
+     */
+    public DatatypeResponse getDatatypeResponseByName(String name)
+    {
 
-		try {
-			Method getterMethod = this.getClass()
-					.getMethod("get" + name.substring(0, 1).toUpperCase() + name.substring(1));
-			return (DatatypeResponse) getterMethod.invoke(this);
+        try {
+            Method getterMethod = this.getClass()
+                                  .getMethod("get" + name.substring(0, 1).toUpperCase() + name.substring(1));
+            return (DatatypeResponse) getterMethod.invoke(this);
 
-		} catch (Exception e) {
+        } catch (Exception e) {
 
-			return new DatatypeResponse("unknown", "unknown");
-		}
-	}
+            return new DatatypeResponse("unknown", "unknown");
+        }
+    }
 
-	//
-	// Setter and Getter
-	//
-	public DatatypeResponse getConductivity() {
-		return conductivity;
-	}
+    //
+    // Getter and Setter
+    //
 
-	public void setConductivity(DatatypeResponse value) {
-		this.conductivity = value;
-	}
+    public DatatypeResponse getConductivity()
+    {
+        return conductivity;
+    }
 
-	public DatatypeResponse getTemperature() {
-		return temperature;
-	}
+    public void setConductivity(DatatypeResponse value)
+    {
+        this.conductivity = value;
+    }
 
-	public void setTemperature(DatatypeResponse value) {
-		this.temperature = value;
-	}
+    public DatatypeResponse getTemperature()
+    {
+        return temperature;
+    }
 
-	public DatatypeResponse getPressure() {
-		return pressure;
-	}
+    public void setTemperature(DatatypeResponse value)
+    {
+        this.temperature = value;
+    }
 
-	public void setPressure(DatatypeResponse value) {
-		this.pressure = value;
-	}
+    public DatatypeResponse getPressure()
+    {
+        return pressure;
+    }
 
-	public DatatypeResponse getPH() {
-		return pH;
-	}
+    public void setPressure(DatatypeResponse value)
+    {
+        this.pressure = value;
+    }
 
-	public void setPH(DatatypeResponse value) {
-		this.pH = value;
-	}
+    public DatatypeResponse getPH()
+    {
+        return pH;
+    }
 
-	public DatatypeResponse getFluorescence() {
-		return fluorescence;
-	}
+    public void setPH(DatatypeResponse value)
+    {
+        this.pH = value;
+    }
 
-	public void setFluorescence(DatatypeResponse value) {
-		this.fluorescence = value;
-	}
+    public DatatypeResponse getFluorescence()
+    {
+        return fluorescence;
+    }
 
-	public DatatypeResponse getTurbidity() {
-		return turbidity;
-	}
+    public void setFluorescence(DatatypeResponse value)
+    {
+        this.fluorescence = value;
+    }
 
-	public void setTurbidity(DatatypeResponse value) {
-		this.turbidity = value;
-	}
+    public DatatypeResponse getTurbidity()
+    {
+        return turbidity;
+    }
 
-	public DatatypeResponse getOxygen() {
-		return oxygen;
-	}
+    public void setTurbidity(DatatypeResponse value)
+    {
+        this.turbidity = value;
+    }
 
-	public void setOxygen(DatatypeResponse value) {
-		this.oxygen = value;
-	}
+    public DatatypeResponse getOxygen()
+    {
+        return oxygen;
+    }
 
-	public DatatypeResponse getSaturation() {
-		return saturation;
-	}
+    public void setOxygen(DatatypeResponse value)
+    {
+        this.oxygen = value;
+    }
 
-	public void setSaturation(DatatypeResponse value) {
-		this.saturation = value;
-	}
+    public DatatypeResponse getSaturation()
+    {
+        return saturation;
+    }
 
-	public DatatypeResponse getPracticalSalinity() {
-		return practicalSalinity;
-	}
+    public void setSaturation(DatatypeResponse value)
+    {
+        this.saturation = value;
+    }
 
-	public void setPracticalSalinity(DatatypeResponse value) {
-		this.practicalSalinity = value;
-	}
+    public DatatypeResponse getPracticalSalinity()
+    {
+        return practicalSalinity;
+    }
 
-	public DatatypeResponse getAbsoluteSalinity() {
-		return absoluteSalinity;
-	}
+    public void setPracticalSalinity(DatatypeResponse value)
+    {
+        this.practicalSalinity = value;
+    }
 
-	public void setAbsoluteSalinity(DatatypeResponse value) {
-		this.absoluteSalinity = value;
-	}
+    public DatatypeResponse getAbsoluteSalinity()
+    {
+        return absoluteSalinity;
+    }
 
-	public DatatypeResponse getPotentialTemperature() {
-		return potentialTemperature;
-	}
+    public void setAbsoluteSalinity(DatatypeResponse value)
+    {
+        this.absoluteSalinity = value;
+    }
 
-	public void setPotentialTemperature(DatatypeResponse value) {
-		this.potentialTemperature = value;
-	}
+    public DatatypeResponse getPotentialTemperature()
+    {
+        return potentialTemperature;
+    }
 
-	public DatatypeResponse getConservativeTemperature() {
-		return conservativeTemperature;
-	}
+    public void setPotentialTemperature(DatatypeResponse value)
+    {
+        this.potentialTemperature = value;
+    }
 
-	public void setConservativeTemperature(DatatypeResponse value) {
-		this.conservativeTemperature = value;
-	}
+    public DatatypeResponse getConservativeTemperature()
+    {
+        return conservativeTemperature;
+    }
 
-	public DatatypeResponse getSoundSpeed() {
-		return soundSpeed;
-	}
+    public void setConservativeTemperature(DatatypeResponse value)
+    {
+        this.conservativeTemperature = value;
+    }
 
-	public void setSoundSpeed(DatatypeResponse value) {
-		this.soundSpeed = value;
-	}
+    public DatatypeResponse getSoundSpeed()
+    {
+        return soundSpeed;
+    }
 
-	public DatatypeResponse getPotentialDensityAnomaly() {
-		return potentialDensityAnomaly;
-	}
+    public void setSoundSpeed(DatatypeResponse value)
+    {
+        this.soundSpeed = value;
+    }
 
-	public void setPotentialDensityAnomaly(DatatypeResponse value) {
-		this.potentialDensityAnomaly = value;
-	}
+    public DatatypeResponse getPotentialDensityAnomaly()
+    {
+        return potentialDensityAnomaly;
+    }
+
+    public void setPotentialDensityAnomaly(DatatypeResponse value)
+    {
+        this.potentialDensityAnomaly = value;
+    }
 }

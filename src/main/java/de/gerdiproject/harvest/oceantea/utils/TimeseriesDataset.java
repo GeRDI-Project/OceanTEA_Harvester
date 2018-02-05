@@ -34,97 +34,107 @@ import de.gerdiproject.harvest.oceantea.json.TimeseriesDatasetResponse;
  *
  * @author Ingo Thomsen
  */
-public final class TimeseriesDataset {
+public final class TimeseriesDataset
+{
 
-	private List<Integer> timeOffsets = new ArrayList<>();
-	private List<Double> values = new ArrayList<>();
-	private Instant referenceInstant;
-	private int missingValues = 0;
+    private List<Integer> timeOffsets = new ArrayList<>();
+    private List<Double> values = new ArrayList<>();
+    private Instant referenceInstant;
+    private int missingValues = 0;
 
-	/**
-	 * Constructor using a {@linkplain TimeseriesDatasetResponse} and the associated
-	 * {@linkplain Instant}.
-	 * 
-	 * @param timeseriesDatasetResponse
-	 * @param referenceInstant
-	 */
-	public TimeseriesDataset(TimeseriesDatasetResponse timeseriesDatasetResponse, Instant referenceInstant) {
+    /**
+     * Constructor using a {@linkplain TimeseriesDatasetResponse} and the associated
+     * {@linkplain Instant}.
+     *
+     * @param timeseriesDatasetResponse
+     * @param referenceInstant
+     */
+    public TimeseriesDataset(TimeseriesDatasetResponse timeseriesDatasetResponse, Instant referenceInstant)
+    {
 
-		this.referenceInstant = referenceInstant;
+        this.referenceInstant = referenceInstant;
 
-		for (List<String> entry : timeseriesDatasetResponse.getData()) {
+        for (List<String> entry : timeseriesDatasetResponse.getData()) {
 
-			try {
-				int timeOffset = Integer.parseInt(entry.get(0));
-				double value = Double.parseDouble(entry.get(1));
+            try {
+                int timeOffset = Integer.parseInt(entry.get(0));
+                double value = Double.parseDouble(entry.get(1));
 
-				timeOffsets.add(timeOffset);
-				values.add(value);
-			} catch (NumberFormatException e) {
-				missingValues += 1;
-				// A missing value 'NA' is dropped from the list (but counted)
-			}
-		}
-	}
+                timeOffsets.add(timeOffset);
+                values.add(value);
+            } catch (NumberFormatException e) {
+                missingValues += 1;
+                // A missing value 'NA' is dropped from the list (but counted)
+            }
+        }
+    }
 
-	/**
-	 * The start Instant is calculated using the minimum time offset.
-	 * 
-	 * @return start {@linkplain Instant} for this timeseries.
-	 */
-	public Instant getStartInstant() {
-		long startEpoch = referenceInstant.getEpochSecond() + Collections.min(timeOffsets);
-		return Instant.ofEpochSecond(startEpoch);
-	}
+    /**
+     * The start Instant is calculated using the minimum time offset.
+     *
+     * @return start {@linkplain Instant} for this timeseries.
+     */
+    public Instant getStartInstant()
+    {
+        long startEpoch = referenceInstant.getEpochSecond() + Collections.min(timeOffsets);
+        return Instant.ofEpochSecond(startEpoch);
+    }
 
-	/**
-	 * The start Instant is calculated using the maximum time offset.
-	 * 
-	 * @return stop {@linkplain Instant} for this timeseries.
-	 */
-	public Instant getStopInstant() {
-		long stopEpoch = referenceInstant.getEpochSecond() + Collections.max(timeOffsets);
-		return Instant.ofEpochSecond(stopEpoch);
-	}
+    /**
+     * The start Instant is calculated using the maximum time offset.
+     *
+     * @return stop {@linkplain Instant} for this timeseries.
+     */
+    public Instant getStopInstant()
+    {
+        long stopEpoch = referenceInstant.getEpochSecond() + Collections.max(timeOffsets);
+        return Instant.ofEpochSecond(stopEpoch);
+    }
 
-	/**
-	 * Calculates simply the mean of of all values
-	 * 
-	 * @return
-	 */
-	public double getValuesMean() {
+    /**
+     * Calculates simply the mean of of all values
+     *
+     * @return
+     */
+    public double getValuesMean()
+    {
 
-		return values.stream().mapToDouble(a -> a).average().getAsDouble();
+        return values.stream().mapToDouble(a -> a).average().getAsDouble();
 
-	}
+    }
 
-	/**
-	 * Get number of timeseries values
-	 * 
-	 * @return number of timeseries values
-	 */
-	public int getNumberOfValues() {
-		return values.size();
-	}
+    /**
+     * Get number of timeseries values
+     *
+     * @return number of timeseries values
+     */
+    public int getNumberOfValues()
+    {
+        return values.size();
+    }
 
-	//
-	// Getters
-	//
+    //
+    // Getters
+    //
 
-	public List<Integer> getTimeOffsets() {
-		return timeOffsets;
-	}
+    public List<Integer> getTimeOffsets()
+    {
+        return timeOffsets;
+    }
 
-	public int getMissingValues() {
-		return missingValues;
-	}
+    public int getMissingValues()
+    {
+        return missingValues;
+    }
 
-	public List<Double> getValues() {
-		return values;
-	}
+    public List<Double> getValues()
+    {
+        return values;
+    }
 
-	public Instant getReferenceInstant() {
-		return referenceInstant;
-	}
+    public Instant getReferenceInstant()
+    {
+        return referenceInstant;
+    }
 
 }

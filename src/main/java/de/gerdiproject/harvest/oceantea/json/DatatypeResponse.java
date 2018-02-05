@@ -19,35 +19,44 @@
 package de.gerdiproject.harvest.oceantea.json;
 
 /**
- * This class represents a JSON object that is part of an {@linkplain AllDatatypesResponse}.
+ * This class represents a JSON object that is part of an
+ * {@linkplain AllDatatypesResponse}: The print name and
+ * the unit of a datatype.
  *
  * @author Ingo Thomsen
  */
-public final class DatatypeResponse {
-	private String printName;
-	private String unit;
+public final class DatatypeResponse
+{
+    private String printName;
+    private String unit;
 
-	public DatatypeResponse() {
-	};
+    //
+    // Getter and Setter
+    //
 
-	public DatatypeResponse(String printName, String unit) {
-		this.printName = printName;
-		this.unit = unit;
-	}
+    public DatatypeResponse(String printName, String unit)
+    {
+        this.printName = printName;
+        this.unit = unit;
+    }
 
-	public String getPrintName() {
-		return printName;
-	}
+    public String getPrintName()
+    {
+        return printName;
+    }
 
-	public void setPrintName(String value) {
-		this.printName = value;
-	}
+    public void setPrintName(String value)
+    {
+        this.printName = value;
+    }
 
-	public String getUnit() {
-		return unit;
-	}
+    public String getUnit()
+    {
+        return unit;
+    }
 
-	public void setUnit(String value) {
-		this.unit = value;
-	}
+    public void setUnit(String value)
+    {
+        this.unit = value;
+    }
 }

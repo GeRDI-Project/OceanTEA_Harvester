@@ -29,6 +29,7 @@ import de.gerdiproject.harvest.harvester.OceanTeaHarvester;
  * @author Ingo Thomsen
  */
 @WebListener
-public class OceanTeaContextListener extends ContextListener<OceanTeaHarvester> {
-	
+public class OceanTeaContextListener extends ContextListener<OceanTeaHarvester>
+{
+
 }

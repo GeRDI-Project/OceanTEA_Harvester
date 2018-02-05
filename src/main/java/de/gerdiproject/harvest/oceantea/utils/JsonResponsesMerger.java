@@ -30,64 +30,69 @@ import de.gerdiproject.json.geo.Point;
 
 /**
  *
- * A static class for merging a {@linkplain TimeseriesResponse} and a {@linkplain DatatypeResponse}. 
- * 
+ * A static class for merging a {@linkplain TimeseriesResponse} and a
+ * {@linkplain DatatypeResponse}.
+ *
  * @author Ingo Thomsen
  */
-public class JsonResponsesMerger {
+public class JsonResponsesMerger
+{
 
-	// static class (therefore private constructor)
-	private JsonResponsesMerger() {
-	}
+    // static class (therefore private constructor)
+    private JsonResponsesMerger()
+    {
+    }
 
-	/**
-	 * This method combines the responses on the timeseries and the datatypes and
-	 * returns a list of {@linkplain Timeseries} objects.
-	 * 
-	 * @param allTimeseriesResponse
-	 * @param allDatatypesResponse
-	 * @return list of {@linkplain Timeseries} objects
-	 */
-	public static List<Timeseries> getAllTimeseries(AllTimeseriesResponse allTimeseriesResponse,
-			AllDatatypesResponse allDatatypesResponse) {
+    /**
+     * This method combines the responses on the timeseries and the datatypes and
+     * returns a list of {@linkplain Timeseries} objects.
+     *
+     * @param allTimeseriesResponse
+     * @param allDatatypesResponse
+     * @return list of {@linkplain Timeseries} objects
+     */
+    public static List<Timeseries> getAllTimeseries(AllTimeseriesResponse allTimeseriesResponse,
+                                                    AllDatatypesResponse allDatatypesResponse)
+    {
 
-		List<Timeseries> result = new ArrayList<>();
+        List<Timeseries> result = new ArrayList<>();
 
-		for (TimeseriesResponse response : allTimeseriesResponse.getAllTimeseriesResponses()) {
+        for (TimeseriesResponse response : allTimeseriesResponse.getAllTimeseriesResponses()) {
 
-			if (response.getTsType() == "adcp")
-				continue;
+            // skipping non-timeseries data
+            if (response.getTsType().equalsIgnoreCase("adcp"))
+                continue;
 
-			Timeseries timeseries = new Timeseries();
+            Timeseries timeseries = new Timeseries();
 
-			//
-			// fields with a direct mapping
-			//
-			timeseries.setRegion(response.getRegion());
-			timeseries.setRegionPrintName(response.getRegionPrintName());
-			timeseries.setDevice(response.getDevice());
-			timeseries.setTimeseriesType(response.getTsType());
-			timeseries.setStation(response.getStation());
-			timeseries.setDataType(response.getDataType());
+            //
+            // fields with a direct mapping
+            //
+            timeseries.setRegion(response.getRegion());
+            timeseries.setRegionPrintName(response.getRegionPrintName());
+            timeseries.setDevice(response.getDevice());
+            timeseries.setTimeseriesType(response.getTsType());
+            timeseries.setStation(response.getStation());
+            timeseries.setDataType(response.getDataType());
 
-			// creating the geolocation
-			timeseries.setGeoLocationPoint(new Point(response.getLon(), response.getLat(), response.getDepth() * -1));
+            // creating the geolocation
+            timeseries.setGeoLocationPoint(new Point(response.getLon(), response.getLat(), response.getDepth() * -1));
 
-			// converting reference ISO 8601 date (example: 2012-06-01T00:00:01Z) to Instant
-			timeseries.setReferenceInstant(Instant.parse(response.getTReference()));
+            // converting reference ISO 8601 date (example: 2012-06-01T00:00:01Z) to Instant
+            timeseries.setReferenceInstant(Instant.parse(response.getTReference()));
 
-			//
-			// enrich with data type information
-			//
-			DatatypeResponse datatypeResponse = allDatatypesResponse
-					.getDatatypeResponseByName(timeseries.getDataType());
-			timeseries.setDataTypePrintName(datatypeResponse.getPrintName());
-			timeseries.setDataTypeUnit(datatypeResponse.getUnit());
+            //
+            // enrich with data type information
+            //
+            DatatypeResponse datatypeResponse = allDatatypesResponse
+                                                .getDatatypeResponseByName(timeseries.getDataType());
+            timeseries.setDataTypePrintName(datatypeResponse.getPrintName());
+            timeseries.setDataTypeUnit(datatypeResponse.getUnit());
 
-			result.add(timeseries);
-		}
+            result.add(timeseries);
+        }
 
-		return result;
+        return result;
 
-	}
+    }
 }

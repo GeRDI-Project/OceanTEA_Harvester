@@ -26,97 +26,122 @@ import com.google.gson.annotations.SerializedName;
  *
  * @author Ingo Thomsen
  */
-public final class TimeseriesResponse {
-	private String region;
-	private String regionPrintName;
-	private String device;
-	private String tsType;
-	private String station;
-	private String dataType;
-	private double depth;
-	private double lat;
-	private double lon;
+public final class TimeseriesResponse
+{
+    private String region;
+    private String regionPrintName;
+    private String device;
+    private String tsType;
+    private String station;
+    private String dataType;
+    private double depth;
+    private double lat;
+    private double lon;
 
-	@SerializedName("t_reference")
-	private String tReference;
+    //
+    // Getter and Setter
+    //
 
-	public String getRegion() {
-		return region;
-	}
+    @SerializedName("t_reference")
+    private String tReference;
 
-	public void setRegion(String value) {
-		this.region = value;
-	}
+    public String getRegion()
+    {
+        return region;
+    }
 
-	public String getRegionPrintName() {
-		return regionPrintName;
-	}
+    public void setRegion(String value)
+    {
+        this.region = value;
+    }
 
-	public void setRegionPrintName(String value) {
-		this.regionPrintName = value;
-	}
+    public String getRegionPrintName()
+    {
+        return regionPrintName;
+    }
 
-	public String getDevice() {
-		return device;
-	}
+    public void setRegionPrintName(String value)
+    {
+        this.regionPrintName = value;
+    }
 
-	public void setDevice(String value) {
-		this.device = value;
-	}
+    public String getDevice()
+    {
+        return device;
+    }
 
-	public String getTsType() {
-		return tsType;
-	}
+    public void setDevice(String value)
+    {
+        this.device = value;
+    }
 
-	public void setTsType(String value) {
-		this.tsType = value;
-	}
+    public String getTsType()
+    {
+        return tsType;
+    }
 
-	public String getStation() {
-		return station;
-	}
+    public void setTsType(String value)
+    {
+        this.tsType = value;
+    }
 
-	public void setStation(String value) {
-		this.station = value;
-	}
+    public String getStation()
+    {
+        return station;
+    }
 
-	public String getDataType() {
-		return dataType;
-	}
+    public void setStation(String value)
+    {
+        this.station = value;
+    }
 
-	public void setDataType(String value) {
-		this.dataType = value;
-	}
+    public String getDataType()
+    {
+        return dataType;
+    }
 
-	public double getLat() {
-		return lat;
-	}
+    public void setDataType(String value)
+    {
+        this.dataType = value;
+    }
 
-	public void setLat(double value) {
-		this.lat = value;
-	}
+    public double getLat()
+    {
+        return lat;
+    }
 
-	public double getLon() {
-		return lon;
-	}
+    public void setLat(double value)
+    {
+        this.lat = value;
+    }
 
-	public void setLon(double value) {
-		this.lon = value;
-	}
+    public double getLon()
+    {
+        return lon;
+    }
 
-	public double getDepth() {
-		return depth;
-	}
+    public void setLon(double value)
+    {
+        this.lon = value;
+    }
 
-	public void setDepth(double value) {
-		this.depth = value;
-	}
+    public double getDepth()
+    {
+        return depth;
+    }
 
-	public String getTReference() {
-		return tReference;
-	}
+    public void setDepth(double value)
+    {
+        this.depth = value;
+    }
 
-	public void setTReference(String value) {
-		this.tReference = value;
-	}
+    public String getTReference()
+    {
+        return tReference;
+    }
+
+    public void setTReference(String value)
+    {
+        this.tReference = value;
+    }
 }
