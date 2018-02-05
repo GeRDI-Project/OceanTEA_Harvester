@@ -114,4 +114,20 @@ public class TimeseriesParser {
 		return Arrays.asList(geoLocation);
 	}
 
+	/**
+	 * Return the DataCite dates, which here is the {@linkplain DateRange} of the
+	 * timeseries data.
+	 * 
+	 * @return list containing one {@linkplain AbstractDate}.
+	 */
+	public List<AbstractDate> getDates() {
+
+		long epochMilliSince = tsd.getStartInstant().getEpochSecond() * 1000;
+		long epochMilliUntil = tsd.getStopInstant().getEpochSecond() * 1000;
+
+		DateRange dateRange = new DateRange(epochMilliSince, epochMilliUntil, DateType.Created);
+
+		return Arrays.asList(dateRange);
+	}
+
 }

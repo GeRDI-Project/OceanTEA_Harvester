@@ -18,8 +18,7 @@
  */
 package de.gerdiproject.harvest.oceantea.utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +40,14 @@ public class JsonResponsesMerger {
 	private JsonResponsesMerger() {
 	}
 
-	// parse the reference time stamp - example: 2012-06-01T00:00:01Z
-	private static SimpleDateFormat timeseriesSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
-
+	/**
+	 * This method combines the responses on the timeseries and the datatypes and
+	 * returns a list of {@linkplain Timeseries} objects.
+	 * 
+	 * @param allTimeseriesResponse
+	 * @param allDatatypesResponse
+	 * @return list of {@linkplain Timeseries} objects
+	 */
 	public static List<Timeseries> getAllTimeseries(AllTimeseriesResponse allTimeseriesResponse,
 			AllDatatypesResponse allDatatypesResponse) {
 
@@ -69,20 +73,8 @@ public class JsonResponsesMerger {
 			// creating the geolocation
 			timeseries.setGeoLocationPoint(new Point(response.getLon(), response.getLat(), response.getDepth() * -1));
 
-			//
-			// converting the reference date
-			//
-
-			// remove T and Z from the referenceDate
-			String rd = response.getTReference().replace("T", " ").replace("Z", " ");
-
-			try {
-				timeseries.setReferenceDate(timeseriesSimpleDateFormat.parse(rd));
-
-			} catch (ParseException e) {
-				System.out.println(">>> ERROR: " + e.toString());
-				timeseries.setReferenceDate(null);
-			}
+			// converting reference ISO 8601 date (example: 2012-06-01T00:00:01Z) to Instant
+			timeseries.setReferenceInstant(Instant.parse(response.getTReference()));
 
 			//
 			// enrich with data type information

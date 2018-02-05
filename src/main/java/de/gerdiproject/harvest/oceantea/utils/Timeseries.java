@@ -18,6 +18,7 @@
  */
 package de.gerdiproject.harvest.oceantea.utils;
 
+import java.time.Instant;
 import java.util.Date;
 
 import de.gerdiproject.harvest.oceantea.json.AllDatatypesResponse;
@@ -39,9 +40,10 @@ public final class Timeseries {
 	private String dataTypePrintName;
 	private String dataTypeUnit;
 
-	// Using slightly more descriptive field names here.
+	// Using slightly more descriptive field names here (and Instant instead of
+	// Date)
 	private String timeseriesType;
-	private Date referenceDate;
+	private Instant instant;
 
 	// geolocation point combining longitude, latitude AND depth
 	Point geoLocationPoint;
@@ -146,11 +148,15 @@ public final class Timeseries {
 	}
 
 	public Date getReferenceDate() {
-		return referenceDate;
+		return Date.from(instant);
 	}
 
-	public void setReferenceDate(Date referenceDate) {
-		this.referenceDate = referenceDate;
+	public Instant getReferenceInstant() {
+		return instant;
+	}
+
+	public void setReferenceInstant(Instant instant) {
+		this.instant = instant;
 	}
 
 }

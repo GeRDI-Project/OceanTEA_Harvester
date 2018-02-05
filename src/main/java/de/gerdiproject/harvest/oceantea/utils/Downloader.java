@@ -18,6 +18,7 @@
  */
 package de.gerdiproject.harvest.oceantea.utils;
 
+import java.time.Instant;
 import java.util.Collection;
 
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeseriesDownloaderConstants;
@@ -53,5 +54,20 @@ public class Downloader {
 		AllDatatypesResponse allDatatypesResponse = httpRequester.getObjectFromUrl(url2, AllDatatypesResponse.class);
 
 		return JsonResponsesMerger.getAllTimeseries(allTimeseriesResponse, allDatatypesResponse);
+	}
+
+	/**
+	 * Download an actual dataset.
+	 * 
+	 * @param download URL of the timeseries dataset.
+	 * @param the associated reference {@linkplain Instant}
+	 * @return a {@linkplain TimeseriesDataset} object
+	 */
+	static public TimeseriesDataset getTimeseriesDataset(String url, Instant referenceInstant) {
+
+		TimeseriesDatasetResponse timeseriesDatasetResponse = httpRequester.getObjectFromUrl(url,
+				TimeseriesDatasetResponse.class);
+
+		return new TimeseriesDataset(timeseriesDatasetResponse, referenceInstant);
 	}
 }
