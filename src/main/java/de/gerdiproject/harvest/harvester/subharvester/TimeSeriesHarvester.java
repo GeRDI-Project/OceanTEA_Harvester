@@ -25,15 +25,12 @@ import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
  */
 public class TimeSeriesHarvester extends AbstractListHarvester<Timeseries> {
 
-	private final Downloader downloader;
-
 	/**
 	 * Default constructor, naming the harvester and ensuring one document per
 	 * harvested entry
 	 */
 	public TimeSeriesHarvester() {
 		super("OceanTEA - Timeseries", 1);
-		downloader = new Downloader();
 	}
 
 	@Override

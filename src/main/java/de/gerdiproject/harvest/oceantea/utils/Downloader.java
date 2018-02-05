@@ -33,8 +33,11 @@ import de.gerdiproject.harvest.utils.data.HttpRequester;
  */
 public class Downloader {
 
-	private final HttpRequester httpRequester = new HttpRequester();
-	private final String baseUrl = OceanTeaTimeseriesDownloaderConstants.BASE_URL;
+	static private final HttpRequester httpRequester = new HttpRequester();
+
+	// static class (therefore private constructor)
+	private Downloader() {
+	}
 
 	/**
 	 * Retrieve an array of timeseries data sets.
