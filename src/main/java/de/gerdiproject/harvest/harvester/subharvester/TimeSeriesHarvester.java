@@ -25,6 +25,9 @@ import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
  */
 public class TimeSeriesHarvester extends AbstractListHarvester<Timeseries> {
 
+	// parser to harvest non-constant information about timeseries datasets
+	private TimeseriesParser timeseriesParser = new TimeseriesParser();
+	
 	/**
 	 * Default constructor, naming the harvester and ensuring one document per
 	 * harvested entry
@@ -42,8 +45,8 @@ public class TimeSeriesHarvester extends AbstractListHarvester<Timeseries> {
 	@Override
 	protected List<IDocument> harvestEntry(Timeseries timeseries) {
 
-		// parser to harvest non-constant information about the timeseries dataset
-		TimeseriesParser parser = new TimeseriesParser(timeseries);
+		// specify the Timeseries object for parsing
+		timeseriesParser.setTimeseries(timeseries);
 
 		// create the document
 		DataCiteJson document = new DataCiteJson();
@@ -64,7 +67,7 @@ public class TimeSeriesHarvester extends AbstractListHarvester<Timeseries> {
 		//
 		List<Subject> subjects = new ArrayList<>();
 		Stream.concat(OceanTeaTimeSeriesDataCiteConstants.SUBJECT_STRINGS.stream(),
-				parser.getSubjectsStrings().stream()).forEach(s -> {
+				timeseriesParser.getSubjectsStrings().stream()).forEach(s -> {
 					Subject subject = new Subject(s);
 					subject.setLang(OceanTeaTimeSeriesDataCiteConstants.LANG);
 					subjects.add(new Subject(s));
@@ -72,7 +75,7 @@ public class TimeSeriesHarvester extends AbstractListHarvester<Timeseries> {
 		document.setSubjects(subjects);
 
 		List<Description> descriptions = new ArrayList<>();
-		descriptions.add(parser.getDescription());
+		descriptions.add(timeseriesParser.getDescription());
 		descriptions.add(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_COMMON);
 		document.setDescriptions(descriptions);
 
@@ -86,7 +89,7 @@ public class TimeSeriesHarvester extends AbstractListHarvester<Timeseries> {
 
 		WebLink viewLink = new WebLink(OceanTeaTimeSeriesDataCiteConstants.VIEW_URL);
 		viewLink.setType(WebLinkType.ViewURL);
-		viewLink.setName(parser.getMainTitle().getValue());
+		viewLink.setName(timeseriesParser.getMainTitle().getValue());
 		webLinks.add(viewLink);
 
 		document.setWebLinks(webLinks);
@@ -94,11 +97,11 @@ public class TimeSeriesHarvester extends AbstractListHarvester<Timeseries> {
 		//
 		// derived exclusively from the harvested entry
 		//
-		document.setResearchDataList(parser.getResearchDataList());
-		document.setPublicationYear(parser.getPublicationYear());
-		document.setTitles(Arrays.asList(parser.getMainTitle()));
-		document.setGeoLocations(parser.getGeoLocations());
-		document.setDates(parser.getDates());
+		document.setResearchDataList(timeseriesParser.getResearchDataList());
+		document.setPublicationYear(timeseriesParser.getPublicationYear());
+		document.setTitles(Arrays.asList(timeseriesParser.getMainTitle()));
+		document.setGeoLocations(timeseriesParser.getGeoLocations());
+		document.setDates(timeseriesParser.getDates());
 
 		return Arrays.asList(document);
 	}
