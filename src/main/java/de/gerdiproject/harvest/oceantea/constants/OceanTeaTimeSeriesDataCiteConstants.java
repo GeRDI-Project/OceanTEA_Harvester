@@ -37,59 +37,57 @@ import de.gerdiproject.json.datacite.nested.PersonName;
  *
  * @author Ingo Thomsen
  */
-public class OceanTeaTimeSeriesDataCiteConstants
-{
+public class OceanTeaTimeSeriesDataCiteConstants {
 
-    // static class (therefore private constructor)
-    private OceanTeaTimeSeriesDataCiteConstants()
-    {
-    }
+	// static class (therefore private constructor)
+	private OceanTeaTimeSeriesDataCiteConstants() {
+	}
 
-    // language used for data and description
-    public static final String LANG = "en-US";
+	// language used for data and description
+	public static final String LANG = "en-US";
 
-    //
-    // GEOMAR as standard CREATOR and CONTRIBUTOR
-    //
-    public static String GEOMAR = "GEOMAR, Kiel, Germany";
-    public static final PersonName GEOMAR_PERSON = new PersonName(GEOMAR, NameType.Organisational);
-    public static final String MOLAB_PUBLICATION_LINK = "https://oceanrep.geomar.de/22245/";
-    public static final List<Creator> CREATORS = Arrays.asList(new Creator(GEOMAR_PERSON));
-    public static final List<Contributor> CONTRIBUTORS = Arrays
-                                                         .asList(new Contributor(GEOMAR_PERSON, ContributorType.Producer));
+	//
+	// GEOMAR as standard CREATOR and CONTRIBUTOR
+	//
+	public static String GEOMAR = "GEOMAR, Kiel, Germany";
+	public static final PersonName GEOMAR_PERSON = new PersonName(GEOMAR, NameType.Organisational);
+	public static final String MOLAB_PUBLICATION_LINK = "https://oceanrep.geomar.de/22245/";
+	public static final List<Creator> CREATORS = Arrays.asList(new Creator(GEOMAR_PERSON));
+	public static final List<Contributor> CONTRIBUTORS = Arrays
+			.asList(new Contributor(GEOMAR_PERSON, ContributorType.Producer));
 
-    //
-    // OceanTEA demo as repository (+ GEOMAR for MoLab reference)
-    //
-    public static final String OCEANTEA_DEMO_BASE_URL = "http://maui.se.informatik.uni-kiel.de:9090/";
-    public static final String PROVIDER = "OceanTEA demo, Software Engineering Informatik, Kiel University";
-    public static final String REPOSITORY_ID = "OCEANTEA";
-    public static final List<String> RELATED_WEB_LINKS = Arrays.asList(MOLAB_PUBLICATION_LINK);
-    public static final String VIEW_URL = OCEANTEA_DEMO_BASE_URL;
+	//
+	// OceanTEA demo as repository (+ GEOMAR for MoLab reference)
+	//
+	public static final String BASE_URL = "http://maui.se.informatik.uni-kiel.de:9090/";
+	public static final String PROVIDER = "OceanTEA demo, Software Engineering Informatik, Kiel University";
+	public static final String REPOSITORY_ID = "OCEANTEA";
+	public static final List<String> RELATED_WEB_LINKS = Arrays.asList(MOLAB_PUBLICATION_LINK);
+	public static final String VIEW_URL = BASE_URL;
 
-    //
-    // Format of ResourceType - there is only Json for OceanTEA
-    //
-    public static final ResourceType RESOURCE_TYPE = new ResourceType("JSON", ResourceTypeGeneral.Dataset);
-    public static final List<String> FORMATS = Arrays.asList("text/json");
+	//
+	// Format of ResourceType - there is only Json for OceanTEA
+	//
+	public static final ResourceType RESOURCE_TYPE = new ResourceType("JSON", ResourceTypeGeneral.Dataset);
+	public static final List<String> FORMATS = Arrays.asList("text/json");
 
-    //
-    // description, disciples and subjects
-    //
-    public static final List<String> SUBJECT_STRINGS = Arrays.asList("MoLab", "modular ocean laboratory");
-    public static final List<String> DISCIPLINES = Arrays.asList("marine measurements");
-    public static final Description DESCRIPTION_COMMON = new Description(
-        "Underwater measurements captured by a MoLab device (modular ocean laboratory) by " + GEOMAR,
-        DescriptionType.Abstract, LANG);
+	//
+	// description, disciples and subjects
+	//
+	public static final List<String> SUBJECT_STRINGS = Arrays.asList("MoLab", "modular ocean laboratory");
+	public static final List<String> DISCIPLINES = Arrays.asList("marine measurements");
+	public static final Description DESCRIPTION_COMMON = new Description(
+			"Underwater measurements captured by a MoLab device (modular ocean laboratory) by " + GEOMAR,
+			DescriptionType.Abstract, LANG);
 
-    //
-    // template strings
-    //
-    public static final String MAIN_DOCUMENT_TITLE = "%s measurements, underwater (depth %s m) in the region '%s'";
-    public static final String REASEARCH_DATA_LABEL = "%s measurements, collected underwater (depth %s m) "
-                                                      + "in the open water region '%s' in %s by MoLab device";
-    public static final String DESCRIPTION = String.join(" ",
-                                                         "%s timeseries data (from %s to %s) with a mean of %s %s.",
-                                                         "The %s measurements are given in the JSON format and relative (in seconds) to timestamp '%s'.",
-                                                         "Data was collected in the open water region '%s': " + "geo location %s at a depth of %s m.");
+	//
+	// template strings
+	//
+	public static final String MAIN_DOCUMENT_TITLE = "%s measurements, underwater (depth %s m) in the region '%s'";
+	public static final String REASEARCH_DATA_LABEL = "%s measurements, collected underwater (depth %s m) "
+			+ "in the open water region '%s' in %s by MoLab device";
+	public static final String DESCRIPTION = String.join(" ",
+			"%s timeseries data (from %s to %s) with a mean of %s %s.",
+			"The %s measurements are given in the JSON format and relative (in seconds) to timestamp '%s'.",
+			"Data was collected in the open water region '%s': " + "geo location %s at a depth of %s m.");
 }

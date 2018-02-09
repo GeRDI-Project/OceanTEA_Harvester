@@ -25,27 +25,24 @@ package de.gerdiproject.harvest.oceantea.constants;
 //
 
 /**
- * This static class contains constants used for downloading metadata from
- * OceanTEA.
+ * Static class with constants for downloading metadata and data from OceanTEA.
  *
  * @author Ingo Thomsen
  */
-public class OceanTeaTimeseriesDownloaderConstants
-{
+public class OceanTeaTimeseriesDownloaderConstants {
 
-    // static class (therefore private constructor)
-    private OceanTeaTimeseriesDownloaderConstants()
-    {
-    }
+	// static class (therefore private constructor)
+	private OceanTeaTimeseriesDownloaderConstants() {
+	}
 
-    //
-    // static urls
-    //
-    public static final String BASE_URL = OceanTeaTimeSeriesDataCiteConstants.OCEANTEA_DEMO_BASE_URL;
-    public static final String TIMESERIES_URL = "timeseries/";
-    public static final String DATATYPES_URL = "datatypes/";
+	//
+	// static URLs
+	//
+	public static final String TIMESERIES_URL = "timeseries/";
+	public static final String DATATYPES_URL = "datatypes/";
 
-    // template string
-    public static final String DATASET_DOWNLOAD_URL = BASE_URL + TIMESERIES_URL + "%s/%s/%s/%s";
+	// template string
+	public static final String DATASET_DOWNLOAD_URL = OceanTeaTimeSeriesDataCiteConstants.BASE_URL + TIMESERIES_URL
+			+ "%s/%s/%s/%s";
 
 }
