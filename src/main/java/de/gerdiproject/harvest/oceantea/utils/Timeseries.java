@@ -56,7 +56,7 @@ public final class Timeseries
      *
      * @return depth of measurement
      */
-    public Double getDepth()
+    public double getDepth()
     {
         return -1 * geoLocationPoint.getElevation();
     }
@@ -68,7 +68,7 @@ public final class Timeseries
      * @param A
      *            positive double for the depth (in m)
      */
-    public void setDepth(Double depth)
+    public void setDepth(double depth)
     {
         geoLocationPoint.setElevation(-1 * depth);
     }

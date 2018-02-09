@@ -38,7 +38,7 @@ import de.gerdiproject.harvest.utils.data.HttpRequester;
 public class OceanTeaDownloader
 {
 
-    static private final HttpRequester httpRequester = new HttpRequester();
+    private static final HttpRequester httpRequester = new HttpRequester();
 
     // static class (therefore private constructor)
     private OceanTeaDownloader()
@@ -51,7 +51,7 @@ public class OceanTeaDownloader
      *
      * @return an array of timeseries objects
      */
-    static public List<Timeseries> getAllTimeseries()
+    public static List<Timeseries> getAllTimeseries()
     {
 
         String baseUrl = OceanTeaTimeSeriesDataCiteConstants.BASE_URL;
@@ -72,7 +72,7 @@ public class OceanTeaDownloader
      * @param the associated reference {@linkplain Instant}
      * @return a {@linkplain TimeseriesDataset} object
      */
-    static public TimeseriesDataset getTimeseriesDataset(String url, Instant referenceInstant)
+    public static TimeseriesDataset getTimeseriesDataset(String url, Instant referenceInstant)
     {
 
         TimeseriesDatasetResponse timeseriesDatasetResponse = httpRequester.getObjectFromUrl(url,
