@@ -31,175 +31,146 @@ import de.gerdiproject.json.geo.Point;
  *
  * @author Ingo Thomsen
  */
-public final class Timeseries
-{
+public final class Timeseries {
 
-    private String region;
-    private String regionPrintName;
-    private String device;
-    private String station;
-    private String dataType;
-    private String dataTypePrintName;
-    private String dataTypeUnit;
+	private String region;
+	private String regionPrintName;
+	private String device;
+	private String station;
+	private String dataType;
+	private String dataTypePrintName;
+	private String dataTypeUnit;
 
-    // Using slightly more descriptive field names here (and Instant instead of
-    // Date)
-    private String timeseriesType;
-    private Instant instant;
+	// Using slightly more descriptive field names here and Instant instead of Date
+	private String timeseriesType;
+	private Instant instant;
 
-    // geolocation point combining longitude, latitude AND depth
-    Point geoLocationPoint;
+	// geolocation point combining longitude, latitude AND depth
+	Point geoLocationPoint;
 
-    /**
-     * Get the depth of the measurement, which is the negative elevation value of
-     * the geolocation {@linkplain Point}}.
-     *
-     * @return depth of measurement
-     */
-    public double getDepth()
-    {
-        return -1 * geoLocationPoint.getElevation();
-    }
+	/**
+	 * Get the depth of the measurement, which is the negative elevation value of
+	 * the geolocation {@linkplain Point}}.
+	 *
+	 * @return depth of measurement
+	 */
+	public double getDepth() {
+		return -1 * geoLocationPoint.getElevation();
+	}
 
-    /**
-     * Set the depth of the measurement point. It is stored as a negative elevation
-     * value of the geolocation {@linkplain Point}}.
-     *
-     * @param A
-     *            positive double for the depth (in m)
-     */
-    public void setDepth(double depth)
-    {
-        geoLocationPoint.setElevation(-1 * depth);
-    }
+	/**
+	 * Set the depth of the measurement point. It is stored as a negative elevation
+	 * value of the geolocation {@linkplain Point}}.
+	 *
+	 * @param depth
+	 *            a positive double value for the depth (in m)
+	 */
+	public void setDepth(double depth) {
+		geoLocationPoint.setElevation(-1 * depth);
+	}
 
-    //
-    // Setter and Getter
-    //
+	//
+	// Setter and Getter
+	//
 
-    public Point getGeoLocationPoint()
-    {
-        return geoLocationPoint;
-    }
+	public Point getGeoLocationPoint() {
+		return geoLocationPoint;
+	}
 
-    public void setGeoLocationPoint(Point geoLocationPoint)
-    {
-        this.geoLocationPoint = geoLocationPoint;
-    }
+	public void setGeoLocationPoint(Point geoLocationPoint) {
+		this.geoLocationPoint = geoLocationPoint;
+	}
 
-    public String getTimeseriesType()
-    {
-        return timeseriesType;
-    }
+	public String getTimeseriesType() {
+		return timeseriesType;
+	}
 
-    public void setTimeseriesType(String timeseriesType)
-    {
-        this.timeseriesType = timeseriesType;
-    }
+	public void setTimeseriesType(String timeseriesType) {
+		this.timeseriesType = timeseriesType;
+	}
 
-    public double getLatitude()
-    {
-        return geoLocationPoint.getLatitude();
-    }
+	public double getLatitude() {
+		return geoLocationPoint.getLatitude();
+	}
 
-    public void setLatitude(double latitude)
-    {
-        this.geoLocationPoint.setLatitude(latitude);
-    }
+	public void setLatitude(double latitude) {
+		this.geoLocationPoint.setLatitude(latitude);
+	}
 
-    public double getLongitude()
-    {
-        return geoLocationPoint.getLongitude();
-    }
+	public double getLongitude() {
+		return geoLocationPoint.getLongitude();
+	}
 
-    public void setLongitude(double longitude)
-    {
-        this.geoLocationPoint.setLongitude(longitude);
-    }
+	public void setLongitude(double longitude) {
+		this.geoLocationPoint.setLongitude(longitude);
+	}
 
-    public String getRegion()
-    {
-        return region;
-    }
+	public String getRegion() {
+		return region;
+	}
 
-    public void setRegion(String value)
-    {
-        this.region = value;
-    }
+	public void setRegion(String value) {
+		this.region = value;
+	}
 
-    public String getRegionPrintName()
-    {
-        return regionPrintName;
-    }
+	public String getRegionPrintName() {
+		return regionPrintName;
+	}
 
-    public void setRegionPrintName(String value)
-    {
-        this.regionPrintName = value;
-    }
+	public void setRegionPrintName(String value) {
+		this.regionPrintName = value;
+	}
 
-    public String getDevice()
-    {
-        return device;
-    }
+	public String getDevice() {
+		return device;
+	}
 
-    public void setDevice(String value)
-    {
-        this.device = value;
-    }
+	public void setDevice(String value) {
+		this.device = value;
+	}
 
-    public String getStation()
-    {
-        return station;
-    }
+	public String getStation() {
+		return station;
+	}
 
-    public void setStation(String value)
-    {
-        this.station = value;
-    }
+	public void setStation(String value) {
+		this.station = value;
+	}
 
-    public String getDataType()
-    {
-        return dataType;
-    }
+	public String getDataType() {
+		return dataType;
+	}
 
-    public void setDataType(String value)
-    {
-        this.dataType = value;
-    }
+	public void setDataType(String value) {
+		this.dataType = value;
+	}
 
-    public String getDataTypePrintName()
-    {
-        return dataTypePrintName;
-    }
+	public String getDataTypePrintName() {
+		return dataTypePrintName;
+	}
 
-    public void setDataTypePrintName(String dataTypePrintName)
-    {
-        this.dataTypePrintName = dataTypePrintName;
-    }
+	public void setDataTypePrintName(String dataTypePrintName) {
+		this.dataTypePrintName = dataTypePrintName;
+	}
 
-    public String getDataTypeUnit()
-    {
-        return dataTypeUnit;
-    }
+	public String getDataTypeUnit() {
+		return dataTypeUnit;
+	}
 
-    public void setDataTypeUnit(String dataTypeUnit)
-    {
-        this.dataTypeUnit = dataTypeUnit;
-    }
+	public void setDataTypeUnit(String dataTypeUnit) {
+		this.dataTypeUnit = dataTypeUnit;
+	}
 
-    public Date getReferenceDate()
-    {
-        return Date.from(instant);
-    }
+	public Date getReferenceDate() {
+		return Date.from(instant);
+	}
 
-    public Instant getReferenceInstant()
-    {
-        return instant;
-    }
+	public Instant getReferenceInstant() {
+		return instant;
+	}
 
-    public void setReferenceInstant(Instant instant)
-    {
-        this.instant = instant;
-    }
+	public void setReferenceInstant(Instant instant) {
+		this.instant = instant;
+	}
 
 }

@@ -53,11 +53,11 @@ public class TimeseriesParser {
 	private TimeseriesDataset tsd;
 
 	/**
-	 * Set up a {@linkplain Timeseries} object for parsing by downloading the
-	 * corresponding {@linkplain TimeseriesDataset}.
+	 * Set up a Timeseries for parsing by downloading the corresponding
+	 * {@linkplain TimeseriesDataset}.
 	 * 
-	 * @param {@linkplain
-	 * 			Timeseries} object
+	 * @param timeseries
+	 *            a {@linkplain Timeseries} object
 	 */
 	public void setTimeseries(Timeseries timeseries) {
 		this.ts = timeseries;

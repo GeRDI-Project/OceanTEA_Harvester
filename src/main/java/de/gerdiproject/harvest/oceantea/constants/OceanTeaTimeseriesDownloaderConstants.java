@@ -31,7 +31,9 @@ package de.gerdiproject.harvest.oceantea.constants;
  */
 public class OceanTeaTimeseriesDownloaderConstants {
 
-	// static class (therefore private constructor)
+	/**
+	 * static class (therefore private constructor)
+	 */
 	private OceanTeaTimeseriesDownloaderConstants() {
 	}
 

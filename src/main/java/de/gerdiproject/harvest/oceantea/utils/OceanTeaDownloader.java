@@ -40,7 +40,9 @@ public class OceanTeaDownloader
 
     private static final HttpRequester httpRequester = new HttpRequester();
 
-    // static class (therefore private constructor)
+    /** 
+     * static class (therefore private constructor)
+     */
     private OceanTeaDownloader()
     {
     }
@@ -68,8 +70,8 @@ public class OceanTeaDownloader
     /**
      * Download an actual dataset.
      *
-     * @param download URL of the timeseries dataset.
-     * @param the associated reference {@linkplain Instant}
+     * @param url the download URL of the timeseries dataset.
+     * @param referenceInstant the associated reference {@linkplain Instant}
      * @return a {@linkplain TimeseriesDataset} object
      */
     public static TimeseriesDataset getTimeseriesDataset(String url, Instant referenceInstant)

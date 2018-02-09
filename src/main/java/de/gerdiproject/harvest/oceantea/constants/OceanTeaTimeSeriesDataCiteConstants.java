@@ -46,7 +46,9 @@ import de.gerdiproject.json.datacite.nested.PersonName;
  */
 public class OceanTeaTimeSeriesDataCiteConstants {
 
-	// static class (therefore private constructor)
+	/**
+	 * static class (therefore private constructor)
+	 */
 	private OceanTeaTimeSeriesDataCiteConstants() {
 	}
 
