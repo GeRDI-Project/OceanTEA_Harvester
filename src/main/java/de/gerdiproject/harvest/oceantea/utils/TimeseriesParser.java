@@ -19,7 +19,9 @@
 package de.gerdiproject.harvest.oceantea.utils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -28,11 +30,14 @@ import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeseriesDownloaderCo
 import de.gerdiproject.json.datacite.DateRange;
 import de.gerdiproject.json.datacite.Description;
 import de.gerdiproject.json.datacite.GeoLocation;
+import de.gerdiproject.json.datacite.Subject;
 import de.gerdiproject.json.datacite.Title;
 import de.gerdiproject.json.datacite.abstr.AbstractDate;
 import de.gerdiproject.json.datacite.enums.DateType;
 import de.gerdiproject.json.datacite.enums.DescriptionType;
 import de.gerdiproject.json.datacite.extension.ResearchData;
+import de.gerdiproject.json.datacite.extension.WebLink;
+import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 import de.gerdiproject.json.geo.GeoJson;
 import de.gerdiproject.json.geo.Point;
 
@@ -113,18 +118,23 @@ public class TimeseriesParser {
 	 *
 	 * @return List of strings describing the subjects
 	 */
-	public List<String> getSubjectsStrings() {
+	public List<Subject> getSubjectsStrings() {
 
-		return Arrays.asList("MoLab " + ts.getDevice(), "underwater measurement", ts.getDataTypePrintName(),
-				ts.getRegionPrintName(), ts.getStation());
+		List<Subject> subjectList = new ArrayList<>();
+		subjectList.add(new Subject("MoLab " + ts.getDevice()));
+		subjectList.add(new Subject(ts.getDataTypePrintName()));
+		subjectList.add(new Subject(ts.getStation()));
+		subjectList.add(new Subject(ts.getRegionPrintName()));
+
+		return subjectList;
 	}
 
 	/**
-	 * Get DataCite description.
+	 * Get DataCite description - using a template string
 	 *
 	 * @return {@linkplain Description} object
 	 */
-	public Description getDescription() {
+	public List<Description> getDescription() {
 
 		Point point = ts.getGeoLocationPoint();
 		String geoLocationString = "(" + point.getLongitude() + ";" + point.getLatitude() + ")";
@@ -137,7 +147,8 @@ public class TimeseriesParser {
 		if (tsd.getMissingValues() > 0)
 			descriptionText += " " + tsd.getMissingValues() + "measurements points were missing ('NA').";
 
-		return new Description(descriptionText, DescriptionType.Abstract, OceanTeaTimeSeriesDataCiteConstants.LANG);
+		return Arrays.asList(
+				new Description(descriptionText, DescriptionType.Abstract, OceanTeaTimeSeriesDataCiteConstants.LANG));
 	}
 
 	/**
@@ -154,6 +165,22 @@ public class TimeseriesParser {
 		title.setLang(OceanTeaTimeSeriesDataCiteConstants.LANG);
 
 		return title;
+	}
+
+	/**
+	 * The WebLinks consist only of the ViewURL, which has a varying title, but the
+	 * actual URL is always the same, because it is not possible to control the Demo
+	 * using URL parameters.
+	 * 
+	 * @return list of WebLinks
+	 */
+	public List<WebLink> getWebLinks() {
+
+		WebLink webLink = new WebLink(OceanTeaTimeSeriesDataCiteConstants.VIEW_URL);
+		webLink.setName(getMainTitle().getValue());
+		webLink.setType(WebLinkType.ViewURL);
+
+		return Arrays.asList(webLink);
 	}
 
 	/**

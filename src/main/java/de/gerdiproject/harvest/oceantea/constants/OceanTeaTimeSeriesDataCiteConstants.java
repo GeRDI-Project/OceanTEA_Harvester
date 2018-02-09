@@ -18,22 +18,29 @@
  */
 package de.gerdiproject.harvest.oceantea.constants;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import de.gerdiproject.json.datacite.Contributor;
 import de.gerdiproject.json.datacite.Creator;
 import de.gerdiproject.json.datacite.Description;
 import de.gerdiproject.json.datacite.ResourceType;
+import de.gerdiproject.json.datacite.Subject;
 import de.gerdiproject.json.datacite.enums.ContributorType;
 import de.gerdiproject.json.datacite.enums.DescriptionType;
 import de.gerdiproject.json.datacite.enums.NameType;
 import de.gerdiproject.json.datacite.enums.ResourceTypeGeneral;
+import de.gerdiproject.json.datacite.extension.WebLink;
+import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 import de.gerdiproject.json.datacite.nested.PersonName;
 
 /**
- * This static class contains constants used for creating DataCite documents for
- * OceanTEA.
+ * This static class contains constants and some template strings used for
+ * creating DataCite documents for OceanTEA.
  *
  * @author Ingo Thomsen
  */
@@ -62,11 +69,11 @@ public class OceanTeaTimeSeriesDataCiteConstants {
 	public static final String BASE_URL = "http://maui.se.informatik.uni-kiel.de:9090/";
 	public static final String PROVIDER = "OceanTEA demo, Software Engineering Informatik, Kiel University";
 	public static final String REPOSITORY_ID = "OCEANTEA";
-	public static final List<String> RELATED_WEB_LINKS = Arrays.asList(MOLAB_PUBLICATION_LINK);
+	public static final List<WebLink> WEB_LINKS = createRelatedWebLinks(MOLAB_PUBLICATION_LINK);
 	public static final String VIEW_URL = BASE_URL;
 
 	//
-	// Format of ResourceType - there is only Json for OceanTEA
+	// Format of ResourceType - there is only JSON for OceanTEA
 	//
 	public static final ResourceType RESOURCE_TYPE = new ResourceType("JSON", ResourceTypeGeneral.Dataset);
 	public static final List<String> FORMATS = Arrays.asList("text/json");
@@ -74,11 +81,14 @@ public class OceanTeaTimeSeriesDataCiteConstants {
 	//
 	// description, disciples and subjects
 	//
-	public static final List<String> SUBJECT_STRINGS = Arrays.asList("MoLab", "modular ocean laboratory");
+	public static final List<Subject> SUBJECTS = createSubjects("MoLab", "modular ocean laboratory",
+			"underwater measurement");
+
+	// null; // Arrays.asList();
 	public static final List<String> DISCIPLINES = Arrays.asList("marine measurements");
-	public static final Description DESCRIPTION_COMMON = new Description(
+	public static final List<Description> DESCRIPTIONS = Arrays.asList(new Description(
 			"Underwater measurements captured by a MoLab device (modular ocean laboratory) by " + GEOMAR,
-			DescriptionType.Abstract, LANG);
+			DescriptionType.Abstract, LANG));
 
 	//
 	// template strings
@@ -90,4 +100,27 @@ public class OceanTeaTimeSeriesDataCiteConstants {
 			"%s timeseries data (from %s to %s) with a mean of %s %s.",
 			"The %s measurements are given in the JSON format and relative (in seconds) to timestamp '%s'.",
 			"Data was collected in the open water region '%s': " + "geo location %s at a depth of %s m.");
+
+	//
+	// private helper methods for List<> creation
+	//
+	private static List<Subject> createSubjects(String... subjectStrings) {
+		List<Subject> subjects = new ArrayList<>();
+		for (String s : subjectStrings) {
+			subjects.add(new Subject(s));
+		}
+		return subjects;
+	}
+
+	private static List<WebLink> createRelatedWebLinks(String... urls) {
+
+		List<WebLink> webLinks = new ArrayList<>();
+		for (String u : urls) {
+			WebLink webLink = new WebLink(u);
+			webLink.setType(WebLinkType.Related);
+			webLinks.add(webLink);
+		}
+		return webLinks;
+
+	}
 }

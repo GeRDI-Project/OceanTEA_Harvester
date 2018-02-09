@@ -22,6 +22,7 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 
+import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDataCiteConstants;
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeseriesDownloaderConstants;
 import de.gerdiproject.harvest.oceantea.json.AllDatatypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeseriesResponse;
@@ -53,7 +54,7 @@ public class Downloader
     static public List<Timeseries> getAllTimeseries()
     {
 
-        String baseUrl = OceanTeaTimeseriesDownloaderConstants.BASE_URL;
+        String baseUrl = OceanTeaTimeSeriesDataCiteConstants.BASE_URL;
 
         String url1 = baseUrl + OceanTeaTimeseriesDownloaderConstants.TIMESERIES_URL;
         AllTimeseriesResponse allTimeseriesResponse = httpRequester.getObjectFromUrl(url1, AllTimeseriesResponse.class);

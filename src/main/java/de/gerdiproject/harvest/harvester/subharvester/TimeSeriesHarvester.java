@@ -27,7 +27,7 @@ public class TimeSeriesHarvester extends AbstractListHarvester<Timeseries> {
 
 	// parser to harvest non-constant information about timeseries datasets
 	private TimeseriesParser timeseriesParser = new TimeseriesParser();
-	
+
 	/**
 	 * Default constructor, naming the harvester and ensuring one document per
 	 * harvested entry
@@ -65,33 +65,20 @@ public class TimeSeriesHarvester extends AbstractListHarvester<Timeseries> {
 		//
 		// derived from both constants and the harvested entry
 		//
-		List<Subject> subjects = new ArrayList<>();
-		Stream.concat(OceanTeaTimeSeriesDataCiteConstants.SUBJECT_STRINGS.stream(),
-				timeseriesParser.getSubjectsStrings().stream()).forEach(s -> {
-					Subject subject = new Subject(s);
-					subject.setLang(OceanTeaTimeSeriesDataCiteConstants.LANG);
-					subjects.add(new Subject(s));
-				});
+
+		// Subjects
+		List<Subject> subjects = new ArrayList<>(OceanTeaTimeSeriesDataCiteConstants.SUBJECTS);
+		subjects.addAll(timeseriesParser.getSubjectsStrings());
 		document.setSubjects(subjects);
 
-		List<Description> descriptions = new ArrayList<>();
-		descriptions.add(timeseriesParser.getDescription());
-		descriptions.add(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_COMMON);
+		// Descriptions
+		List<Description> descriptions = new ArrayList<>(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTIONS);
+		descriptions.addAll(timeseriesParser.getDescription());
 		document.setDescriptions(descriptions);
 
-		// list of web links associated with the document
-		List<WebLink> webLinks = new ArrayList<>();
-		for (String s : OceanTeaTimeSeriesDataCiteConstants.RELATED_WEB_LINKS) {
-			WebLink webLink = new WebLink(s);
-			webLink.setType(WebLinkType.Related);
-			webLinks.add(webLink);
-		}
-
-		WebLink viewLink = new WebLink(OceanTeaTimeSeriesDataCiteConstants.VIEW_URL);
-		viewLink.setType(WebLinkType.ViewURL);
-		viewLink.setName(timeseriesParser.getMainTitle().getValue());
-		webLinks.add(viewLink);
-
+		// WebLinks
+		List<WebLink> webLinks = new ArrayList<>(OceanTeaTimeSeriesDataCiteConstants.WEB_LINKS);
+		webLinks.addAll(timeseriesParser.getWebLinks());
 		document.setWebLinks(webLinks);
 
 		//
