@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import de.gerdiproject.harvest.IDocument;
 import de.gerdiproject.harvest.harvester.AbstractListHarvester;
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDataCiteConstants;
-import de.gerdiproject.harvest.oceantea.utils.Downloader;
+import de.gerdiproject.harvest.oceantea.utils.OceanTeaDownloader;
 import de.gerdiproject.harvest.oceantea.utils.Timeseries;
 import de.gerdiproject.harvest.oceantea.utils.TimeseriesParser;
 import de.gerdiproject.json.datacite.DataCiteJson;
@@ -39,7 +39,7 @@ public class TimeSeriesHarvester extends AbstractListHarvester<Timeseries> {
 	@Override
 	protected Collection<Timeseries> loadEntries() {
 
-		return Downloader.getAllTimeseries();
+		return OceanTeaDownloader.getAllTimeseries();
 	}
 
 	@Override

@@ -35,13 +35,13 @@ import de.gerdiproject.harvest.utils.data.HttpRequester;
  *
  * @author Ingo Thomsen
  */
-public class Downloader
+public class OceanTeaDownloader
 {
 
     static private final HttpRequester httpRequester = new HttpRequester();
 
     // static class (therefore private constructor)
-    private Downloader()
+    private OceanTeaDownloader()
     {
     }
 

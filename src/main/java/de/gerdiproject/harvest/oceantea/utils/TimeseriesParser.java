@@ -61,7 +61,7 @@ public class TimeseriesParser {
 	 */
 	public void setTimeseries(Timeseries timeseries) {
 		this.ts = timeseries;
-		this.tsd = Downloader.getTimeseriesDataset(getDownloadUrl(), ts.getReferenceInstant());
+		this.tsd = OceanTeaDownloader.getTimeseriesDataset(getDownloadUrl(), ts.getReferenceInstant());
 	}
 
 	/**
