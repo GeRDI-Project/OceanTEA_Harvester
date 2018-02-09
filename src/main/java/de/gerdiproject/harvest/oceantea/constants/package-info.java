@@ -18,8 +18,8 @@
  */
 
 /**
- * This package contains static classes of constants concerning
- * the FAOSTAT source data.
+ * This package contains static classes providing constants and string templates
+ * related to the OceanTEA source data.
  *
  * @author Ingo Thomsen
  */

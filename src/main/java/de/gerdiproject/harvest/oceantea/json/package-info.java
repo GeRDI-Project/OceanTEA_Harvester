@@ -18,9 +18,8 @@
  */
 
 /**
- * This package contains classes and further packages related to the OceanTEA
- * source data.
+ * Classes representing the JSON responses.
  *
  * @author Ingo Thomsen
  */
-package de.gerdiproject.harvest.oceantea;
+package de.gerdiproject.harvest.oceantea.json;

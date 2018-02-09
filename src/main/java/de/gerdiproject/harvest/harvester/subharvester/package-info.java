@@ -18,7 +18,8 @@
  */
 
 /**
- * This package contains classes and packages that are related to the {@linkplain de.gerdiproject.harvest.harvester.AbstractHarvester} and its sub-classes.
+ * This package contains classes related to the sub-harvester of the
+ * {@linkplain de.gerdiproject.harvest.harvester.OceanTeaHarvester}.
  *
  * @author Ingo Thomsen
  */

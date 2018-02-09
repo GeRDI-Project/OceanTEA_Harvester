@@ -18,9 +18,9 @@
  */
 
 /**
- * This package contains classes and further packages related to the OceanTEA
- * source data.
+ * Classes for parsing JSON responses and providing elements for the DataCite
+ * document, that is to be created.
  *
  * @author Ingo Thomsen
  */
-package de.gerdiproject.harvest.oceantea;
+package de.gerdiproject.harvest.oceantea.utils;
