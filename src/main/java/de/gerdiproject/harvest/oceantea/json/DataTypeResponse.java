@@ -25,7 +25,7 @@ package de.gerdiproject.harvest.oceantea.json;
  *
  * @author Ingo Thomsen
  */
-public final class DatatypeResponse
+public final class DataTypeResponse
 {
     private String printName;
     private String unit;
@@ -34,7 +34,7 @@ public final class DatatypeResponse
     // Getter and Setter
     //
 
-    public DatatypeResponse(String printName, String unit)
+    public DataTypeResponse(String printName, String unit)
     {
         this.printName = printName;
         this.unit = unit;

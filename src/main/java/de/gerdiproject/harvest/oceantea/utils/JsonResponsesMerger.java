@@ -24,14 +24,14 @@ import java.util.List;
 
 import de.gerdiproject.harvest.oceantea.json.AllDatatypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeseriesResponse;
-import de.gerdiproject.harvest.oceantea.json.DatatypeResponse;
+import de.gerdiproject.harvest.oceantea.json.DataTypeResponse;
 import de.gerdiproject.harvest.oceantea.json.TimeseriesResponse;
 import de.gerdiproject.json.geo.Point;
 
 /**
  *
  * A static class for merging a {@linkplain TimeseriesResponse} and a
- * {@linkplain DatatypeResponse}.
+ * {@linkplain DataTypeResponse}.
  *
  * @author Ingo Thomsen
  */
@@ -84,7 +84,7 @@ public class JsonResponsesMerger
             //
             // enrich with data type information
             //
-            DatatypeResponse datatypeResponse = allDatatypesResponse
+            DataTypeResponse datatypeResponse = allDatatypesResponse
                                                 .getDatatypeResponseByName(timeseries.getDataType());
             timeseries.setDataTypePrintName(datatypeResponse.getPrintName());
             timeseries.setDataTypeUnit(datatypeResponse.getUnit());
