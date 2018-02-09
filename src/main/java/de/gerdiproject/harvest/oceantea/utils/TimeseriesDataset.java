@@ -30,7 +30,7 @@ import de.gerdiproject.harvest.oceantea.json.TimeseriesDatasetResponse;
  * offsets and the associated values.
  *
  * It also offers the calculated start and stop Instant plus the mean of the
- * values
+ * values.
  *
  * @author Ingo Thomsen
  */

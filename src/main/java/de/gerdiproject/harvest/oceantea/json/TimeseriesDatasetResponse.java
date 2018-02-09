@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * This class represents a JSON response to an actual request for timeseries
- * data, like for example:
+ * data, for example:
  * http://maui.se.informatik.uni-kiel.de:9090/timeseries/scalar/POS434-156/fluorescence/215
  *
  * It is a list of lists of which the latter has exactly two elements: An

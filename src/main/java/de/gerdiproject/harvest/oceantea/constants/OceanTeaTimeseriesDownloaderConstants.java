@@ -18,12 +18,6 @@
  */
 package de.gerdiproject.harvest.oceantea.constants;
 
-//
-// This static class contains constants used for downloading metadata from OceanTEA.
-//
-// @author Ingo Thomsen
-//
-
 /**
  * Static class with constants for downloading metadata and data from OceanTEA.
  *

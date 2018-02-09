@@ -24,14 +24,14 @@ import java.util.List;
 
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDataCiteConstants;
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeseriesDownloaderConstants;
-import de.gerdiproject.harvest.oceantea.json.AllDatatypesResponse;
+import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeseriesResponse;
 import de.gerdiproject.harvest.oceantea.json.TimeseriesDatasetResponse;
 import de.gerdiproject.harvest.utils.data.HttpRequester;
 
 /**
- * A static class for downloading the JSON responses for datatype and timeseries
- * metadata and the actual timeseries datasets
+ * A static class for downloading the JSON responses for data type and timeseries
+ * metadata and the actual timeseries datasets.
  *
  * @author Ingo Thomsen
  */
@@ -62,7 +62,7 @@ public class OceanTeaDownloader
         AllTimeseriesResponse allTimeseriesResponse = httpRequester.getObjectFromUrl(url1, AllTimeseriesResponse.class);
 
         String url2 = baseUrl + OceanTeaTimeseriesDownloaderConstants.DATATYPES_URL;
-        AllDatatypesResponse allDatatypesResponse = httpRequester.getObjectFromUrl(url2, AllDatatypesResponse.class);
+        AllDataTypesResponse allDatatypesResponse = httpRequester.getObjectFromUrl(url2, AllDataTypesResponse.class);
 
         return JsonResponsesMerger.getAllTimeseries(allTimeseriesResponse, allDatatypesResponse);
     }

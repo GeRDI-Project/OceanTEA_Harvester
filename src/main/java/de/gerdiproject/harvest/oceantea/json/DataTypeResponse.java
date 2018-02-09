@@ -20,7 +20,7 @@ package de.gerdiproject.harvest.oceantea.json;
 
 /**
  * This class represents a JSON object that is part of an
- * {@linkplain AllDatatypesResponse}: The print name and the unit of a datatype.
+ * {@linkplain AllDataTypesResponse}: The print name and the unit of a data type.
  *
  * @author Ingo Thomsen
  */

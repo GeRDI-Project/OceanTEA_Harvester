@@ -22,7 +22,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.gerdiproject.harvest.oceantea.json.AllDatatypesResponse;
+import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeseriesResponse;
 import de.gerdiproject.harvest.oceantea.json.DataTypeResponse;
 import de.gerdiproject.harvest.oceantea.json.TimeseriesResponse;
@@ -44,17 +44,17 @@ public class JsonResponsesMerger {
 	}
 
 	/**
-	 * This method combines the responses on the timeseries and the datatypes and
+	 * This method combines the responses on the timeseries and the data types and
 	 * returns a list of {@linkplain Timeseries} objects.
 	 *
 	 * @param allTimeseriesResponse
 	 *            an {@linkplain AllTimeseriesResponse} object
 	 * @param allDatatypesResponse
-	 *            an {@linkplain AllDatatypesResponse} object
+	 *            an {@linkplain AllDataTypesResponse} object
 	 * @return list of {@linkplain Timeseries} objects
 	 */
 	public static List<Timeseries> getAllTimeseries(AllTimeseriesResponse allTimeseriesResponse,
-			AllDatatypesResponse allDatatypesResponse) {
+			AllDataTypesResponse allDatatypesResponse) {
 
 		List<Timeseries> result = new ArrayList<>();
 

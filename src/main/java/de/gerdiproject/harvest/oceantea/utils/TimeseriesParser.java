@@ -42,7 +42,7 @@ import de.gerdiproject.json.geo.GeoJson;
 import de.gerdiproject.json.geo.Point;
 
 /**
- * A Parser for creating elements for (GeRDI) a DataCite document from a
+ * A Parser for creating elements for a (GeRDI) DataCite document from a
  * {@linkplain Timeseries} object.
  *
  * @author Ingo Thomsen
@@ -73,10 +73,10 @@ public class TimeseriesParser {
 
 		// For the link an integer depth must be inserted without ".0"
 		Double depth = ts.getDepth();
-		String depth_string = (depth % 1) == 0 ? Integer.toString(depth.intValue()) : depth.toString();
 
+		String depthString = Integer.toString((int) ts.getDepth());
 		String url = String.format(OceanTeaTimeseriesDownloaderConstants.DATASET_DOWNLOAD_URL, ts.getTimeseriesType(),
-				ts.getStation(), ts.getDataType(), depth_string);
+				ts.getStation(), ts.getDataType(), depthString);
 
 		return url;
 	}

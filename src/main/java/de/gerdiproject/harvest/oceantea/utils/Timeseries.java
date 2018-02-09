@@ -21,13 +21,13 @@ package de.gerdiproject.harvest.oceantea.utils;
 import java.time.Instant;
 import java.util.Date;
 
-import de.gerdiproject.harvest.oceantea.json.AllDatatypesResponse;
+import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeseriesResponse;
 import de.gerdiproject.json.geo.Point;
 
 /**
  * This class represents the joint metadata collected from
- * {@linkplain AllTimeseriesResponse} and {@linkplain AllDatatypesResponse}.
+ * {@linkplain AllTimeseriesResponse} and {@linkplain AllDataTypesResponse}.
  *
  * @author Ingo Thomsen
  */
