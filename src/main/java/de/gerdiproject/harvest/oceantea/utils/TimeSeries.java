@@ -22,16 +22,16 @@ import java.time.Instant;
 import java.util.Date;
 
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
-import de.gerdiproject.harvest.oceantea.json.AllTimeseriesResponse;
+import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
 import de.gerdiproject.json.geo.Point;
 
 /**
  * This class represents the joint metadata collected from
- * {@linkplain AllTimeseriesResponse} and {@linkplain AllDataTypesResponse}.
+ * {@linkplain AllTimeSeriesResponse} and {@linkplain AllDataTypesResponse}.
  *
  * @author Ingo Thomsen
  */
-public final class Timeseries {
+public final class TimeSeries {
 
 	private String region;
 	private String regionPrintName;
@@ -42,7 +42,7 @@ public final class Timeseries {
 	private String dataTypeUnit;
 
 	// Using slightly more descriptive field names here and Instant instead of Date
-	private String timeseriesType;
+	private String timeSeriesType;
 	private Instant instant;
 
 	// geolocation point combining longitude, latitude AND depth
@@ -81,12 +81,12 @@ public final class Timeseries {
 		this.geoLocationPoint = geoLocationPoint;
 	}
 
-	public String getTimeseriesType() {
-		return timeseriesType;
+	public String getTimeSeriesType() {
+		return timeSeriesType;
 	}
 
-	public void setTimeseriesType(String timeseriesType) {
-		this.timeseriesType = timeseriesType;
+	public void setTimeSeriesType(String timeSeriesType) {
+		this.timeSeriesType = timeSeriesType;
 	}
 
 	public double getLatitude() {

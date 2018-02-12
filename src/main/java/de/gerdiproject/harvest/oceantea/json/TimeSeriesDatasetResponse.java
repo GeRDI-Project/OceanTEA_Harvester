@@ -21,7 +21,7 @@ package de.gerdiproject.harvest.oceantea.json;
 import java.util.List;
 
 /**
- * This class represents a JSON response to an actual request for timeseries
+ * This class represents a JSON response to an actual request for time series
  * data, for example:
  * http://maui.se.informatik.uni-kiel.de:9090/timeseries/scalar/POS434-156/fluorescence/215
  *
@@ -32,21 +32,18 @@ import java.util.List;
  *
  * @author Ingo Thomsen
  */
-public final class TimeseriesDatasetResponse
-{
-    private List<List<String>> data;
+public final class TimeSeriesDatasetResponse {
+	private List<List<String>> data;
 
-    //
-    // Getter and Setter
-    //
+	//
+	// Getter and Setter
+	//
 
-    public List<List<String>> getData()
-    {
-        return data;
-    }
+	public List<List<String>> getData() {
+		return data;
+	}
 
-    public void setData(List<List<String>> value)
-    {
-        this.data = value;
-    }
+	public void setData(List<List<String>> value) {
+		this.data = value;
+	}
 }

@@ -22,11 +22,11 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * This class represents a JSON object that is part of an
- * {@linkplain AllTimeseriesResponse}.
+ * {@linkplain AllTimeSeriesResponse}.
  *
  * @author Ingo Thomsen
  */
-public final class TimeseriesResponse
+public final class TimeSeriesResponse
 {
     private String region;
     private String regionPrintName;

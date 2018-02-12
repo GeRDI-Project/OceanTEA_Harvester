@@ -25,8 +25,9 @@ import de.gerdiproject.harvest.harvester.subharvester.TimeSeriesHarvester;
 
 /**
  * The Main Harvester for OceanTEA. It is devised as a Composite Harvester,
- * currently with one sub harvester for the timeseries data. (A
- * "PArboreaActiviy" harvester is planned as a another sub harvester)
+ * currently with one sub harvester for the time series data.
+ * 
+ * (A "PArboreaActiviy" harvester is planned as a another sub harvester)
  *
  * @author Ingo Thomsen
  */

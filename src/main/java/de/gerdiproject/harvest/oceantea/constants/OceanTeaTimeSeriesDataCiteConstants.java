@@ -99,7 +99,7 @@ public class OceanTeaTimeSeriesDataCiteConstants {
 	public static final String REASEARCH_DATA_LABEL = "%s measurements, collected underwater (depth %s m) "
 			+ "in the open water region '%s' in %s by MoLab device";
 	public static final String DESCRIPTION = String.join(" ",
-			"%s timeseries data (from %s to %s) with a mean of %s %s.",
+			"%s time series data (from %s to %s) with a mean of %s %s.",
 			"The %s measurements are given in the JSON format and relative (in seconds) to timestamp '%s'.",
 			"Data was collected in the open water region '%s': " + "geo location %s at a depth of %s m.");
 

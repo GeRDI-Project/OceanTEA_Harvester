@@ -16,29 +16,36 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package de.gerdiproject.harvest.oceantea.constants;
+package de.gerdiproject.harvest.oceantea.json;
+
+import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Static class with constants for downloading metadata and data from OceanTEA.
+ * This class represents a JSON response to an "all time series" requests, for
+ * example: http://maui.se.informatik.uni-kiel.de:9090/timeseries
  *
  * @author Ingo Thomsen
  */
-public class OceanTeaTimeseriesDownloaderConstants {
+public final class AllTimeSeriesResponse
+{
 
-	/**
-	 * static class (therefore private constructor)
-	 */
-	private OceanTeaTimeseriesDownloaderConstants() {
-	}
+    @SerializedName("timeseries")
+    private List<TimeSeriesResponse> allTimeSeriesResponses;
 
-	//
-	// static URLs
-	//
-	public static final String TIMESERIES_URL = "timeseries/";
-	public static final String DATATYPES_URL = "datatypes/";
+    //
+    // Getter and Setter
+    //
 
-	// template string
-	public static final String DATASET_DOWNLOAD_URL = OceanTeaTimeSeriesDataCiteConstants.BASE_URL + TIMESERIES_URL
-			+ "%s/%s/%s/%s";
+    public List<TimeSeriesResponse> getAllTimeSeriesResponses()
+    {
+        return allTimeSeriesResponses;
+    }
+
+    public void setAllTimeSeriesResponses(List<TimeSeriesResponse> value)
+    {
+        this.allTimeSeriesResponses = value;
+    }
 
 }

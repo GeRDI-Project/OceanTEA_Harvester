@@ -23,10 +23,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.gerdiproject.harvest.oceantea.json.TimeseriesDatasetResponse;
+import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 
 /**
- * This class represents the raw data for a timeseries dataset: A list of time
+ * This class represents the raw data for a time series dataset: A list of time
  * offsets and the associated values.
  *
  * It also offers the calculated start and stop Instant plus the mean of the
@@ -34,7 +34,7 @@ import de.gerdiproject.harvest.oceantea.json.TimeseriesDatasetResponse;
  *
  * @author Ingo Thomsen
  */
-public final class TimeseriesDataset {
+public final class TimeSeriesDataset {
 
 	private List<Integer> timeOffsets = new ArrayList<>();
 	private List<Double> values = new ArrayList<>();
@@ -42,18 +42,18 @@ public final class TimeseriesDataset {
 	private int missingValues = 0;
 
 	/**
-	 * Constructor using a TimeseriesDatasetResponse and its reference Instant
+	 * Constructor using a {@linkplain TimeSeriesDatasetResponse} and its reference Instant
 	 *
-	 * @param timeseriesDatasetResponse
-	 *            the describing {@linkplain TimeseriesDatasetResponse}
+	 * @param timeSeriesDatasetResponse
+	 *            the describing {@linkplain TimeSeriesDatasetResponse}
 	 * @param referenceInstant
 	 *            the reference {@linkplain Instant}
 	 */
-	public TimeseriesDataset(TimeseriesDatasetResponse timeseriesDatasetResponse, Instant referenceInstant) {
+	public TimeSeriesDataset(TimeSeriesDatasetResponse timeSeriesDatasetResponse, Instant referenceInstant) {
 
 		this.referenceInstant = referenceInstant;
 
-		for (List<String> entry : timeseriesDatasetResponse.getData()) {
+		for (List<String> entry : timeSeriesDatasetResponse.getData()) {
 
 			try {
 				int timeOffset = Integer.parseInt(entry.get(0));
@@ -71,7 +71,7 @@ public final class TimeseriesDataset {
 	/**
 	 * The start Instant is calculated using the minimum time offset.
 	 *
-	 * @return start {@linkplain Instant} for this timeseries.
+	 * @return start {@linkplain Instant} for this time series.
 	 */
 	public Instant getStartInstant() {
 		long startEpoch = referenceInstant.getEpochSecond() + Collections.min(timeOffsets);
@@ -81,7 +81,7 @@ public final class TimeseriesDataset {
 	/**
 	 * The start Instant is calculated using the maximum time offset.
 	 *
-	 * @return stop {@linkplain Instant} for this timeseries.
+	 * @return stop {@linkplain Instant} for this time series.
 	 */
 	public Instant getStopInstant() {
 		long stopEpoch = referenceInstant.getEpochSecond() + Collections.max(timeOffsets);
@@ -100,9 +100,9 @@ public final class TimeseriesDataset {
 	}
 
 	/**
-	 * Get number of timeseries values
+	 * Get number of time series values
 	 *
-	 * @return number of timeseries values
+	 * @return number of time series values
 	 */
 	public int getNumberOfValues() {
 		return values.size();
