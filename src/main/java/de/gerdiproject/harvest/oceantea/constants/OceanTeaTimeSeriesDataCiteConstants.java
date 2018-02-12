@@ -44,88 +44,98 @@ import de.gerdiproject.json.datacite.nested.PersonName;
  *
  * @author Ingo Thomsen
  */
-final public class OceanTeaTimeSeriesDataCiteConstants {
+final public class OceanTeaTimeSeriesDataCiteConstants
+{
 
-	/**
-	 * static class (therefore private constructor)
-	 */
-	private OceanTeaTimeSeriesDataCiteConstants() {
-	}
+    /**
+     * static class (therefore private constructor)
+     */
+    private OceanTeaTimeSeriesDataCiteConstants()
+    {
+    }
 
-	// language used for data and description
-	public static final String LANG = "en-US";
+    // language used for data and description
+    public static final String LANG = "en-US";
 
-	//
-	// GEOMAR as standard CREATOR and CONTRIBUTOR
-	//
-	public static final String GEOMAR = "GEOMAR, Kiel, Germany";
-	public static final PersonName GEOMAR_PERSON = new PersonName(GEOMAR, NameType.Organisational);
-	public static final String MOLAB_PUBLICATION_LINK = "https://oceanrep.geomar.de/22245/";
-	public static final List<Creator> CREATORS = asUnmodifiableList(new Creator(GEOMAR_PERSON));
-	public static final List<Contributor> CONTRIBUTORS = asUnmodifiableList(new Contributor(GEOMAR_PERSON, ContributorType.Producer));
+    //
+    // GEOMAR as standard CREATOR and CONTRIBUTOR
+    //
+    public static final String GEOMAR = "GEOMAR, Kiel, Germany";
+    public static final PersonName GEOMAR_PERSON = new PersonName(GEOMAR, NameType.Organisational);
+    public static final String MOLAB_PUBLICATION_LINK = "https://oceanrep.geomar.de/22245/";
+    public static final List<Creator> CREATORS = asUnmodifiableList(new Creator(GEOMAR_PERSON));
+    public static final List<Contributor> CONTRIBUTORS = asUnmodifiableList(
+                                                             new Contributor(GEOMAR_PERSON, ContributorType.Producer));
 
-	//
-	// OceanTEA demo as repository (+ GEOMAR for MoLab reference)
-	//
-	public static final String BASE_URL = "http://maui.se.informatik.uni-kiel.de:9090/";
-	public static final String PROVIDER = "OceanTEA demo, Software Engineering Informatik, Kiel University";
-	public static final String REPOSITORY_ID = "OCEANTEA";
-	public static final List<WebLink> WEB_LINKS = createRelatedWebLinks(MOLAB_PUBLICATION_LINK);
-	public static final String VIEW_URL = BASE_URL;
+    //
+    // OceanTEA demo as repository (+ GEOMAR for MoLab reference)
+    //
+    public static final String BASE_URL = "http://maui.se.informatik.uni-kiel.de:9090/";
+    public static final String PROVIDER = "OceanTEA demo, Software Engineering Informatik, Kiel University";
+    public static final String REPOSITORY_ID = "OCEANTEA";
+    public static final List<WebLink> WEB_LINKS = createRelatedWebLinks(MOLAB_PUBLICATION_LINK);
+    public static final String VIEW_URL = BASE_URL;
 
-	//
-	// Format of ResourceType - there is only JSON for OceanTEA
-	//
-	public static final ResourceType RESOURCE_TYPE = new ResourceType("JSON", ResourceTypeGeneral.Dataset);
-	public static final List<String> FORMATS = asUnmodifiableList("text/json");
+    //
+    // Format of ResourceType - there is only JSON for OceanTEA
+    //
+    public static final ResourceType RESOURCE_TYPE = new ResourceType("JSON", ResourceTypeGeneral.Dataset);
+    public static final List<String> FORMATS = asUnmodifiableList("text/json");
 
-	//
-	// description, disciples and subjects
-	//
-	public static final List<Subject> SUBJECTS = createSubjects("MoLab", "modular ocean laboratory",
-			"underwater measurement", "oceanography");
+    //
+    // description, disciples and subjects
+    //
+    public static final List<Subject> SUBJECTS = createSubjects("MoLab", "modular ocean laboratory",
+                                                                "underwater measurement", "oceanography");
 
-	public static final List<AbstractResearch> DISCIPLINES = asUnmodifiableList(ResearchDisciplineConstants.OCEANOGRAPHY);
-	public static final List<Description> DESCRIPTIONS = asUnmodifiableList(new Description(
-			"Underwater measurements captured by a MoLab device (modular ocean laboratory) by " + GEOMAR,
-			DescriptionType.Abstract, LANG));
+    public static final List<AbstractResearch> DISCIPLINES = asUnmodifiableList(
+                                                                 ResearchDisciplineConstants.OCEANOGRAPHY);
+    public static final List<Description> DESCRIPTIONS = asUnmodifiableList(new Description(
+                                                                                "Underwater measurements captured by a MoLab device (modular ocean laboratory) by " + GEOMAR,
+                                                                                DescriptionType.Abstract, LANG));
 
-	//
-	// template strings
-	//
-	public static final String MAIN_DOCUMENT_TITLE = "%s measurements, underwater (depth %s m) in the region '%s'";
-	public static final String REASEARCH_DATA_LABEL = "%s measurements, collected underwater (depth %s m) "
-			+ "in the open water region '%s' in %s by MoLab device";
-	public static final String DESCRIPTION = String.join(" ",
-			"%s time series data (from %s to %s) with a mean of %s %s.",
-			"The %s measurements are given in the JSON format and relative (in seconds) to timestamp '%s'.",
-			"Data was collected in the open water region '%s': " + "geo location %s at a depth of %s m.");
+    //
+    // template strings
+    //
+    public static final String MAIN_DOCUMENT_TITLE = "%s measurements, underwater (depth %s m) in the region '%s'";
+    public static final String REASEARCH_DATA_LABEL = "%s measurements, collected underwater (depth %s m) "
+                                                      + "in the open water region '%s' in %s by MoLab device";
+    public static final String DESCRIPTION = String.join(" ",
+                                                         "%s time series data (from %s to %s) with a mean of %s %s.",
+                                                         "The %s measurements are given in the JSON format and relative (in seconds) to timestamp '%s'.",
+                                                         "Data was collected in the open water region '%s': " + "geo location %s at a depth of %s m.");
 
-	//
-	// private helper methods for List<> creation
-	//
-	@SafeVarargs
-	private static <T> List<T> asUnmodifiableList(T... listItems) {
-		return Collections.unmodifiableList(Arrays.asList(listItems));
-	}
+    //
+    // private helper methods for List<> creation
+    //
+    @SafeVarargs
+    private static <T> List<T> asUnmodifiableList(T... listItems)
+    {
+        return Collections.unmodifiableList(Arrays.asList(listItems));
+    }
 
-	private static List<Subject> createSubjects(String... subjectStrings) {
-		List<Subject> subjects = new ArrayList<>();
-		for (String s : subjectStrings) {
-			subjects.add(new Subject(s));
-		}
-		return subjects;
-	}
+    private static List<Subject> createSubjects(String... subjectStrings)
+    {
+        List<Subject> subjects = new ArrayList<>();
 
-	private static List<WebLink> createRelatedWebLinks(String... urls) {
+        for (String s : subjectStrings)
+            subjects.add(new Subject(s));
 
-		List<WebLink> webLinks = new ArrayList<>();
-		for (String u : urls) {
-			WebLink webLink = new WebLink(u);
-			webLink.setType(WebLinkType.Related);
-			webLinks.add(webLink);
-		}
-		return webLinks;
+        return subjects;
+    }
 
-	}
+    private static List<WebLink> createRelatedWebLinks(String... urls)
+    {
+
+        List<WebLink> webLinks = new ArrayList<>();
+
+        for (String u : urls) {
+            WebLink webLink = new WebLink(u);
+            webLink.setType(WebLinkType.Related);
+            webLinks.add(webLink);
+        }
+
+        return webLinks;
+
+    }
 }

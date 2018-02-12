@@ -24,39 +24,45 @@ package de.gerdiproject.harvest.oceantea.json;
  *
  * @author Ingo Thomsen
  */
-public final class DataTypeResponse {
-	private String printName;
-	private String unit;
+public final class DataTypeResponse
+{
+    private String printName;
+    private String unit;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param printName
-	 *            the string representation of the data type name
-	 * @param unit
-	 *            the string representation of the data type unit
-	 */
-	public DataTypeResponse(String printName, String unit) {
-		this.printName = printName;
-		this.unit = unit;
-	}
+    /**
+     * Constructor
+     *
+     * @param printName
+     *            the string representation of the data type name
+     * @param unit
+     *            the string representation of the data type unit
+     */
+    public DataTypeResponse(String printName, String unit)
+    {
+        this.printName = printName;
+        this.unit = unit;
+    }
 
-	//
-	// Getter and Setter
-	//
-	public String getPrintName() {
-		return printName;
-	}
+    //
+    // Getter and Setter
+    //
+    public String getPrintName()
+    {
+        return printName;
+    }
 
-	public void setPrintName(String value) {
-		this.printName = value;
-	}
+    public void setPrintName(String value)
+    {
+        this.printName = value;
+    }
 
-	public String getUnit() {
-		return unit;
-	}
+    public String getUnit()
+    {
+        return unit;
+    }
 
-	public void setUnit(String value) {
-		this.unit = value;
-	}
+    public void setUnit(String value)
+    {
+        this.unit = value;
+    }
 }

@@ -46,175 +46,186 @@ import de.gerdiproject.json.geo.Point;
  *
  * @author Ingo Thomsen
  */
-public class TimeSeriesParser {
+public class TimeSeriesParser
+{
 
-	private TimeSeries timeSeries;
-	private TimeSeriesDataset timeSeriesDataset;
+    private TimeSeries timeSeries;
+    private TimeSeriesDataset timeSeriesDataset;
 
-	/**
-	 * Set up an {@linkplain TimeSeries} object for parsing by downloading the
-	 * corresponding {@linkplain TimeSeriesDataset}.
-	 *
-	 * @param time
-	 *            series a {@linkplain TimeSeries} object
-	 */
-	public void setTimeSeries(TimeSeries timeSeries) {
-		this.timeSeries = timeSeries;
-		this.timeSeriesDataset = OceanTeaDownloader.getTimeSeriesDataset(getDownloadUrl(),
-				timeSeries.getReferenceInstant());
-	}
+    /**
+     * Set up an {@linkplain TimeSeries} object for parsing by downloading the
+     * corresponding {@linkplain TimeSeriesDataset}.
+     *
+     * @param time
+     *            series a {@linkplain TimeSeries} object
+     */
+    public void setTimeSeries(TimeSeries timeSeries)
+    {
+        this.timeSeries = timeSeries;
+        this.timeSeriesDataset = OceanTeaDownloader.getTimeSeriesDataset(getDownloadUrl(),
+                                                                         timeSeries.getReferenceInstant());
+    }
 
-	/**
-	 * Assemble the URL for downloading the JSON representation.
-	 *
-	 * @return URL string
-	 */
-	public String getDownloadUrl() {
+    /**
+     * Assemble the URL for downloading the JSON representation.
+     *
+     * @return URL string
+     */
+    public String getDownloadUrl()
+    {
 
-		// For the link an integer depth must be inserted without ".0"
-		String depthString = Integer.toString((int) timeSeries.getDepth());
-		String url = String.format(OceanTeaTimeSeriesDownloaderConstants.DATASET_DOWNLOAD_URL,
-				timeSeries.getTimeSeriesType(), timeSeries.getStation(), timeSeries.getDataType(), depthString);
+        // For the link an integer depth must be inserted without ".0"
+        String depthString = Integer.toString((int) timeSeries.getDepth());
+        String url = String.format(OceanTeaTimeSeriesDownloaderConstants.DATASET_DOWNLOAD_URL,
+                                   timeSeries.getTimeSeriesType(), timeSeries.getStation(), timeSeries.getDataType(), depthString);
 
-		return url;
-	}
+        return url;
+    }
 
-	/**
-	 * Assemble the DataCite description of the ResearchData for the download URL of
-	 * the time series dataset.
-	 *
-	 * @return list of {@linkplain ResearchData}
-	 */
-	public List<ResearchData> getResearchDataList() {
+    /**
+     * Assemble the DataCite description of the ResearchData for the download URL of
+     * the time series dataset.
+     *
+     * @return list of {@linkplain ResearchData}
+     */
+    public List<ResearchData> getResearchDataList()
+    {
 
-		String label = String.format(OceanTeaTimeSeriesDataCiteConstants.REASEARCH_DATA_LABEL,
-				timeSeries.getDataTypePrintName(), timeSeries.getDepth(), timeSeries.getRegionPrintName(),
-				timeSeries.getDevice());
+        String label = String.format(OceanTeaTimeSeriesDataCiteConstants.REASEARCH_DATA_LABEL,
+                                     timeSeries.getDataTypePrintName(), timeSeries.getDepth(), timeSeries.getRegionPrintName(),
+                                     timeSeries.getDevice());
 
-		ResearchData researchData = new ResearchData(getDownloadUrl(), label);
-		researchData.setType("application/json");
+        ResearchData researchData = new ResearchData(getDownloadUrl(), label);
+        researchData.setType("application/json");
 
-		return Arrays.asList(researchData);
+        return Arrays.asList(researchData);
 
-	}
+    }
 
-	/**
-	 * The year of the publication (in OceanTEA) is not available, so the time of
-	 * the measurement is as close as it gets.
-	 *
-	 * @return year of publication (4 digits)
-	 */
-	public short getPublicationYear() {
+    /**
+     * The year of the publication (in OceanTEA) is not available, so the time of
+     * the measurement is as close as it gets.
+     *
+     * @return year of publication (4 digits)
+     */
+    public short getPublicationYear()
+    {
 
-		Date date = timeSeries.getReferenceDate();
-		SimpleDateFormat df = new SimpleDateFormat("yyyy");
+        Date date = timeSeries.getReferenceDate();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy");
 
-		return Short.parseShort(df.format(date));
-	}
+        return Short.parseShort(df.format(date));
+    }
 
-	/**
-	 * Get the list of strings describing the subjects
-	 *
-	 * @return List of strings describing the subjects
-	 */
-	public List<Subject> getSubjectsStrings() {
+    /**
+     * Get the list of strings describing the subjects
+     *
+     * @return List of strings describing the subjects
+     */
+    public List<Subject> getSubjectsStrings()
+    {
 
-		List<Subject> subjectList = new ArrayList<>();
-		subjectList.add(new Subject("MoLab " + timeSeries.getDevice()));
-		subjectList.add(new Subject(timeSeries.getDataTypePrintName()));
-		subjectList.add(new Subject(timeSeries.getStation()));
-		subjectList.add(new Subject(timeSeries.getRegionPrintName()));
+        List<Subject> subjectList = new ArrayList<>();
+        subjectList.add(new Subject("MoLab " + timeSeries.getDevice()));
+        subjectList.add(new Subject(timeSeries.getDataTypePrintName()));
+        subjectList.add(new Subject(timeSeries.getStation()));
+        subjectList.add(new Subject(timeSeries.getRegionPrintName()));
 
-		return subjectList;
-	}
+        return subjectList;
+    }
 
-	/**
-	 * Get DataCite description - using a template string
-	 *
-	 * @return {@linkplain Description} object
-	 */
-	public List<Description> getDescription() {
+    /**
+     * Get DataCite description - using a template string
+     *
+     * @return {@linkplain Description} object
+     */
+    public List<Description> getDescription()
+    {
 
-		Point point = timeSeries.getGeoLocationPoint();
-		String geoLocationString = "(" + point.getLongitude() + ";" + point.getLatitude() + ")";
+        Point point = timeSeries.getGeoLocationPoint();
+        String geoLocationString = "(" + point.getLongitude() + ";" + point.getLatitude() + ")";
 
-		String descriptionText = String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION,
-				timeSeries.getDataTypePrintName(), timeSeriesDataset.getStartInstant(),
-				timeSeriesDataset.getStopInstant(), timeSeriesDataset.getValuesMean(), timeSeries.getDataTypeUnit(),
-				timeSeriesDataset.getNumberOfValues(), timeSeries.getReferenceInstant(),
-				timeSeries.getRegionPrintName(), geoLocationString, timeSeries.getDepth());
+        String descriptionText = String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION,
+                                               timeSeries.getDataTypePrintName(), timeSeriesDataset.getStartInstant(),
+                                               timeSeriesDataset.getStopInstant(), timeSeriesDataset.getValuesMean(), timeSeries.getDataTypeUnit(),
+                                               timeSeriesDataset.getNumberOfValues(), timeSeries.getReferenceInstant(),
+                                               timeSeries.getRegionPrintName(), geoLocationString, timeSeries.getDepth());
 
-		if (timeSeriesDataset.getMissingValues() > 0)
-			descriptionText += " " + timeSeriesDataset.getMissingValues() + "measurements points were missing ('NA').";
-
-
+        if (timeSeriesDataset.getMissingValues() > 0)
+            descriptionText += " " + timeSeriesDataset.getMissingValues() + "measurements points were missing ('NA').";
 
 
-		return Arrays.asList(
-				new Description(descriptionText, DescriptionType.Abstract, OceanTeaTimeSeriesDataCiteConstants.LANG));
-	}
 
-	/**
-	 * Get DataCite title.
-	 *
-	 * @return {@linkplain Title} object
-	 */
-	public Title getMainTitle() {
 
-		String titleText = String.format(OceanTeaTimeSeriesDataCiteConstants.MAIN_DOCUMENT_TITLE,
-				timeSeries.getDataTypePrintName(), timeSeries.getDepth(), timeSeries.getRegionPrintName());
+        return Arrays.asList(
+                   new Description(descriptionText, DescriptionType.Abstract, OceanTeaTimeSeriesDataCiteConstants.LANG));
+    }
 
-		Title title = new Title(titleText);
-		title.setLang(OceanTeaTimeSeriesDataCiteConstants.LANG);
+    /**
+     * Get DataCite title.
+     *
+     * @return {@linkplain Title} object
+     */
+    public Title getMainTitle()
+    {
 
-		return title;
-	}
+        String titleText = String.format(OceanTeaTimeSeriesDataCiteConstants.MAIN_DOCUMENT_TITLE,
+                                         timeSeries.getDataTypePrintName(), timeSeries.getDepth(), timeSeries.getRegionPrintName());
 
-	/**
-	 * The WebLinks consist only of the ViewURL, which has a varying title, but the
-	 * actual URL is always the same, because it is not possible to control the Demo
-	 * using URL parameters.
-	 *
-	 * @return list of WebLinks
-	 */
-	public List<WebLink> getWebLinks() {
+        Title title = new Title(titleText);
+        title.setLang(OceanTeaTimeSeriesDataCiteConstants.LANG);
 
-		WebLink webLink = new WebLink(OceanTeaTimeSeriesDataCiteConstants.VIEW_URL);
-		webLink.setName(getMainTitle().getValue());
-		webLink.setType(WebLinkType.ViewURL);
+        return title;
+    }
 
-		return Arrays.asList(webLink);
-	}
+    /**
+     * The WebLinks consist only of the ViewURL, which has a varying title, but the
+     * actual URL is always the same, because it is not possible to control the Demo
+     * using URL parameters.
+     *
+     * @return list of WebLinks
+     */
+    public List<WebLink> getWebLinks()
+    {
 
-	/**
-	 * Return the one GeoLocation associated with the measurements including
-	 * mentioning of the region name.
-	 *
-	 * @return list containing one {@linkplain GeoLocation} object
-	 */
-	public List<GeoLocation> getGeoLocations() {
+        WebLink webLink = new WebLink(OceanTeaTimeSeriesDataCiteConstants.VIEW_URL);
+        webLink.setName(getMainTitle().getValue());
+        webLink.setType(WebLinkType.ViewURL);
 
-		GeoLocation geoLocation = new GeoLocation();
-		geoLocation.setPoint(new GeoJson(timeSeries.getGeoLocationPoint()));
-		geoLocation.setPlace("measurement region of " + timeSeries.getRegionPrintName());
+        return Arrays.asList(webLink);
+    }
 
-		return Arrays.asList(geoLocation);
-	}
+    /**
+     * Return the one GeoLocation associated with the measurements including
+     * mentioning of the region name.
+     *
+     * @return list containing one {@linkplain GeoLocation} object
+     */
+    public List<GeoLocation> getGeoLocations()
+    {
 
-	/**
-	 * Return the DataCite dates, which here is the {@linkplain DateRange} of the
-	 * time series data set.
-	 *
-	 * @return list containing one {@linkplain AbstractDate}.
-	 */
-	public List<AbstractDate> getDates() {
+        GeoLocation geoLocation = new GeoLocation();
+        geoLocation.setPoint(new GeoJson(timeSeries.getGeoLocationPoint()));
+        geoLocation.setPlace("measurement region of " + timeSeries.getRegionPrintName());
 
-		long epochMilliSince = timeSeriesDataset.getStartInstant().getEpochSecond() * 1000;
-		long epochMilliUntil = timeSeriesDataset.getStopInstant().getEpochSecond() * 1000;
+        return Arrays.asList(geoLocation);
+    }
 
-		DateRange dateRange = new DateRange(epochMilliSince, epochMilliUntil, DateType.Created);
+    /**
+     * Return the DataCite dates, which here is the {@linkplain DateRange} of the
+     * time series data set.
+     *
+     * @return list containing one {@linkplain AbstractDate}.
+     */
+    public List<AbstractDate> getDates()
+    {
 
-		return Arrays.asList(dateRange);
-	}
+        long epochMilliSince = timeSeriesDataset.getStartInstant().getEpochSecond() * 1000;
+        long epochMilliUntil = timeSeriesDataset.getStopInstant().getEpochSecond() * 1000;
+
+        DateRange dateRange = new DateRange(epochMilliSince, epochMilliUntil, DateType.Created);
+
+        return Arrays.asList(dateRange);
+    }
 
 }

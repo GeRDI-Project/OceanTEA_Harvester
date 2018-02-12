@@ -23,22 +23,24 @@ package de.gerdiproject.harvest.oceantea.constants;
  *
  * @author Ingo Thomsen
  */
-final public class OceanTeaTimeSeriesDownloaderConstants {
+final public class OceanTeaTimeSeriesDownloaderConstants
+{
 
-	/**
-	 * static class (therefore private constructor)
-	 */
-	private OceanTeaTimeSeriesDownloaderConstants() {
-	}
+    /**
+     * static class (therefore private constructor)
+     */
+    private OceanTeaTimeSeriesDownloaderConstants()
+    {
+    }
 
-	//
-	// static URLs
-	//
-	public static final String TIMESERIES_URL = "timeseries/";
-	public static final String DATATYPES_URL = "datatypes/";
+    //
+    // static URLs
+    //
+    public static final String TIMESERIES_URL = "timeseries/";
+    public static final String DATATYPES_URL = "datatypes/";
 
-	// template string
-	public static final String DATASET_DOWNLOAD_URL = OceanTeaTimeSeriesDataCiteConstants.BASE_URL + TIMESERIES_URL
-			+ "%s/%s/%s/%s";
+    // template string
+    public static final String DATASET_DOWNLOAD_URL = OceanTeaTimeSeriesDataCiteConstants.BASE_URL + TIMESERIES_URL
+                                                      + "%s/%s/%s/%s";
 
 }

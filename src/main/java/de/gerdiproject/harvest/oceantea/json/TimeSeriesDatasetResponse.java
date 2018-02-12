@@ -32,18 +32,21 @@ import java.util.List;
  *
  * @author Ingo Thomsen
  */
-public final class TimeSeriesDatasetResponse {
-	private List<List<String>> data;
+public final class TimeSeriesDatasetResponse
+{
+    private List<List<String>> data;
 
-	//
-	// Getter and Setter
-	//
+    //
+    // Getter and Setter
+    //
 
-	public List<List<String>> getData() {
-		return data;
-	}
+    public List<List<String>> getData()
+    {
+        return data;
+    }
 
-	public void setData(List<List<String>> value) {
-		this.data = value;
-	}
+    public void setData(List<List<String>> value)
+    {
+        this.data = value;
+    }
 }

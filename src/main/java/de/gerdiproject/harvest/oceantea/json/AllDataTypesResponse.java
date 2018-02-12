@@ -27,156 +27,187 @@ import java.lang.reflect.Method;
  *
  * @author Ingo Thomsen
  */
-public final class AllDataTypesResponse {
+public final class AllDataTypesResponse
+{
 
-	private DataTypeResponse conductivity;
-	private DataTypeResponse temperature;
-	private DataTypeResponse pressure;
-	private DataTypeResponse pH;
-	private DataTypeResponse fluorescence;
-	private DataTypeResponse turbidity;
-	private DataTypeResponse oxygen;
-	private DataTypeResponse saturation;
-	private DataTypeResponse practicalSalinity;
-	private DataTypeResponse absoluteSalinity;
-	private DataTypeResponse potentialTemperature;
-	private DataTypeResponse conservativeTemperature;
-	private DataTypeResponse soundSpeed;
-	private DataTypeResponse potentialDensityAnomaly;
+    private DataTypeResponse conductivity;
+    private DataTypeResponse temperature;
+    private DataTypeResponse pressure;
+    private DataTypeResponse pH;
+    private DataTypeResponse fluorescence;
+    private DataTypeResponse turbidity;
+    private DataTypeResponse oxygen;
+    private DataTypeResponse saturation;
+    private DataTypeResponse practicalSalinity;
+    private DataTypeResponse absoluteSalinity;
+    private DataTypeResponse potentialTemperature;
+    private DataTypeResponse conservativeTemperature;
+    private DataTypeResponse soundSpeed;
+    private DataTypeResponse potentialDensityAnomaly;
 
-	/**
-	 * Get more information (print name and unit) for a data type. Uses reflection
-	 * and assumes the standard naming for getter methods.
-	 *
-	 * @return a {@linkplain DataTypeResponse} object
-	 */
-	public DataTypeResponse getDatatypeResponseByName(String name) {
+    /**
+     * Get more information (print name and unit) for a data type. Uses reflection
+     * and assumes the standard naming for getter methods.
+     *
+     * @return a {@linkplain DataTypeResponse} object
+     */
+    public DataTypeResponse getDatatypeResponseByName(String name)
+    {
 
-		Method getterMethod;
-		try {
-			getterMethod = this.getClass().getMethod("get" + name.substring(0, 1).toUpperCase() + name.substring(1));
-			return (DataTypeResponse) getterMethod.invoke(this);
+        Method getterMethod;
 
-		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			return new DataTypeResponse("unknown", "unknown");
-		}
+        try {
+            getterMethod = this.getClass().getMethod("get" + name.substring(0, 1).toUpperCase() + name.substring(1));
+            return (DataTypeResponse) getterMethod.invoke(this);
 
-	}
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+                     | InvocationTargetException e) {
+            return new DataTypeResponse("unknown", "unknown");
+        }
 
-	//
-	// Getter and Setter
-	//
+    }
 
-	public DataTypeResponse getConductivity() {
-		return conductivity;
-	}
+    //
+    // Getter and Setter
+    //
 
-	public void setConductivity(DataTypeResponse value) {
-		this.conductivity = value;
-	}
+    public DataTypeResponse getConductivity()
+    {
+        return conductivity;
+    }
 
-	public DataTypeResponse getTemperature() {
-		return temperature;
-	}
+    public void setConductivity(DataTypeResponse value)
+    {
+        this.conductivity = value;
+    }
 
-	public void setTemperature(DataTypeResponse value) {
-		this.temperature = value;
-	}
+    public DataTypeResponse getTemperature()
+    {
+        return temperature;
+    }
 
-	public DataTypeResponse getPressure() {
-		return pressure;
-	}
+    public void setTemperature(DataTypeResponse value)
+    {
+        this.temperature = value;
+    }
 
-	public void setPressure(DataTypeResponse value) {
-		this.pressure = value;
-	}
+    public DataTypeResponse getPressure()
+    {
+        return pressure;
+    }
 
-	public DataTypeResponse getPH() {
-		return pH;
-	}
+    public void setPressure(DataTypeResponse value)
+    {
+        this.pressure = value;
+    }
 
-	public void setPH(DataTypeResponse value) {
-		this.pH = value;
-	}
+    public DataTypeResponse getPH()
+    {
+        return pH;
+    }
 
-	public DataTypeResponse getFluorescence() {
-		return fluorescence;
-	}
+    public void setPH(DataTypeResponse value)
+    {
+        this.pH = value;
+    }
 
-	public void setFluorescence(DataTypeResponse value) {
-		this.fluorescence = value;
-	}
+    public DataTypeResponse getFluorescence()
+    {
+        return fluorescence;
+    }
 
-	public DataTypeResponse getTurbidity() {
-		return turbidity;
-	}
+    public void setFluorescence(DataTypeResponse value)
+    {
+        this.fluorescence = value;
+    }
 
-	public void setTurbidity(DataTypeResponse value) {
-		this.turbidity = value;
-	}
+    public DataTypeResponse getTurbidity()
+    {
+        return turbidity;
+    }
 
-	public DataTypeResponse getOxygen() {
-		return oxygen;
-	}
+    public void setTurbidity(DataTypeResponse value)
+    {
+        this.turbidity = value;
+    }
 
-	public void setOxygen(DataTypeResponse value) {
-		this.oxygen = value;
-	}
+    public DataTypeResponse getOxygen()
+    {
+        return oxygen;
+    }
 
-	public DataTypeResponse getSaturation() {
-		return saturation;
-	}
+    public void setOxygen(DataTypeResponse value)
+    {
+        this.oxygen = value;
+    }
 
-	public void setSaturation(DataTypeResponse value) {
-		this.saturation = value;
-	}
+    public DataTypeResponse getSaturation()
+    {
+        return saturation;
+    }
 
-	public DataTypeResponse getPracticalSalinity() {
-		return practicalSalinity;
-	}
+    public void setSaturation(DataTypeResponse value)
+    {
+        this.saturation = value;
+    }
 
-	public void setPracticalSalinity(DataTypeResponse value) {
-		this.practicalSalinity = value;
-	}
+    public DataTypeResponse getPracticalSalinity()
+    {
+        return practicalSalinity;
+    }
 
-	public DataTypeResponse getAbsoluteSalinity() {
-		return absoluteSalinity;
-	}
+    public void setPracticalSalinity(DataTypeResponse value)
+    {
+        this.practicalSalinity = value;
+    }
 
-	public void setAbsoluteSalinity(DataTypeResponse value) {
-		this.absoluteSalinity = value;
-	}
+    public DataTypeResponse getAbsoluteSalinity()
+    {
+        return absoluteSalinity;
+    }
 
-	public DataTypeResponse getPotentialTemperature() {
-		return potentialTemperature;
-	}
+    public void setAbsoluteSalinity(DataTypeResponse value)
+    {
+        this.absoluteSalinity = value;
+    }
 
-	public void setPotentialTemperature(DataTypeResponse value) {
-		this.potentialTemperature = value;
-	}
+    public DataTypeResponse getPotentialTemperature()
+    {
+        return potentialTemperature;
+    }
 
-	public DataTypeResponse getConservativeTemperature() {
-		return conservativeTemperature;
-	}
+    public void setPotentialTemperature(DataTypeResponse value)
+    {
+        this.potentialTemperature = value;
+    }
 
-	public void setConservativeTemperature(DataTypeResponse value) {
-		this.conservativeTemperature = value;
-	}
+    public DataTypeResponse getConservativeTemperature()
+    {
+        return conservativeTemperature;
+    }
 
-	public DataTypeResponse getSoundSpeed() {
-		return soundSpeed;
-	}
+    public void setConservativeTemperature(DataTypeResponse value)
+    {
+        this.conservativeTemperature = value;
+    }
 
-	public void setSoundSpeed(DataTypeResponse value) {
-		this.soundSpeed = value;
-	}
+    public DataTypeResponse getSoundSpeed()
+    {
+        return soundSpeed;
+    }
 
-	public DataTypeResponse getPotentialDensityAnomaly() {
-		return potentialDensityAnomaly;
-	}
+    public void setSoundSpeed(DataTypeResponse value)
+    {
+        this.soundSpeed = value;
+    }
 
-	public void setPotentialDensityAnomaly(DataTypeResponse value) {
-		this.potentialDensityAnomaly = value;
-	}
+    public DataTypeResponse getPotentialDensityAnomaly()
+    {
+        return potentialDensityAnomaly;
+    }
+
+    public void setPotentialDensityAnomaly(DataTypeResponse value)
+    {
+        this.potentialDensityAnomaly = value;
+    }
 }
