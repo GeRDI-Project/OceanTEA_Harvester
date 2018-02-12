@@ -18,9 +18,6 @@
  */
 package de.gerdiproject.harvest.oceantea.json;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 /**
  * This class represents a JSON response to an "all data types" requests, for
  * example: http://maui.se.informatik.uni-kiel.de:9090/datatypes
@@ -54,15 +51,51 @@ public final class AllDataTypesResponse
     public DataTypeResponse getDatatypeResponseByName(String name)
     {
 
-        Method getterMethod;
+        switch (name) {
+            case "conductivity":
+                return getConductivity();
 
-        try {
-            getterMethod = this.getClass().getMethod("get" + name.substring(0, 1).toUpperCase() + name.substring(1));
-            return (DataTypeResponse) getterMethod.invoke(this);
+            case "temperature":
+                return getTemperature();
 
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-                     | InvocationTargetException e) {
-            return new DataTypeResponse("unknown", "unknown");
+            case "pressure":
+                return getPressure();
+
+            case "pH":
+                return getPH();
+
+            case "fluorescence":
+                return getFluorescence();
+
+            case "turbidity":
+                return getTurbidity();
+
+            case "oxygen":
+                return getOxygen();
+
+            case "saturation":
+                return getSaturation();
+
+            case "practicalSalinity":
+                return getPracticalSalinity();
+
+            case "absoluteSalinity":
+                return getAbsoluteSalinity();
+
+            case "potentialTemperature":
+                return getPotentialTemperature();
+
+            case "conservativeTemperature":
+                return getConservativeTemperature();
+
+            case "soundSpeed":
+                return getSoundSpeed();
+
+            case "potentialDensityAnomaly":
+                return getPotentialDensityAnomaly();
+
+            default:
+                return new DataTypeResponse("unknown", "unknown");
         }
 
     }
