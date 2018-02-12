@@ -18,7 +18,7 @@
  */
 
 /**
- * This package contains classes and packages concerning a harvester micro service.
+ * This package contains classes and packages concerning the OceanTEA harvester.
  *
  * @author Ingo Thomsen
  */

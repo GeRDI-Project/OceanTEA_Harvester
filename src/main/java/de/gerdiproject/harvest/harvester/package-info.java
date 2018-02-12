@@ -18,8 +18,9 @@
  */
 
 /**
- * This package contains classes and packages with (sub)-harvester used by the
- * {@linkplain de.gerdiproject.harvest.OceanTeaContextListener}
+ * This package contains the harvester class used by
+ * {@linkplain de.gerdiproject.harvest.OceanTeaContextListener} and the package
+ * with the underlying sub harvester.
  *
  * @author Ingo Thomsen
  */

@@ -23,13 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
-
-
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
-
 import de.gerdiproject.harvest.oceantea.json.DataTypeResponse;
-
-
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesResponse;
 import de.gerdiproject.json.geo.Point;
 
@@ -38,11 +33,7 @@ import de.gerdiproject.json.geo.Point;
  * A static class for merging a {@linkplain TimeSeriesResponse} and a
  * {@linkplain DataTypeResponse}.
  *
- *
  * @author Ingo Thomsen
- *
- *
- *
  */
 final public class JsonResponsesMerger
 {
