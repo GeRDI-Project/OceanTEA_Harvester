@@ -23,7 +23,7 @@ package de.gerdiproject.harvest.oceantea.constants;
  *
  * @author Ingo Thomsen
  */
-public class OceanTeaTimeSeriesDownloaderConstants {
+final public class OceanTeaTimeSeriesDownloaderConstants {
 
 	/**
 	 * static class (therefore private constructor)

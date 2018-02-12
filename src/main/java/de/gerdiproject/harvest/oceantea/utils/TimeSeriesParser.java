@@ -21,7 +21,6 @@ package de.gerdiproject.harvest.oceantea.utils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -55,7 +54,7 @@ public class TimeSeriesParser {
 	/**
 	 * Set up an {@linkplain TimeSeries} object for parsing by downloading the
 	 * corresponding {@linkplain TimeSeriesDataset}.
-	 * 
+	 *
 	 * @param time
 	 *            series a {@linkplain TimeSeries} object
 	 */
@@ -148,6 +147,9 @@ public class TimeSeriesParser {
 		if (timeSeriesDataset.getMissingValues() > 0)
 			descriptionText += " " + timeSeriesDataset.getMissingValues() + "measurements points were missing ('NA').";
 
+
+
+
 		return Arrays.asList(
 				new Description(descriptionText, DescriptionType.Abstract, OceanTeaTimeSeriesDataCiteConstants.LANG));
 	}
@@ -172,7 +174,7 @@ public class TimeSeriesParser {
 	 * The WebLinks consist only of the ViewURL, which has a varying title, but the
 	 * actual URL is always the same, because it is not possible to control the Demo
 	 * using URL parameters.
-	 * 
+	 *
 	 * @return list of WebLinks
 	 */
 	public List<WebLink> getWebLinks() {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Stream;
 
 import de.gerdiproject.harvest.IDocument;
 import de.gerdiproject.harvest.harvester.AbstractListHarvester;
@@ -16,7 +15,6 @@ import de.gerdiproject.json.datacite.DataCiteJson;
 import de.gerdiproject.json.datacite.Description;
 import de.gerdiproject.json.datacite.Subject;
 import de.gerdiproject.json.datacite.extension.WebLink;
-import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 
 /**
  * Harvester for OceanTEA time series data
@@ -26,7 +24,7 @@ import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries> {
 
 	// parser to harvest non-constant information about time series datasets
-	private TimeSeriesParser timeSeriesParser = new TimeSeriesParser();
+	private final TimeSeriesParser timeSeriesParser = new TimeSeriesParser();
 
 	/**
 	 * Default constructor, naming the harvester and ensuring one document per

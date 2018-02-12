@@ -18,6 +18,7 @@
  */
 package de.gerdiproject.harvest.oceantea.json;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -51,15 +52,16 @@ public final class AllDataTypesResponse {
 	 */
 	public DataTypeResponse getDatatypeResponseByName(String name) {
 
+		Method getterMethod;
 		try {
-			Method getterMethod = this.getClass()
-					.getMethod("get" + name.substring(0, 1).toUpperCase() + name.substring(1));
+			getterMethod = this.getClass().getMethod("get" + name.substring(0, 1).toUpperCase() + name.substring(1));
 			return (DataTypeResponse) getterMethod.invoke(this);
 
-		} catch (Exception e) {
-
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
 			return new DataTypeResponse("unknown", "unknown");
 		}
+
 	}
 
 	//

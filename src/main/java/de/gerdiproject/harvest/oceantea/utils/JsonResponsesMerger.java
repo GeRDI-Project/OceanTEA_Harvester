@@ -35,7 +35,7 @@ import de.gerdiproject.json.geo.Point;
  *
  * @author Ingo Thomsen
  */
-public class JsonResponsesMerger {
+final public class JsonResponsesMerger {
 
 	/**
 	 * static class (therefore private constructor)

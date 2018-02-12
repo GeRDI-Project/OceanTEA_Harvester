@@ -20,10 +20,8 @@ package de.gerdiproject.harvest.oceantea.constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
-import java.util.ListIterator;
 
 import de.gerdiproject.json.datacite.Contributor;
 import de.gerdiproject.json.datacite.Creator;
@@ -46,7 +44,7 @@ import de.gerdiproject.json.datacite.nested.PersonName;
  *
  * @author Ingo Thomsen
  */
-public class OceanTeaTimeSeriesDataCiteConstants {
+final public class OceanTeaTimeSeriesDataCiteConstants {
 
 	/**
 	 * static class (therefore private constructor)
@@ -60,12 +58,11 @@ public class OceanTeaTimeSeriesDataCiteConstants {
 	//
 	// GEOMAR as standard CREATOR and CONTRIBUTOR
 	//
-	public static String GEOMAR = "GEOMAR, Kiel, Germany";
+	public static final String GEOMAR = "GEOMAR, Kiel, Germany";
 	public static final PersonName GEOMAR_PERSON = new PersonName(GEOMAR, NameType.Organisational);
 	public static final String MOLAB_PUBLICATION_LINK = "https://oceanrep.geomar.de/22245/";
-	public static final List<Creator> CREATORS = Arrays.asList(new Creator(GEOMAR_PERSON));
-	public static final List<Contributor> CONTRIBUTORS = Arrays
-			.asList(new Contributor(GEOMAR_PERSON, ContributorType.Producer));
+	public static final List<Creator> CREATORS = asUnmodifiableList(new Creator(GEOMAR_PERSON));
+	public static final List<Contributor> CONTRIBUTORS = asUnmodifiableList(new Contributor(GEOMAR_PERSON, ContributorType.Producer));
 
 	//
 	// OceanTEA demo as repository (+ GEOMAR for MoLab reference)
@@ -80,7 +77,7 @@ public class OceanTeaTimeSeriesDataCiteConstants {
 	// Format of ResourceType - there is only JSON for OceanTEA
 	//
 	public static final ResourceType RESOURCE_TYPE = new ResourceType("JSON", ResourceTypeGeneral.Dataset);
-	public static final List<String> FORMATS = Arrays.asList("text/json");
+	public static final List<String> FORMATS = asUnmodifiableList("text/json");
 
 	//
 	// description, disciples and subjects
@@ -88,8 +85,8 @@ public class OceanTeaTimeSeriesDataCiteConstants {
 	public static final List<Subject> SUBJECTS = createSubjects("MoLab", "modular ocean laboratory",
 			"underwater measurement", "oceanography");
 
-	public static final List<AbstractResearch> DISCIPLINES = Arrays.asList(ResearchDisciplineConstants.OCEANOGRAPHY);
-	public static final List<Description> DESCRIPTIONS = Arrays.asList(new Description(
+	public static final List<AbstractResearch> DISCIPLINES = asUnmodifiableList(ResearchDisciplineConstants.OCEANOGRAPHY);
+	public static final List<Description> DESCRIPTIONS = asUnmodifiableList(new Description(
 			"Underwater measurements captured by a MoLab device (modular ocean laboratory) by " + GEOMAR,
 			DescriptionType.Abstract, LANG));
 
@@ -107,6 +104,11 @@ public class OceanTeaTimeSeriesDataCiteConstants {
 	//
 	// private helper methods for List<> creation
 	//
+	@SafeVarargs
+	private static <T> List<T> asUnmodifiableList(T... listItems) {
+		return Collections.unmodifiableList(Arrays.asList(listItems));
+	}
+
 	private static List<Subject> createSubjects(String... subjectStrings) {
 		List<Subject> subjects = new ArrayList<>();
 		for (String s : subjectStrings) {

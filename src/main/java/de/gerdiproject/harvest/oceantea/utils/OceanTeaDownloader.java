@@ -19,7 +19,6 @@
 package de.gerdiproject.harvest.oceantea.utils;
 
 import java.time.Instant;
-import java.util.Collection;
 import java.util.List;
 
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDataCiteConstants;
@@ -35,12 +34,12 @@ import de.gerdiproject.harvest.utils.data.HttpRequester;
  *
  * @author Ingo Thomsen
  */
-public class OceanTeaDownloader
+final public class OceanTeaDownloader
 {
 
     private static final HttpRequester httpRequester = new HttpRequester();
 
-    /** 
+    /**
      * static class (therefore private constructor)
      */
     private OceanTeaDownloader()
