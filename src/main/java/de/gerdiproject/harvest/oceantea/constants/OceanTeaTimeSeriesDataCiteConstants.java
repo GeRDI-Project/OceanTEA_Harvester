@@ -35,6 +35,8 @@ import de.gerdiproject.json.datacite.enums.DescriptionType;
 import de.gerdiproject.json.datacite.enums.NameType;
 import de.gerdiproject.json.datacite.enums.ResourceTypeGeneral;
 import de.gerdiproject.json.datacite.extension.WebLink;
+import de.gerdiproject.json.datacite.extension.abstr.AbstractResearch;
+import de.gerdiproject.json.datacite.extension.constants.ResearchDisciplineConstants;
 import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 import de.gerdiproject.json.datacite.nested.PersonName;
 
@@ -84,10 +86,9 @@ public class OceanTeaTimeSeriesDataCiteConstants {
 	// description, disciples and subjects
 	//
 	public static final List<Subject> SUBJECTS = createSubjects("MoLab", "modular ocean laboratory",
-			"underwater measurement");
+			"underwater measurement", "oceanography");
 
-	// null; // Arrays.asList();
-	public static final List<String> DISCIPLINES = Arrays.asList("marine measurements");
+	public static final List<AbstractResearch> DISCIPLINES = Arrays.asList(ResearchDisciplineConstants.OCEANOGRAPHY);
 	public static final List<Description> DESCRIPTIONS = Arrays.asList(new Description(
 			"Underwater measurements captured by a MoLab device (modular ocean laboratory) by " + GEOMAR,
 			DescriptionType.Abstract, LANG));
