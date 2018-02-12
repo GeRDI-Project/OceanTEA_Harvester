@@ -80,7 +80,8 @@ final public class OceanTeaTimeSeriesDataCiteConstants
     // Format of ResourceType - there is only JSON for OceanTEA
     //
     public static final ResourceType RESOURCE_TYPE = new ResourceType("JSON", ResourceTypeGeneral.Dataset);
-    public static final List<String> FORMATS = asUnmodifiableList("text/json");
+    public static final String JSON_MIME_MEDIA_TYPE = "application/json";
+    public static final List<String> FORMATS = asUnmodifiableList(JSON_MIME_MEDIA_TYPE);
 
     //
     // description, disciples and subjects
@@ -100,10 +101,13 @@ final public class OceanTeaTimeSeriesDataCiteConstants
     public static final String MAIN_DOCUMENT_TITLE = "%s measurements, underwater (depth %s m) in the region '%s'";
     public static final String REASEARCH_DATA_LABEL = "%s measurements, collected underwater (depth %s m) "
                                                       + "in the open water region '%s' in %s by MoLab device";
-    public static final String DESCRIPTION = String.join(" ",
-                                                         "%s time series data (from %s to %s) with a mean of %s %s.",
-                                                         "The %s measurements are given in the JSON format and relative (in seconds) to timestamp '%s'.",
-                                                         "Data was collected in the open water region '%s': " + "geo location %s at a depth of %s m.");
+    public static final String GEO_LOCATION_AS_STRING = "(%s;%s)";
+    public static final String DESCRIPTION = "%s time series data (from %s to %s) with a mean of %s %s."
+                                             + " %s measurements are given in the JSON format - relative (in seconds) to timestamp '%s'."
+                                             + " Data was collected in the open water region '%s': " + "geo location %s at a depth of %s m.";
+    public static final String DESCRIPTION_MISSING_VALUES_SUFFIX = " %s measurements points were missing ('NA').";
+    public static final String PUBLICATION_YEAR_SIMPLE_DATE_FORMAT_STRING = "yyyy";
+    public static final String GEOLOCATION_PLACE_DESCRIPTION = "measurement region of %s";
 
     //
     // private helper methods for List<> creation

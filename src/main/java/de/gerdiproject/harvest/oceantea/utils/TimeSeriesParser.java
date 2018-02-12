@@ -96,7 +96,7 @@ public class TimeSeriesParser
                                      timeSeries.getDevice());
 
         ResearchData researchData = new ResearchData(getDownloadUrl(), label);
-        researchData.setType("application/json");
+        researchData.setType(OceanTeaTimeSeriesDataCiteConstants.JSON_MIME_MEDIA_TYPE);
 
         return Arrays.asList(researchData);
 
@@ -112,7 +112,8 @@ public class TimeSeriesParser
     {
 
         Date date = timeSeries.getReferenceDate();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy");
+        SimpleDateFormat df = new SimpleDateFormat(
+            OceanTeaTimeSeriesDataCiteConstants.PUBLICATION_YEAR_SIMPLE_DATE_FORMAT_STRING);
 
         return Short.parseShort(df.format(date));
     }
@@ -143,7 +144,8 @@ public class TimeSeriesParser
     {
 
         Point point = timeSeries.getGeoLocationPoint();
-        String geoLocationString = "(" + point.getLongitude() + ";" + point.getLatitude() + ")";
+        String geoLocationString = String.format(OceanTeaTimeSeriesDataCiteConstants.GEO_LOCATION_AS_STRING,
+                                                 point.getLongitude(), point.getLatitude());
 
         String descriptionText = String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION,
                                                timeSeries.getDataTypePrintName(), timeSeriesDataset.getStartInstant(),
@@ -152,10 +154,8 @@ public class TimeSeriesParser
                                                timeSeries.getRegionPrintName(), geoLocationString, timeSeries.getDepth());
 
         if (timeSeriesDataset.getMissingValues() > 0)
-            descriptionText += " " + timeSeriesDataset.getMissingValues() + "measurements points were missing ('NA').";
-
-
-
+            descriptionText += String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_MISSING_VALUES_SUFFIX,
+                                             timeSeriesDataset.getMissingValues());
 
         return Arrays.asList(
                    new Description(descriptionText, DescriptionType.Abstract, OceanTeaTimeSeriesDataCiteConstants.LANG));
@@ -206,7 +206,8 @@ public class TimeSeriesParser
 
         GeoLocation geoLocation = new GeoLocation();
         geoLocation.setPoint(new GeoJson(timeSeries.getGeoLocationPoint()));
-        geoLocation.setPlace("measurement region of " + timeSeries.getRegionPrintName());
+        geoLocation.setPlace(String.format(OceanTeaTimeSeriesDataCiteConstants.GEOLOCATION_PLACE_DESCRIPTION,
+                                           timeSeries.getRegionPrintName()));
 
         return Arrays.asList(geoLocation);
     }

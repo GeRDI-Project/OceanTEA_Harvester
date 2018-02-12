@@ -38,6 +38,7 @@ final public class OceanTeaTimeSeriesDownloaderConstants
     //
     public static final String TIMESERIES_URL = "timeseries/";
     public static final String DATATYPES_URL = "datatypes/";
+    public static final String NON_UNIVARIANT_TIME_SERIES = "adcp";
 
     // template string
     public static final String DATASET_DOWNLOAD_URL = OceanTeaTimeSeriesDataCiteConstants.BASE_URL + TIMESERIES_URL

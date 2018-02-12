@@ -22,6 +22,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDownloaderConstants;
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
 import de.gerdiproject.harvest.oceantea.json.DataTypeResponse;
@@ -63,8 +64,8 @@ final public class JsonResponsesMerger
 
         for (TimeSeriesResponse response : allTimeSeriesResponse.getAllTimeSeriesResponses()) {
 
-            // skipping non-time series data
-            if (response.getTsType().equalsIgnoreCase("adcp"))
+            // skipping non-univariant time series data
+            if (response.getTsType().equalsIgnoreCase(OceanTeaTimeSeriesDownloaderConstants.NON_UNIVARIANT_TIME_SERIES))
                 continue;
 
             TimeSeries timeSeries = new TimeSeries();
