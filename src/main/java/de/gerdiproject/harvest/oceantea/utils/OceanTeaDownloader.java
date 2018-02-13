@@ -29,15 +29,15 @@ import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 import de.gerdiproject.harvest.utils.data.HttpRequester;
 
 /**
- * A static class for downloading the JSON responses for data type and time series
- * metadata and the actual time series datasets.
+ * A static class for downloading the JSON responses for data type and time
+ * series metadata, and also the actual time series datasets.
  *
  * @author Ingo Thomsen
  */
-final public class OceanTeaDownloader
+public final class OceanTeaDownloader
 {
 
-    private static final HttpRequester httpRequester = new HttpRequester();
+    private static final HttpRequester HTTP_REQUESTER = new HttpRequester();
 
     /**
      * static class (therefore private constructor)
@@ -58,10 +58,11 @@ final public class OceanTeaDownloader
         String baseUrl = OceanTeaTimeSeriesDataCiteConstants.BASE_URL;
 
         String url1 = baseUrl + OceanTeaTimeSeriesDownloaderConstants.TIMESERIES_URL;
-        AllTimeSeriesResponse allTimeSeriesResponse = httpRequester.getObjectFromUrl(url1, AllTimeSeriesResponse.class);
+        AllTimeSeriesResponse allTimeSeriesResponse = HTTP_REQUESTER.getObjectFromUrl(url1,
+                                                                                      AllTimeSeriesResponse.class);
 
         String url2 = baseUrl + OceanTeaTimeSeriesDownloaderConstants.DATATYPES_URL;
-        AllDataTypesResponse allDatatypesResponse = httpRequester.getObjectFromUrl(url2, AllDataTypesResponse.class);
+        AllDataTypesResponse allDatatypesResponse = HTTP_REQUESTER.getObjectFromUrl(url2, AllDataTypesResponse.class);
 
         return JsonResponsesMerger.getAllTimeSeries(allTimeSeriesResponse, allDatatypesResponse);
     }
@@ -69,14 +70,16 @@ final public class OceanTeaDownloader
     /**
      * Download an actual dataset.
      *
-     * @param url the download URL of the time series dataset.
-     * @param referenceInstant the associated reference {@linkplain Instant}
+     * @param url
+     *            the download URL of the time series dataset.
+     * @param referenceInstant
+     *            the associated reference {@linkplain Instant}
      * @return a {@linkplain TimeSeriesDataset} object
      */
     public static TimeSeriesDataset getTimeSeriesDataset(String url, Instant referenceInstant)
     {
 
-        TimeSeriesDatasetResponse timeSeriesDatasetResponse = httpRequester.getObjectFromUrl(url,
+        TimeSeriesDatasetResponse timeSeriesDatasetResponse = HTTP_REQUESTER.getObjectFromUrl(url,
                                                               TimeSeriesDatasetResponse.class);
 
         return new TimeSeriesDataset(timeSeriesDatasetResponse, referenceInstant);

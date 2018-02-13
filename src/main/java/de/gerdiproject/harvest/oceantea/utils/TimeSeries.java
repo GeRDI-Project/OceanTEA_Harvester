@@ -47,7 +47,7 @@ public final class TimeSeries
     private Instant instant;
 
     // geolocation point combining longitude, latitude AND depth
-    Point geoLocationPoint;
+    private Point geoLocationPoint;
 
     /**
      * Get the depth of the measurement, which is the negative elevation value of

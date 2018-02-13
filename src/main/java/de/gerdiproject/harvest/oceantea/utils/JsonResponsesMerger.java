@@ -36,7 +36,7 @@ import de.gerdiproject.json.geo.Point;
  *
  * @author Ingo Thomsen
  */
-final public class JsonResponsesMerger
+public final class JsonResponsesMerger
 {
 
     /**

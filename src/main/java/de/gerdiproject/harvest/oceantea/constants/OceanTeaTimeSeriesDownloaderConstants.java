@@ -23,15 +23,8 @@ package de.gerdiproject.harvest.oceantea.constants;
  *
  * @author Ingo Thomsen
  */
-final public class OceanTeaTimeSeriesDownloaderConstants
+public final class OceanTeaTimeSeriesDownloaderConstants
 {
-
-    /**
-     * static class (therefore private constructor)
-     */
-    private OceanTeaTimeSeriesDownloaderConstants()
-    {
-    }
 
     //
     // static URLs
@@ -43,5 +36,12 @@ final public class OceanTeaTimeSeriesDownloaderConstants
     // template string
     public static final String DATASET_DOWNLOAD_URL = OceanTeaTimeSeriesDataCiteConstants.BASE_URL + TIMESERIES_URL
                                                       + "%s/%s/%s/%s";
+
+    /**
+     * static class (therefore private constructor)
+     */
+    private OceanTeaTimeSeriesDownloaderConstants()
+    {
+    }
 
 }

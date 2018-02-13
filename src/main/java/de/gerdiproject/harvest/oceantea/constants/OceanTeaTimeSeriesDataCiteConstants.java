@@ -44,15 +44,8 @@ import de.gerdiproject.json.datacite.nested.PersonName;
  *
  * @author Ingo Thomsen
  */
-final public class OceanTeaTimeSeriesDataCiteConstants
+public final class OceanTeaTimeSeriesDataCiteConstants
 {
-
-    /**
-     * static class (therefore private constructor)
-     */
-    private OceanTeaTimeSeriesDataCiteConstants()
-    {
-    }
 
     // language used for data and description
     public static final String LANG = "en-US";
@@ -108,6 +101,13 @@ final public class OceanTeaTimeSeriesDataCiteConstants
     public static final String DESCRIPTION_MISSING_VALUES_SUFFIX = " %s measurements points were missing ('NA').";
     public static final String PUBLICATION_YEAR_SIMPLE_DATE_FORMAT_STRING = "yyyy";
     public static final String GEOLOCATION_PLACE_DESCRIPTION = "measurement region of %s";
+
+    /**
+     * static class (therefore private constructor)
+     */
+    private OceanTeaTimeSeriesDataCiteConstants()
+    {
+    }
 
     //
     // private helper methods for List<> creation
