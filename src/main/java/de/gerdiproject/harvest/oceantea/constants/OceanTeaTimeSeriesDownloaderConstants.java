@@ -29,13 +29,12 @@ public final class OceanTeaTimeSeriesDownloaderConstants
     //
     // static URLs
     //
-    public static final String TIMESERIES_URL = "timeseries/";
-    public static final String DATATYPES_URL = "datatypes/";
+    public static final String TIMESERIES_URL = OceanTeaTimeSeriesDataCiteConstants.BASE_URL + "timeseries/";
+    public static final String DATATYPES_URL = OceanTeaTimeSeriesDataCiteConstants.BASE_URL + "datatypes/";
     public static final String NON_UNIVARIANT_TIME_SERIES = "adcp";
 
     // template string
-    public static final String DATASET_DOWNLOAD_URL = OceanTeaTimeSeriesDataCiteConstants.BASE_URL + TIMESERIES_URL
-                                                      + "%s/%s/%s/%s";
+    public static final String DATASET_DOWNLOAD_URL = TIMESERIES_URL + "%s/%s/%s/%s";
 
     /**
      * static class (therefore private constructor)
