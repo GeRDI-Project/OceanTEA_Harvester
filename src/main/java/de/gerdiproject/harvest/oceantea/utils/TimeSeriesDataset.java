@@ -26,116 +26,100 @@ import java.util.List;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 
 /**
- * This class represents the raw data for a time series dataset: A list of time
- * offsets and the associated values.
+ * This class represents information about a time series data set, based upon
+ * the raw data provided by a {@linkplain TimeSeriesDatasetResponse}:
  *
- * It also offers the calculated start and stop Instant plus the mean of the
- * values.
+ * Three {@link Instant)s describing the start and stop of the measurements and
+ * the reference for the time offsets. Also the total number and the number of
+ * missing values are provided, plus the arithmetic mean.
  *
  * @author Ingo Thomsen
  */
 public final class TimeSeriesDataset
 {
 
-    private List<Integer> timeOffsets = new ArrayList<>();
-    private List<Double> values = new ArrayList<>();
-    private Instant referenceInstant;
-    private int missingValues = 0;
+    private final Instant referenceInstant;
+    private final Instant startInstant;
+    private final Instant stopInstant;
+
+    private final double meanValue;
+
+    private final int numberOfValues;
+    private int numberOfMissingValues = 0;
 
     /**
-     * Constructor using a {@linkplain TimeSeriesDatasetResponse} and its reference Instant
+     * Constructor using a {@linkplain TimeSeriesDatasetResponse} and its reference
+     * {@linkplain Instant}.
      *
      * @param timeSeriesDatasetResponse
-     *            the describing {@linkplain TimeSeriesDatasetResponse}
+     *            {@linkplain TimeSeriesDatasetResponse} containing the raw values
      * @param referenceInstant
-     *            the reference {@linkplain Instant}
+     *            reference {@linkplain Instant} for the time offsets
      */
     public TimeSeriesDataset(TimeSeriesDatasetResponse timeSeriesDatasetResponse, Instant referenceInstant)
     {
 
         this.referenceInstant = referenceInstant;
 
-        for (List<String> entry : timeSeriesDatasetResponse.getData()) {
+        // extract the values and time offsets in the TimeSeriesDatasetResponse
+        List<Integer> timeOffsets = new ArrayList<>();
+        List<Double> values = new ArrayList<>();
+
+        for (List<String> pairOfTimeOffsetAndValue : timeSeriesDatasetResponse.getListOfPairsOfTimeOffsetAndValue()) {
 
             try {
-                int timeOffset = Integer.parseInt(entry.get(0));
-                double value = Double.parseDouble(entry.get(1));
+                int timeOffset = Integer.parseInt(pairOfTimeOffsetAndValue.get(0));
+                double value = Double.parseDouble(pairOfTimeOffsetAndValue.get(1));
 
                 timeOffsets.add(timeOffset);
                 values.add(value);
+
             } catch (NumberFormatException e) {
-                missingValues += 1;
-                // A missing value 'NA' is dropped from the list (but counted)
+                numberOfMissingValues++;
             }
+
         }
-    }
 
-    /**
-     * The start Instant is calculated using the minimum time offset.
-     *
-     * @return start {@linkplain Instant} for this time series.
-     */
-    public Instant getStartInstant()
-    {
-        long startEpoch = referenceInstant.getEpochSecond() + Collections.min(timeOffsets);
-        return Instant.ofEpochSecond(startEpoch);
-    }
+        // extract info from values and time offsets
+        startInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.min(timeOffsets));
+        stopInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.max(timeOffsets));
+        numberOfValues = timeOffsets.size();
+        meanValue = values.stream().mapToDouble(a -> a).average().getAsDouble();
 
-    /**
-     * The start Instant is calculated using the maximum time offset.
-     *
-     * @return stop {@linkplain Instant} for this time series.
-     */
-    public Instant getStopInstant()
-    {
-        long stopEpoch = referenceInstant.getEpochSecond() + Collections.max(timeOffsets);
-        return Instant.ofEpochSecond(stopEpoch);
-    }
-
-    /**
-     * Calculates simply the mean of of all values
-     *
-     * @return
-     */
-    public double getValuesMean()
-    {
-
-        return values.stream().mapToDouble(a -> a).average().getAsDouble();
-
-    }
-
-    /**
-     * Get number of time series values
-     *
-     * @return number of time series values
-     */
-    public int getNumberOfValues()
-    {
-        return values.size();
     }
 
     //
     // Getters
     //
 
-    public List<Integer> getTimeOffsets()
-    {
-        return timeOffsets;
-    }
-
-    public int getMissingValues()
-    {
-        return missingValues;
-    }
-
-    public List<Double> getValues()
-    {
-        return values;
-    }
-
     public Instant getReferenceInstant()
     {
         return referenceInstant;
+    }
+
+    public Instant getStartInstant()
+    {
+        return startInstant;
+    }
+
+    public Instant getStopInstant()
+    {
+        return stopInstant;
+    }
+
+    public double getMeanValue()
+    {
+        return meanValue;
+    }
+
+    public int getNumberOfValues()
+    {
+        return numberOfValues;
+    }
+
+    public int getNumberOfMissingValues()
+    {
+        return numberOfMissingValues;
     }
 
 }

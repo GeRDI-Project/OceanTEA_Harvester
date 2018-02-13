@@ -23,30 +23,29 @@ import java.util.List;
 /**
  * This class represents a JSON response to an actual request for time series
  * data, for example:
+ *
  * http://maui.se.informatik.uni-kiel.de:9090/timeseries/scalar/POS434-156/fluorescence/215
  *
- * It is a list of lists of which the latter has exactly two elements: An
- * integer for the time offset (in seconds) and a double value for the actual
- * measurement, but the String 'NA' is possible as a value. Therefore String is
- * used as type.
+ * The JSON data is represented as a list containing the pairs of time offsets
+ * (in seconds) and the corresponding values.
+ *
+ * These pairs themselves are lists with the fixed length of 2. The value can be
+ * missing (= "NA"), therefore String is used as type.
  *
  * @author Ingo Thomsen
  */
 public final class TimeSeriesDatasetResponse
 {
+
+    // This field is directly populated by GSON - accessed by name via Reflection
     private List<List<String>> data;
 
     //
     // Getter and Setter
     //
-
-    public List<List<String>> getData()
+    public List<List<String>> getListOfPairsOfTimeOffsetAndValue()
     {
         return data;
     }
 
-    public void setData(List<List<String>> value)
-    {
-        this.data = value;
-    }
 }
