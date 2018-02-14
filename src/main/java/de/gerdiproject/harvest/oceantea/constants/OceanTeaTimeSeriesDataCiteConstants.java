@@ -39,7 +39,7 @@ import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 import de.gerdiproject.json.datacite.nested.PersonName;
 
 /**
- * This static class contains constants and some template strings used for
+ * Non-instantiable utility class providing constants and some template strings used for
  * creating DataCite documents for OceanTEA.
  *
  * @author Ingo Thomsen
@@ -103,7 +103,7 @@ public final class OceanTeaTimeSeriesDataCiteConstants
     public static final String GEOLOCATION_PLACE_DESCRIPTION = "measurement region of %s";
 
     /**
-     * static class (therefore private constructor)
+     * private constructor to enforce non-instantiability
      */
     private OceanTeaTimeSeriesDataCiteConstants()
     {

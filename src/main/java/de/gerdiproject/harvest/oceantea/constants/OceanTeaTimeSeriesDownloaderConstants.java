@@ -19,7 +19,7 @@
 package de.gerdiproject.harvest.oceantea.constants;
 
 /**
- * Static class with constants for downloading metadata and data from OceanTEA.
+ * Non-instantiable utility class with constants for downloading metadata and data from OceanTEA.
  *
  * @author Ingo Thomsen
  */
@@ -37,7 +37,7 @@ public final class OceanTeaTimeSeriesDownloaderConstants
     public static final String DATASET_DOWNLOAD_URL = TIMESERIES_URL + "%s/%s/%s/%s";
 
     /**
-     * static class (therefore private constructor)
+     * private constructor to enforce non-instantiability
      */
     private OceanTeaTimeSeriesDownloaderConstants()
     {

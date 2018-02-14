@@ -19,7 +19,7 @@
 
 /**
  * This package contains the actual harvester for the Ocean TEA time series
- * data, implemented as implemented as a sub harvester of
+ * data, implemented as a sub harvester of
  * {@linkplain de.gerdiproject.harvest.harvester.OceanTeaHarvester}
  *
  * @author Ingo Thomsen

@@ -28,8 +28,8 @@ import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 import de.gerdiproject.harvest.utils.data.HttpRequester;
 
 /**
- * A static class for downloading the JSON responses for data type and time
- * series metadata, and also the actual time series datasets.
+ * Non-instantiable utility class for downloading the JSON responses for data
+ * type and time series metadata, and also the actual time series datasets.
  *
  * @author Ingo Thomsen
  */
@@ -39,7 +39,7 @@ public final class OceanTeaDownloader
     private static final HttpRequester HTTP_REQUESTER = new HttpRequester();
 
     /**
-     * static class (therefore private constructor)
+     * private constructor to enforce non-instantiability
      */
     private OceanTeaDownloader()
     {

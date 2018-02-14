@@ -31,7 +31,7 @@ import de.gerdiproject.json.geo.Point;
 
 /**
  *
- * A static class for merging a {@linkplain TimeSeriesResponse} and a
+ * Non-instantiable utility class for merging a {@linkplain TimeSeriesResponse} and a
  * {@linkplain DataTypeResponse}.
  *
  * @author Ingo Thomsen
@@ -40,7 +40,7 @@ public final class JsonResponsesMerger
 {
 
     /**
-     * static class (therefore private constructor)
+     * private constructor to enforce non-instantiability
      */
     private JsonResponsesMerger()
     {

@@ -18,7 +18,7 @@
  */
 
 /**
- * This package contains static classes providing constants and string templates
+ * Package with non-instantiable utility classes providing constants and string templates
  * related to the OceanTEA source data.
  *
  * @author Ingo Thomsen

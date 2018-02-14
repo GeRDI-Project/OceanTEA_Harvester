@@ -19,7 +19,7 @@
 
 /**
  * Classes for parsing JSON responses and providing elements for the DataCite
- * document, that is to be created.
+ * documents, that are to be created.
  *
  * @author Ingo Thomsen
  */
