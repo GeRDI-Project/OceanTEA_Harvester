@@ -31,7 +31,7 @@ import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
  *
  * Three {@link Instant)s describing the start and stop of the measurements and
  * the reference for the time offsets. Also the total number and the number of
- * missing values are provided, plus the arithmetic mean.
+ * missing values are provided.
  *
  * @author Ingo Thomsen
  */
@@ -41,8 +41,6 @@ public final class TimeSeriesDataset
     private final Instant referenceInstant;
     private final Instant startInstant;
     private final Instant stopInstant;
-
-    private final double meanValue;
 
     private final int numberOfValues;
     private int numberOfMissingValues = 0;
@@ -63,16 +61,11 @@ public final class TimeSeriesDataset
 
         // extract the values and time offsets in the TimeSeriesDatasetResponse
         List<Integer> timeOffsets = new ArrayList<>();
-        List<Double> values = new ArrayList<>();
 
         for (List<String> pairOfTimeOffsetAndValue : timeSeriesDatasetResponse.getListOfPairsOfTimeOffsetAndValue()) {
 
             try {
-                int timeOffset = Integer.parseInt(pairOfTimeOffsetAndValue.get(0));
-                double value = Double.parseDouble(pairOfTimeOffsetAndValue.get(1));
-
-                timeOffsets.add(timeOffset);
-                values.add(value);
+                timeOffsets.add(Integer.parseInt(pairOfTimeOffsetAndValue.get(0)));
 
             } catch (NumberFormatException e) {
                 numberOfMissingValues++;
@@ -84,9 +77,8 @@ public final class TimeSeriesDataset
         startInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.min(timeOffsets));
         stopInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.max(timeOffsets));
         numberOfValues = timeOffsets.size();
-        meanValue = values.stream().mapToDouble(a -> a).average().getAsDouble();
-
     }
+
 
     //
     // Getters
@@ -105,11 +97,6 @@ public final class TimeSeriesDataset
     public Instant getStopInstant()
     {
         return stopInstant;
-    }
-
-    public double getMeanValue()
-    {
-        return meanValue;
     }
 
     public int getNumberOfValues()

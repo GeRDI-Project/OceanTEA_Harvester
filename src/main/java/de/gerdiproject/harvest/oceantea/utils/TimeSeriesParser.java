@@ -149,13 +149,18 @@ public class TimeSeriesParser
 
         String descriptionText = String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION,
                                                timeSeries.getDataTypePrintName(), timeSeriesDataset.getStartInstant(),
-                                               timeSeriesDataset.getStopInstant(), timeSeriesDataset.getMeanValue(), timeSeries.getDataTypeUnit(),
+                                               timeSeriesDataset.getStopInstant(),
                                                timeSeriesDataset.getNumberOfValues(), timeSeries.getReferenceInstant(),
                                                timeSeries.getRegionPrintName(), geoLocationString, timeSeries.getDepth());
 
         if (timeSeriesDataset.getNumberOfMissingValues() > 0)
             descriptionText += String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_MISSING_VALUES_SUFFIX,
                                              timeSeriesDataset.getNumberOfMissingValues());
+
+        if (! timeSeries.getDataTypeUnit().equals(""))
+            descriptionText += String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_MEASUREMENT_UNIT_SUFFIX,
+                                             timeSeries.getDataTypeUnit());
+
 
         return Arrays.asList(
                    new Description(descriptionText, DescriptionType.Abstract, OceanTeaTimeSeriesDataCiteConstants.LANG));
