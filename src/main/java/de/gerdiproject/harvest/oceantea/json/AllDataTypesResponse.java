@@ -50,7 +50,6 @@ public final class AllDataTypesResponse
      */
     public DataTypeResponse getDatatypeResponseByName(String name)
     {
-
         switch (name) {
             case "conductivity":
                 return getConductivity();

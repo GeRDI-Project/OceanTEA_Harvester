@@ -79,6 +79,7 @@ public final class OceanTeaTimeSeriesDataCiteConstants
     //
     // description, disciples and subjects
     //
+    public static final String SUBJECT_MOLAB_PREFIX = "MoLab ";
     public static final List<Subject> SUBJECTS = createSubjects("MoLab", "modular ocean laboratory",
                                                                 "underwater measurement", "oceanography");
 

@@ -49,15 +49,14 @@ import de.gerdiproject.json.geo.Point;
 public class TimeSeriesParser
 {
 
-    private TimeSeries timeSeries;
+    private TimeSeries        timeSeries;
     private TimeSeriesDataset timeSeriesDataset;
 
     /**
      * Set up an {@linkplain TimeSeries} object for parsing by downloading the
      * corresponding {@linkplain TimeSeriesDataset}.
      *
-     * @param time
-     *            series a {@linkplain TimeSeries} object
+     * @param time series a {@linkplain TimeSeries} object
      */
     public void setTimeSeries(TimeSeries timeSeries)
     {
@@ -73,11 +72,13 @@ public class TimeSeriesParser
      */
     public String getDownloadUrl()
     {
-
         // For the link an integer depth must be inserted without ".0"
         String depthString = Integer.toString((int) timeSeries.getDepth());
         String url = String.format(OceanTeaTimeSeriesDownloaderConstants.DATASET_DOWNLOAD_URL,
-                                   timeSeries.getTimeSeriesType(), timeSeries.getStation(), timeSeries.getDataType(), depthString);
+                                   timeSeries.getTimeSeriesType(),
+                                   timeSeries.getStation(),
+                                   timeSeries.getDataType(),
+                                   depthString);
 
         return url;
     }
@@ -90,16 +91,16 @@ public class TimeSeriesParser
      */
     public List<ResearchData> getResearchDataList()
     {
-
         String label = String.format(OceanTeaTimeSeriesDataCiteConstants.REASEARCH_DATA_LABEL,
-                                     timeSeries.getDataTypePrintName(), timeSeries.getDepth(), timeSeries.getRegionPrintName(),
+                                     timeSeries.getDataTypePrintName(),
+                                     timeSeries.getDepth(),
+                                     timeSeries.getRegionPrintName(),
                                      timeSeries.getDevice());
 
         ResearchData researchData = new ResearchData(getDownloadUrl(), label);
         researchData.setType(OceanTeaTimeSeriesDataCiteConstants.JSON_MIME_MEDIA_TYPE);
 
         return Arrays.asList(researchData);
-
     }
 
     /**
@@ -110,7 +111,6 @@ public class TimeSeriesParser
      */
     public short getPublicationYear()
     {
-
         Date date = timeSeries.getReferenceDate();
         SimpleDateFormat df = new SimpleDateFormat(
             OceanTeaTimeSeriesDataCiteConstants.PUBLICATION_YEAR_SIMPLE_DATE_FORMAT_STRING);
@@ -125,9 +125,8 @@ public class TimeSeriesParser
      */
     public List<Subject> getSubjectsStrings()
     {
-
         List<Subject> subjectList = new ArrayList<>();
-        subjectList.add(new Subject("MoLab " + timeSeries.getDevice()));
+        subjectList.add(new Subject(OceanTeaTimeSeriesDataCiteConstants.SUBJECT_MOLAB_PREFIX + timeSeries.getDevice()));
         subjectList.add(new Subject(timeSeries.getDataTypePrintName()));
         subjectList.add(new Subject(timeSeries.getStation()));
         subjectList.add(new Subject(timeSeries.getRegionPrintName()));
@@ -142,28 +141,31 @@ public class TimeSeriesParser
      */
     public List<Description> getDescription()
     {
-
         Point point = timeSeries.getGeoLocationPoint();
         String geoLocationString = String.format(OceanTeaTimeSeriesDataCiteConstants.GEO_LOCATION_AS_STRING,
-                                                 point.getLongitude(), point.getLatitude());
+                                                 point.getLongitude(),
+                                                 point.getLatitude());
 
         String descriptionText = String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION,
-                                               timeSeries.getDataTypePrintName(), timeSeriesDataset.getStartInstant(),
+                                               timeSeries.getDataTypePrintName(),
+                                               timeSeriesDataset.getStartInstant(),
                                                timeSeriesDataset.getStopInstant(),
-                                               timeSeriesDataset.getNumberOfValues(), timeSeries.getReferenceInstant(),
-                                               timeSeries.getRegionPrintName(), geoLocationString, timeSeries.getDepth());
+                                               timeSeriesDataset.getNumberOfValues(),
+                                               timeSeries.getReferenceInstant(),
+                                               timeSeries.getRegionPrintName(),
+                                               geoLocationString,
+                                               timeSeries.getDepth());
 
         if (timeSeriesDataset.getNumberOfMissingValues() > 0)
             descriptionText += String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_MISSING_VALUES_SUFFIX,
                                              timeSeriesDataset.getNumberOfMissingValues());
 
-        if (! timeSeries.getDataTypeUnit().equals(""))
+        if (!timeSeries.getDataTypeUnit().isEmpty())
             descriptionText += String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_MEASUREMENT_UNIT_SUFFIX,
                                              timeSeries.getDataTypeUnit());
 
-
-        return Arrays.asList(
-                   new Description(descriptionText, DescriptionType.Abstract, OceanTeaTimeSeriesDataCiteConstants.LANG));
+        return Arrays.asList(new Description(descriptionText, DescriptionType.Abstract,
+                                             OceanTeaTimeSeriesDataCiteConstants.LANG));
     }
 
     /**
@@ -173,9 +175,10 @@ public class TimeSeriesParser
      */
     public Title getMainTitle()
     {
-
         String titleText = String.format(OceanTeaTimeSeriesDataCiteConstants.MAIN_DOCUMENT_TITLE,
-                                         timeSeries.getDataTypePrintName(), timeSeries.getDepth(), timeSeries.getRegionPrintName());
+                                         timeSeries.getDataTypePrintName(),
+                                         timeSeries.getDepth(),
+                                         timeSeries.getRegionPrintName());
 
         Title title = new Title(titleText);
         title.setLang(OceanTeaTimeSeriesDataCiteConstants.LANG);
@@ -192,7 +195,6 @@ public class TimeSeriesParser
      */
     public List<WebLink> getWebLinks()
     {
-
         WebLink webLink = new WebLink(OceanTeaTimeSeriesDataCiteConstants.VIEW_URL);
         webLink.setName(getMainTitle().getValue());
         webLink.setType(WebLinkType.ViewURL);
@@ -208,7 +210,6 @@ public class TimeSeriesParser
      */
     public List<GeoLocation> getGeoLocations()
     {
-
         GeoLocation geoLocation = new GeoLocation();
         geoLocation.setPoint(new GeoJson(timeSeries.getGeoLocationPoint()));
         geoLocation.setPlace(String.format(OceanTeaTimeSeriesDataCiteConstants.GEOLOCATION_PLACE_DESCRIPTION,
@@ -225,7 +226,6 @@ public class TimeSeriesParser
      */
     public List<AbstractDate> getDates()
     {
-
         long epochMilliSince = timeSeriesDataset.getStartInstant().getEpochSecond() * 1000;
         long epochMilliUntil = timeSeriesDataset.getStopInstant().getEpochSecond() * 1000;
 
@@ -233,5 +233,4 @@ public class TimeSeriesParser
 
         return Arrays.asList(dateRange);
     }
-
 }

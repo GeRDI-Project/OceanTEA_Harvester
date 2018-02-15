@@ -56,22 +56,18 @@ public final class TimeSeriesDataset
      */
     public TimeSeriesDataset(TimeSeriesDatasetResponse timeSeriesDatasetResponse, Instant referenceInstant)
     {
-
         this.referenceInstant = referenceInstant;
 
         // extract the values and time offsets in the TimeSeriesDatasetResponse
         List<Integer> timeOffsets = new ArrayList<>();
 
-        for (List<String> pairOfTimeOffsetAndValue : timeSeriesDatasetResponse.getListOfPairsOfTimeOffsetAndValue()) {
-
+        for (List<String> pairOfTimeOffsetAndValue : timeSeriesDatasetResponse.getListOfPairsOfTimeOffsetAndValue())
             try {
                 timeOffsets.add(Integer.parseInt(pairOfTimeOffsetAndValue.get(0)));
 
             } catch (NumberFormatException e) {
                 numberOfMissingValues++;
             }
-
-        }
 
         // extract info from values and time offsets
         startInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.min(timeOffsets));

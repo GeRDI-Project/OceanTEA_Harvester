@@ -53,7 +53,6 @@ public final class OceanTeaDownloader
      */
     public static List<TimeSeries> getAllTimeSeries()
     {
-
         AllTimeSeriesResponse allTimeSeriesResponse = HTTP_REQUESTER
                                                       .getObjectFromUrl(OceanTeaTimeSeriesDownloaderConstants.TIMESERIES_URL, AllTimeSeriesResponse.class);
 
@@ -74,7 +73,6 @@ public final class OceanTeaDownloader
      */
     public static TimeSeriesDataset getTimeSeriesDataset(String url, Instant referenceInstant)
     {
-
         TimeSeriesDatasetResponse timeSeriesDatasetResponse = HTTP_REQUESTER.getObjectFromUrl(url,
                                                               TimeSeriesDatasetResponse.class);
 

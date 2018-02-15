@@ -39,14 +39,12 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
     @Override
     protected Collection<TimeSeries> loadEntries()
     {
-
         return OceanTeaDownloader.getAllTimeSeries();
     }
 
     @Override
     protected List<IDocument> harvestEntry(TimeSeries timeSeries)
     {
-
         // specify the TimeSeries object for parsing
         timeSeriesParser.setTimeSeries(timeSeries);
 
@@ -94,4 +92,5 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
 
         return Arrays.asList(document);
     }
+
 }

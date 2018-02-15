@@ -59,7 +59,6 @@ public final class JsonResponsesMerger
     public static List<TimeSeries> getAllTimeSeries(AllTimeSeriesResponse allTimeSeriesResponse,
                                                     AllDataTypesResponse allDatatypesResponse)
     {
-
         List<TimeSeries> result = new ArrayList<>();
 
         for (TimeSeriesResponse response : allTimeSeriesResponse.getAllTimeSeriesResponses()) {
@@ -98,6 +97,5 @@ public final class JsonResponsesMerger
         }
 
         return result;
-
     }
 }
