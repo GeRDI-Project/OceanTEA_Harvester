@@ -22,6 +22,7 @@
 		A restful harvester for the TimeSeries data provided
 		by the OceanTEA demo at http://maui.se.informatik.uni-kiel.de:9090/
 	</description>
+	<inceptionYear>2018</inceptionYear>
 
 	<developers>
 		<developer>
