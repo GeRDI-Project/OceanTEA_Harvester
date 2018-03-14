@@ -1,9 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	 
-	 <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>de.gerdi-project</groupId>
@@ -17,7 +16,7 @@
 	<packaging>war</packaging>
 
 	<name>OceanTEA Harvester Service</name>
-	
+
 	<description>
 		A restful harvester for the TimeSeries data provided
 		by the OceanTEA demo at http://maui.se.informatik.uni-kiel.de:9090/
@@ -39,4 +38,132 @@
 			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 		</repository>
 	</repositories>
+
+
+	<!-- Dependendcies for BDD testing --> 
+	<dependencies>
+
+		<dependency>
+			<groupId>com.tngtech.jgiven</groupId>
+			<artifactId>jgiven-junit</artifactId>
+			<version>0.15.3</version>
+			<scope>test</scope>
+
+
+			<!--
+		<systemProperties>
+		    <property>
+			<name>/log4j.configuration</name>
+			<value>logback.xml</value>
+		    </property>
+		</systemProperties>
+-->
+
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.9.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tngtech.java</groupId>
+			<artifactId>junit-dataprovider</artifactId>
+			<version>1.10.0</version>
+			<scope>test</scope>
+		</dependency>
+
+<!-- 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+ -->
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<!-- configuring surefire to run BBD tests -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.21.0</version>
+				<configuration>
+
+					<!--					<testFailureIgnore>true</testFailureIgnore> -->
+
+					<systemPropertyVariables combine.children="append">
+						<jgiven.report.text>true</jgiven.report.text>
+						<jgiven.report.dir>${project.build.directory}/bdd-reports/json</jgiven.report.dir>
+					</systemPropertyVariables>					
+
+					<includes>
+						<include>**/bdd/scenarios/**.java</include>
+					</includes>
+				</configuration>
+			</plugin>			
+
+			<plugin>
+				<groupId>com.tngtech.jgiven</groupId>
+				<artifactId>jgiven-maven-plugin</artifactId>
+				<version>0.15.3</version>
+				<executions>
+					<execution>
+						<phase>surefire-report</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<format>html</format>
+					<title>${project.name}: BDD Report</title>
+					<sourceDirectory> ${project.build.directory}/bdd-reports/json</sourceDirectory>
+					<outputDirectory> ${project.build.directory}/bdd-reports/html</outputDirectory>
+					<!--					<ignoreResultFailures>true</ignoreResultFailures> -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
+
+<!--
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.1.0</version>
+			<scope>test</scope>
+		</dependency>
+		-->
+
+
+		<!--
+		<dependency>
+			<groupId>com.tngtech.jgiven</groupId>
+			<artifactId>jgiven-junit5</artifactId>
+			<version>0.15.3</version>
+			<scope>test</scope>
+		</dependency>
+		-->
+
+
