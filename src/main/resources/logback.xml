@@ -1,0 +1,4 @@
+<configuration>
+    <!-- based upon info from: https://logback.qos.ch/manual/configuration.html -->
+    <root level="info"/>
+</configuration>
