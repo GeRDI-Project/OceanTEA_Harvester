@@ -56,7 +56,7 @@ public final class OceanTeaDownloader
         AllDataTypesResponse allDatatypesResponse = HTTP_REQUESTER
                                                     .getObjectFromUrl(OceanTeaTimeSeriesDownloaderConstants.DATATYPES_URL, AllDataTypesResponse.class);
 
-        // Workaround: Setting one missing unit, which is not given by the OceanTEA (demo) site
+        // WORKAROUND: Setting manually one missing unit, which is not given by the OceanTEA (demo) site
         allDatatypesResponse.getPotentialDensityAnomaly().setUnit("kg/m^3");
 
         return JsonResponsesMerger.getAllTimeSeries(allTimeSeriesResponse, allDatatypesResponse);
