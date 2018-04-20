@@ -20,6 +20,8 @@ import java.util.Date;
 
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
+import de.gerdiproject.harvest.utils.HashGenerator;
+import de.gerdiproject.json.GsonUtils;
 import de.gerdiproject.json.geo.Point;
 
 /**
@@ -78,124 +80,160 @@ public final class TimeSeries
         return geoLocationPoint;
     }
 
+
     public void setGeoLocationPoint(Point geoLocationPoint)
     {
         this.geoLocationPoint = geoLocationPoint;
     }
+
 
     public String getTimeSeriesType()
     {
         return timeSeriesType;
     }
 
+
     public void setTimeSeriesType(String timeSeriesType)
     {
         this.timeSeriesType = timeSeriesType;
     }
+
 
     public double getLatitude()
     {
         return geoLocationPoint.getLatitude();
     }
 
+
     public void setLatitude(double latitude)
     {
         this.geoLocationPoint.setLatitude(latitude);
     }
+
 
     public double getLongitude()
     {
         return geoLocationPoint.getLongitude();
     }
 
+
     public void setLongitude(double longitude)
     {
         this.geoLocationPoint.setLongitude(longitude);
     }
+
 
     public String getRegion()
     {
         return region;
     }
 
+
     public void setRegion(String value)
     {
         this.region = value;
     }
+
 
     public String getRegionPrintName()
     {
         return regionPrintName;
     }
 
+
     public void setRegionPrintName(String value)
     {
         this.regionPrintName = value;
     }
+
 
     public String getDevice()
     {
         return device;
     }
 
+
     public void setDevice(String value)
     {
         this.device = value;
     }
+
 
     public String getStation()
     {
         return station;
     }
 
+
     public void setStation(String value)
     {
         this.station = value;
     }
+
 
     public String getDataType()
     {
         return dataType;
     }
 
+
     public void setDataType(String value)
     {
         this.dataType = value;
     }
+
 
     public String getDataTypePrintName()
     {
         return dataTypePrintName;
     }
 
+
     public void setDataTypePrintName(String dataTypePrintName)
     {
         this.dataTypePrintName = dataTypePrintName;
     }
+
 
     public String getDataTypeUnit()
     {
         return dataTypeUnit;
     }
 
+
     public void setDataTypeUnit(String dataTypeUnit)
     {
         this.dataTypeUnit = dataTypeUnit;
     }
+
 
     public Date getReferenceDate()
     {
         return Date.from(instant);
     }
 
+
     public Instant getReferenceInstant()
     {
         return instant;
     }
+
 
     public void setReferenceInstant(Instant instant)
     {
         this.instant = instant;
     }
 
+
+    /**
+     * Creates a hash value from the JSON representation of this class. Since
+     * existing timeseries are not updated in OceanTea, this serves as a unique
+     * identifier.
+     *
+     * @return an unique identifier of the timeseries within OceanTea
+     */
+    public String createIdentifier()
+    {
+        return HashGenerator.instance().getShaHash(GsonUtils.getGson().toJson(this, TimeSeries.class));
+    }
 }
