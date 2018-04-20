@@ -42,6 +42,7 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
     // parser to harvest non-constant information about time series datasets
     private final TimeSeriesParser timeSeriesParser = new TimeSeriesParser();
 
+
     /**
      * Default constructor, naming the harvester and ensuring one document per
      * harvested entry
@@ -51,11 +52,13 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
         super("OceanTEA - Time Series", 1);
     }
 
+
     @Override
     protected Collection<TimeSeries> loadEntries()
     {
         return OceanTeaDownloader.getAllTimeSeries();
     }
+
 
     @Override
     protected List<IDocument> harvestEntry(TimeSeries timeSeries)
@@ -64,7 +67,7 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
         timeSeriesParser.setTimeSeries(timeSeries);
 
         // create the document
-        DataCiteJson document = new DataCiteJson();
+        DataCiteJson document = new DataCiteJson(timeSeries.createIdentifier());
 
         //
         // derived from constants
