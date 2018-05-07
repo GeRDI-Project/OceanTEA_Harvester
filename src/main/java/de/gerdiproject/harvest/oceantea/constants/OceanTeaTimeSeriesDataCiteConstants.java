@@ -53,6 +53,7 @@ public final class OceanTeaTimeSeriesDataCiteConstants
     public static final String GEOMAR = "GEOMAR, Kiel, Germany";
     public static final PersonName GEOMAR_PERSON = new PersonName(GEOMAR, NameType.Organisational);
     public static final String MOLAB_PUBLICATION_LINK = "https://oceanrep.geomar.de/22245/";
+    public static final String OCEANTEA_LOGO_URL = "http://www.se.informatik.uni-kiel.de/en/research/pictures/research-projects/oceantea-logo.png";
     public static final List<Creator> CREATORS = asUnmodifiableList(new Creator(GEOMAR_PERSON));
     public static final List<Contributor> CONTRIBUTORS = asUnmodifiableList(
                                                              new Contributor(GEOMAR_PERSON, ContributorType.Producer));
@@ -63,8 +64,11 @@ public final class OceanTeaTimeSeriesDataCiteConstants
     public static final String BASE_URL = "http://maui.se.informatik.uni-kiel.de:9090/";
     public static final String PROVIDER = "OceanTEA demo, Software Engineering Informatik, Kiel University";
     public static final String REPOSITORY_ID = "OCEANTEA";
-    public static final List<WebLink> WEB_LINKS = createRelatedWebLinks(MOLAB_PUBLICATION_LINK);
     public static final String VIEW_URL = BASE_URL;
+    public static final List<WebLink> WEB_LINKS = asUnmodifiableList(
+                                                      createTypedWebLink(MOLAB_PUBLICATION_LINK, WebLinkType.Related),
+                                                      createTypedWebLink(OCEANTEA_LOGO_URL, WebLinkType.ProviderLogoURL)
+                                                  );
 
     //
     // Format of ResourceType - there is only JSON for OceanTEA
@@ -117,6 +121,14 @@ public final class OceanTeaTimeSeriesDataCiteConstants
         return Collections.unmodifiableList(Arrays.asList(listItems));
     }
 
+    private static WebLink createTypedWebLink(String url, WebLinkType type)
+    {
+
+        WebLink wl = new WebLink(url);
+        wl.setType(type);
+        return wl;
+    }
+
     private static List<Subject> createSubjects(String... subjectStrings)
     {
         List<Subject> subjects = new ArrayList<>();
@@ -127,18 +139,4 @@ public final class OceanTeaTimeSeriesDataCiteConstants
         return subjects;
     }
 
-    private static List<WebLink> createRelatedWebLinks(String... urls)
-    {
-
-        List<WebLink> webLinks = new ArrayList<>();
-
-        for (String u : urls) {
-            WebLink webLink = new WebLink(u);
-            webLink.setType(WebLinkType.Related);
-            webLinks.add(webLink);
-        }
-
-        return webLinks;
-
-    }
 }
