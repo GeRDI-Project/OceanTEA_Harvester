@@ -1,4 +1,19 @@
 /**
+ * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
 , * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,7 +59,6 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
     // parser to harvest non-constant information about time series datasets
     private final TimeSeriesParser timeSeriesParser = new TimeSeriesParser();
 
-
     /**
      * Default constructor, naming the harvester and ensuring one document per
      * harvested entry
@@ -54,22 +68,19 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
         super("OceanTEA - Time Series", 1);
     }
 
-
     @Override
     protected Collection<TimeSeries> loadEntries()
     {
         return OceanTeaDownloader.getAllTimeSeries();
     }
 
-
     @Override
     protected String initHash() throws NoSuchAlgorithmException, NullPointerException
     {
-        // OceanTea entries are not altered. If timeseries are modified, new ones were added
-        // thus the number of documents suffices to check for changes
+        // OceanTea entries are not altered. If timeseries are modified, new ones were
+        // added thus the number of documents suffices to check for changes
         return HashGenerator.instance().getShaHash(String.valueOf(entries.size()));
     }
-
 
     @Override
     protected List<IDocument> harvestEntry(TimeSeries timeSeries)
@@ -78,7 +89,11 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
         timeSeriesParser.setTimeSeries(timeSeries);
 
         // create the document
-        DataCiteJson document = new DataCiteJson(timeSeries.createIdentifier());
+
+        // This a temporary workaround for problems when creating a unique identifier
+        // in the harvester library based upon geolocations
+        // DataCiteJson document = new DataCiteJson(timeSeries.createIdentifier());
+        DataCiteJson document = new DataCiteJson(String.valueOf(timeSeries.hashCode()));
 
         //
         // derived from constants
