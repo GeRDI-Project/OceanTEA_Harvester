@@ -45,6 +45,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     DataCiteJson dataCiteJson;
 
     @BeforeStage
+    @SuppressWarnings("PMD.UnusedPrivateMethod") // This method IS called via @BeforeStage
     private void extractDataCiteJsonFromFirstEntry()
     {
         dataCiteJson = (DataCiteJson) resultingIDocuments.get(0);

@@ -65,12 +65,14 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
     }
 
     @BeforeStage
+    @SuppressWarnings("PMD.EmptyCatchBlock") // There is really nothing to do if already initialized
     public void prepareHarvesterLibaryForMockAccess()
     {
         // ensure GsonUtils are initialized
         try {
             GsonUtils.init(new GsonBuilder());
-        } catch (IllegalStateException e) {}
+        } catch (IllegalStateException e) {
+        }
 
         // create a mock HttpRequester for intercepting JSON requests
         HttpRequester mockHttpRequester = Mockito.mock(HttpRequester.class);
@@ -94,15 +96,14 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
         List<IDocument> harvestedDocuments = new ArrayList<>();
 
         @Override
+        @SuppressWarnings("PMD.EmptyCatchBlock") // With the mock data the is always one document
         public void init()
         {
             super.init();
 
             try {
                 harvestInternal(0, getMaxNumberOfDocuments());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            } catch (Exception e) {}
         }
 
         @Override

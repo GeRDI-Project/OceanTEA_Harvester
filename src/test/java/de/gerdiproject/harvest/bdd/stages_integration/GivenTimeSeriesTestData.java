@@ -22,6 +22,7 @@ import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import com.tngtech.jgiven.attachment.Attachment;
 import com.tngtech.jgiven.attachment.MediaType;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals") // The representation is not the best anyway
 class mockJsonResponses
 {
     // @formatter:off
