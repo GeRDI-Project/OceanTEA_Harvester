@@ -67,9 +67,15 @@ public final class TimeSeriesDataset
             }
 
         // extract info from values and time offsets
-        startInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.min(timeOffsets));
-        stopInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.max(timeOffsets));
         numberOfValues = timeOffsets.size();
+
+        if (numberOfValues > 0) {
+            startInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.min(timeOffsets));
+            stopInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.max(timeOffsets));
+        } else {
+            startInstant = referenceInstant;
+            stopInstant = referenceInstant;
+        }
     }
 
 
