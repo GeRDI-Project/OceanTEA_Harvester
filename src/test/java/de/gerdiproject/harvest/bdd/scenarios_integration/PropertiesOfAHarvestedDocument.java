@@ -41,7 +41,7 @@ public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeries
     // formatter:off
     @DataProvider(value = {
         "repositoryIdentifier | OCEANTEA",
-        "publisher            | OceanTEA demo, Software Engineering Informatik, Kiel University",
+        "publisher            | OceanTEA demo, Software Engineering, Computer Science, Kiel University",
     }, splitBy = "\\|", trimValues = true)
     // formatter:on
     public void genericDataCiteProperties(String propertyName, String stringValue)
