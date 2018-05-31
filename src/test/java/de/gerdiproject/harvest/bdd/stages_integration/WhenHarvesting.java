@@ -119,7 +119,7 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
         }
     }
 
-    public WhenHarvesting harvest()
+    public WhenHarvesting harvested()
     {
         TimeSeriesHarvesterForTesting harvester = new TimeSeriesHarvesterForTesting();
 

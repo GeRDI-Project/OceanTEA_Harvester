@@ -25,9 +25,6 @@ import de.gerdiproject.harvest.bdd.stages_integration.WhenHarvesting;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.TagIntegrationTest;
 
-//@PrepareForTest({
-//    OceanTeaDownloader.class
-//})
 @Issue("SAI-312")
 @TagIntegrationTest
 public class HarvestedDocumentForSingleTimeSeriesDataSet extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingIDocuments>
@@ -36,7 +33,7 @@ public class HarvestedDocumentForSingleTimeSeriesDataSet extends ScenarioTest<Gi
     public void OneConductivityTimeSeriesDataset()
     {
         given().one_conductivity_time_series_data_set();
-        when().harvest();
+        when().harvested();
         then().one_resulting_document();
     }
 }

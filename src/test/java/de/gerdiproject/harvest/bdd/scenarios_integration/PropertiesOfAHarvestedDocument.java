@@ -37,8 +37,8 @@ import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 @RunWith(DataProviderRunner.class)
 public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingDataCiteProperties>
 {
-    @Test
     // formatter:off
+    @Test
     @DataProvider(value = {
         "repositoryIdentifier | OCEANTEA",
         "publisher            | OceanTEA demo, Software Engineering, Computer Science, Kiel University",
@@ -48,16 +48,14 @@ public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeries
     {
         // formatter:off
         given().a_random_time_series_data_set();
-        when().harvest();
-        then().resourceType_is_$_of_type_$("JSON", ResourceTypeGeneral.Dataset).
 
+        when().harvested();
+
+        then().the_name_of_resourceType_is_$_and_the_ResourceTypeGeneral_is_$("JSON", ResourceTypeGeneral.Dataset).
         and ().webLinks_contains(WebLinkType.ProviderLogoURL,
-                                 "http://www.se.informatik.uni-kiel.de/en/research/pictures/research-projects/oceantea-logo.png")
-        .
-
+                                 "http://www.se.informatik.uni-kiel.de/en/research/pictures/research-projects/oceantea-logo.png").
         and ().webLinks_contains(WebLinkType.Related, "https://oceanrep.geomar.de/22245/").
-
-        and ().string_$_is_$(propertyName, stringValue);
+        and ().DataCite_string_property_$_is_$(propertyName, stringValue);
         // formatter:on
     }
 
@@ -66,7 +64,7 @@ public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeries
     {
         // formatter:off
         given().one_conductivity_time_series_data_set();
-        when().harvest();
+        when().harvested();
         then().one_title_is("Conductivity measurements, underwater (depth 215.0 m) in the region 'Northern Norway'")
         .and().one_geolocation_is_$_$_$(70.2681, 22.4749666666667, -215.0);
         // formatter:on

@@ -74,11 +74,12 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
         timeSeriesParser.setTimeSeries(timeSeries);
 
         // create the document
-
-        // This a temporary workaround for problems when creating a unique identifier
-        // in the harvester library based upon geolocations
-        // DataCiteJson document = new DataCiteJson(timeSeries.createIdentifier());
         DataCiteJson document = new DataCiteJson(String.valueOf(timeSeries.hashCode()));
+
+        // The above is a temporary workaround for calling a non-exisiting constructor
+        // which is being fixed in SAI-209. This will be the correct line later (again):
+        //
+        // DataCiteJson document = new DataCiteJson(timeSeries.createIdentifier());
 
         //
         // derived from constants
