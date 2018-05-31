@@ -51,7 +51,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
         dataCiteJson = (DataCiteJson) resultingIDocuments.get(0);
     }
 
-    public ThenResultingDataCiteProperties resourceType_is_$_of_type_$(String value, ResourceTypeGeneral dataset)
+    public ThenResultingDataCiteProperties the_name_of_resourceType_is_$_and_the_ResourceTypeGeneral_is_$(String value, ResourceTypeGeneral dataset)
     {
         ResourceType resourceType = dataCiteJson.getResourceType();
 
@@ -61,8 +61,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
         return self();
     }
 
-    @As("'$':")
-    public ThenResultingDataCiteProperties string_$_is_$(String propertyName, String value)
+    public ThenResultingDataCiteProperties DataCite_string_property_$_is_$(String propertyName, String value)
     {
         //
         // Get the value from the dataCiteJson, assuming a Bean-like getter like
