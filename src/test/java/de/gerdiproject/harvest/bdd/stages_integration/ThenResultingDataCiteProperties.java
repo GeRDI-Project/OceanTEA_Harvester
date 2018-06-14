@@ -16,25 +16,28 @@
 package de.gerdiproject.harvest.bdd.stages_integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 import com.tngtech.jgiven.Stage;
-import com.tngtech.jgiven.annotation.As;
 import com.tngtech.jgiven.annotation.BeforeStage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 
 import de.gerdiproject.harvest.IDocument;
+import de.gerdiproject.json.datacite.Contributor;
+import de.gerdiproject.json.datacite.Creator;
 import de.gerdiproject.json.datacite.DataCiteJson;
-import de.gerdiproject.json.datacite.GeoLocation;
+import de.gerdiproject.json.datacite.Description;
 import de.gerdiproject.json.datacite.ResourceType;
-import de.gerdiproject.json.datacite.enums.ResourceTypeGeneral;
+import de.gerdiproject.json.datacite.Subject;
+import de.gerdiproject.json.datacite.Title;
+import de.gerdiproject.json.datacite.abstr.AbstractDate;
+import de.gerdiproject.json.datacite.extension.ResearchData;
 import de.gerdiproject.json.datacite.extension.WebLink;
-import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 import de.gerdiproject.json.geo.Point;
 
 /**
@@ -58,78 +61,142 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
         dataCiteJSON = (DataCiteJson) resultingIDocuments.get(0);
     }
 
-    public ThenResultingDataCiteProperties the_name_of_resourceType_is_$_and_the_ResourceTypeGeneral_is_$(String value, ResourceTypeGeneral dataset)
+    public ThenResultingDataCiteProperties the_DataCite_property_$_is_$(String propertyName, Object... values)
     {
-        ResourceType resourceType = dataCiteJson.getResourceType();
 
-        assertThat(resourceType.getValue()).isEqualTo(value);
-        assertThat(resourceType.getGeneralType()).isEqualTo(dataset);
+        switch (propertyName) {
 
-        return self();
-    }
+            case "resource type":
+                // excepts a ResourceTypeGeneral and a string description
 
-    public ThenResultingDataCiteProperties DataCite_string_property_$_is_$(String propertyName, String value)
-    {
-        //
-        // Get the value from the dataCiteJson, assuming a Bean-like getter like
-        // getProperty()
-        //
-        String actualValue = "";
+                ResourceType resourceType = dataCiteJSON.getResourceType();
 
-        String getterMethodName = "get" + propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+                assertThat(resourceType.getGeneralType()).isEqualTo(values[0]);
+                assertThat(resourceType.getValue()).isEqualTo(values[1]);
 
-        try {
-            Method getterMethod = DataCiteJson.class.getDeclaredMethod(getterMethodName);
-            actualValue = (String) getterMethod.invoke(dataCiteJson);
+                break;
 
-        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            throw new AssertionError(
-                "Cannot access property '" + propertyName + "' of dataCiteJson using method *" + getterMethodName + "()'");
+            case "repository identifier":
+                // expects a string
+
+                assertThat(dataCiteJSON.getRepositoryIdentifier()).isEqualTo(values[0]);
+                break;
+
+            case "publisher":
+                // expects a string
+
+                assertThat(dataCiteJSON.getPublisher()).isEqualTo(values[0]);
+                break;
+
+            case "year":
+                // expects a year (e. g. 2012) as int
+
+                assertThat((int) dataCiteJSON.getPublicationYear()).isEqualTo(values[0]);
+                break;
+
+            default:
+                fail("Requested unknown DataCite property: " + propertyName);
         }
 
-        assertThat(actualValue).isEqualTo(value);
-
         return self();
     }
 
-    @As("one $ webLink is: $")
-    public ThenResultingDataCiteProperties webLinks_contains(WebLinkType webLinkType, String url)
+    public ThenResultingDataCiteProperties the_DataCite_list_property_$_contains_$(
+        String listPropertyName,
+        Object... values
+    )
     {
-        boolean webLinkFound = false;
+        switch (listPropertyName) {
 
-        for (WebLink webLink : dataCiteJson.getWebLinks())
-            if (webLink.getUrl() == url & webLink.getType() == webLinkType)
-                webLinkFound = true;
+            case "formats":
+                // expects string with the format (e.g. mimetype "application/json")
 
-        assertThat(webLinkFound).isTrue();
+                assertThat(values[0]).isIn(dataCiteJSON.getFormats());
+                break;
 
-        return self();
-    }
+            case "subjects":
+                // expects one string, that is compared to the getValue() of Subject
 
-    @As("one title is: $")
-    public ThenResultingDataCiteProperties one_title_is(String value)
-    {
-        assertThat(value).isIn(dataCiteJson.getTitles().stream().map(x -> x.getValue()).collect(Collectors.toList()));
+                assertThat(values[0]).isIn(dataCiteJSON.getSubjects().stream().map(Subject::getValue).toArray());
+                break;
 
-        return self();
-    }
+            case "research disciplines":
+                // expects one of the ResearchDisciplineConstants
 
-    @As("one geolocation is $ latidute,$ longitute and$ elevation")
-    public ThenResultingDataCiteProperties one_geolocation_is_$_$_$(double latitude, double longitude, double elevation)
-    {
-        for (GeoLocation geoLocation : dataCiteJson.getGeoLocations()) {
+                assertThat(values[0]).isIn(dataCiteJSON.getResearchDisciplines());
+                break;
 
-            Point point = (Point) geoLocation.getPoint().getCoordinates();
+            case "weblinks":
+                // expects one WebLinkType and one URL string
 
-            assertThat(point.getLatitude()).isEqualTo(latitude);
-            assertThat(point.getLongitude()).isEqualTo(longitude);
-            assertThat(point.getElevation()).isEqualTo(elevation);
+                Predicate<WebLink> webLinkPredicate = wl -> wl.getType() == values[0] & wl.getUrl() == values[1];
 
-//            System.out.println("-------------");
-//            System.out.println(point.getLatitude());
-//            System.out.println(point.getLongitude());
-//            System.out.println(point.getElevation());
+                assertThat(dataCiteJSON.getWebLinks().stream().anyMatch(webLinkPredicate));
 
+                break;
+
+            case "descriptions":
+                // expects one DescriptionType and one description string
+
+                Predicate<Description> descriptionPredicate = d -> d.getType() == values[0] & d.getValue() == values[1];
+
+                assertThat(dataCiteJSON.getDescriptions().stream().anyMatch(descriptionPredicate));
+
+                break;
+
+            case "creators":
+                // expects one NameType and one name string
+
+                assertThat(dataCiteJSON.getCreators().stream().map(Creator::getName).filter(x -> x
+                                                                                            .getNameType() == values[0] & x.getValue() == values[1]).count()).isPositive();
+                break;
+
+            case "contributors": // expects one ContributorType and one name string
+
+                Predicate<Contributor> contributorPredicate = c -> c.getType() == values[0] & c.getName()
+                                                              .getValue() == values[1];
+
+                assertThat(dataCiteJSON.getContributors().stream().anyMatch(contributorPredicate));
+
+                break;
+
+            case "titles":
+                // expects on title string
+
+                assertThat(values[0]).isIn(dataCiteJSON.getTitles().stream().map(Title::getValue).toArray());
+
+                break;
+
+            case "dates":
+                // expects a string representation of a date
+
+                assertThat(values[0]).isIn(dataCiteJSON.getDates().stream().map(AbstractDate::getValue).toArray());
+                break;
+
+            case "geolocations": // expects three doubles: latitude, longitude and elevation
+
+                Predicate<Point> pointPredicate = p -> values.equals(Arrays.asList(p.getLatitude(),
+                                                                                   p.getLongitude(),
+                                                                                   p.getElevation()));
+
+                assertThat(dataCiteJSON.getGeoLocations().stream().map(x -> (Point) x.getPoint().getCoordinates())
+                           .anyMatch(pointPredicate));
+
+                break;
+
+            case "research data list":
+                // expects 3 strings: file url, label & format (e.g. "application/json")
+
+                Predicate<ResearchData> researchDataPredicate = rd -> values.equals(Arrays.asList(rd.getUrl(),
+                                                                                    rd.getLabel(),
+                                                                                    rd.getType()));
+
+                assertThat(dataCiteJSON.getResearchDataList().stream().anyMatch(researchDataPredicate));
+
+                break;
+
+            default:
+                fail("Requested unknown DataCite list property: " + listPropertyName);
         }
 
         return self();
