@@ -1,0 +1,16 @@
+{
+  "timeseries" : [
+      {
+         "dataType" : "oxygen",
+         "depth" : 213,
+         "device" : "SLM3",
+         "lat" : 63.60905,
+         "lon" : 9.38206666666667,
+         "regionPrintName" : "Trondheim Fjord",
+         "region" : "trondheim-fjord",
+         "station" : "POS455-3",
+         "t_reference" : "2012-06-01T00:00:01Z",
+         "tsType" : "scalar"
+      }
+   ]
+}

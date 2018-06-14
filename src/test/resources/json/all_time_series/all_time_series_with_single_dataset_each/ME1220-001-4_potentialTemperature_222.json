@@ -1,0 +1,16 @@
+{
+  "timeseries" : [
+      {
+         "dataType" : "potentialTemperature",
+         "depth" : 222,
+         "device" : "SLM3",
+         "lat" : -20.73215,
+         "lon" : 12.81845,
+         "regionPrintName" : "Sylvester Mounds",
+         "region" : "sylvester-mounds",
+         "station" : "ME1220-001-4",
+         "t_reference" : "2012-06-01T00:00:01Z",
+         "tsType" : "scalar"
+      }
+   ]
+}

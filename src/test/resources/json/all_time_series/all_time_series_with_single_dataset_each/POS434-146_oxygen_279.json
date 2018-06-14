@@ -1,0 +1,16 @@
+{
+  "timeseries" : [
+      {
+         "dataType" : "oxygen",
+         "depth" : 279,
+         "device" : "VKM1",
+         "lat" : 70.2628,
+         "lon" : 22.50135,
+         "region" : "northern-norway",
+         "regionPrintName" : "Northern Norway",
+         "station" : "POS434-146",
+         "t_reference" : "2012-06-01T00:00:01Z",
+         "tsType" : "scalar"
+      }
+   ]
+}

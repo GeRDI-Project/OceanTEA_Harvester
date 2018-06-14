@@ -1,0 +1,16 @@
+{
+  "timeseries" : [
+      {
+         "dataType" : "conservativeTemperature",
+         "depth" : 50,
+         "device" : "VKM2",
+         "lat" : 70.2690166666667,
+         "lon" : 22.4548333333333,
+         "region" : "northern-norway",
+         "regionPrintName" : "Northern Norway",
+         "station" : "POS434-144",
+         "t_reference" : "2012-06-01T00:00:01Z",
+         "tsType" : "scalar"
+      }
+   ]
+}
