@@ -42,13 +42,13 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     @ExpectedScenarioState
     List<IDocument> resultingIDocuments = new ArrayList<>();
 
-    DataCiteJson dataCiteJson;
+    DataCiteJson dataCiteJSON;
 
     @BeforeStage
     @SuppressWarnings("PMD.UnusedPrivateMethod") // This method IS called via @BeforeStage
-    private void extractDataCiteJsonFromFirstEntry()
+    private void extractDataCiteJSONFromFirstEntry()
     {
-        dataCiteJson = (DataCiteJson) resultingIDocuments.get(0);
+        dataCiteJSON = (DataCiteJson) resultingIDocuments.get(0);
     }
 
     public ThenResultingDataCiteProperties the_name_of_resourceType_is_$_and_the_ResourceTypeGeneral_is_$(String value, ResourceTypeGeneral dataset)

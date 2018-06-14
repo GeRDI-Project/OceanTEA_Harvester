@@ -42,20 +42,20 @@ import de.gerdiproject.json.GsonUtils;
 public class WhenHarvesting extends Stage<WhenHarvesting>
 {
     @ExpectedScenarioState
-    String allTimeSeriesJsonResponseString;
+    String allTimeSeriesJSONResponse;
 
     @ExpectedScenarioState
-    String allDataTypesJsonResponseString;
+    String allDataTypesJSONResponse;
 
     @ExpectedScenarioState
-    String timeSeriesDatasetJsonResponseString;
+    String timeSeriesDatasetJSONResponse;
 
     @ProvidedScenarioState
     List<IDocument> resultingIDocuments = new ArrayList<>();
 
-    private <T> void setStubReturnValue(HttpRequester mock, Class<T> targetClass, String jsonResponseString)
+    private <T> void setStubReturnValue(HttpRequester mock, Class<T> targetClass, String aJSONResponse)
     {
-        T value = GsonUtils.getGson().fromJson(jsonResponseString, targetClass);
+        T value = GsonUtils.getGson().fromJson(aJSONResponse, targetClass);
         Mockito.when(mock.getObjectFromUrl(Mockito.anyString(), ArgumentMatchers.eq(targetClass))).thenReturn(value);
     }
 
@@ -78,9 +78,9 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
         HttpRequester mockHttpRequester = Mockito.mock(HttpRequester.class);
 
         // set returned objects (created from JSON strings) for the stubbed methods
-        setStubReturnValue(mockHttpRequester, AllTimeSeriesResponse.class, allTimeSeriesJsonResponseString);
-        setStubReturnValue(mockHttpRequester, AllDataTypesResponse.class, allDataTypesJsonResponseString);
-        setStubReturnValue(mockHttpRequester, TimeSeriesDatasetResponse.class, timeSeriesDatasetJsonResponseString);
+        setStubReturnValue(mockHttpRequester, AllTimeSeriesResponse.class, allTimeSeriesJSONResponse);
+        setStubReturnValue(mockHttpRequester, AllDataTypesResponse.class, allDataTypesJSONResponse);
+        setStubReturnValue(mockHttpRequester, TimeSeriesDatasetResponse.class, timeSeriesDatasetJSONResponse);
 
         // inject mock into the static OceanTeaDownloader
         Whitebox.setInternalState(OceanTeaDownloader.class, HttpRequester.class, mockHttpRequester);
@@ -103,7 +103,8 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
 
             try {
                 harvestInternal(0, getMaxNumberOfDocuments());
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
 
         @Override

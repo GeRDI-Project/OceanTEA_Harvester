@@ -90,13 +90,13 @@ class mockJsonResponses
 public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
 {
     @ProvidedScenarioState
-    String allTimeSeriesJsonResponseString;
+    String allTimeSeriesJSONResponse;
 
     @ProvidedScenarioState
-    String allDataTypesJsonResponseString;
+    String allDataTypesJSONResponse;
 
     @ProvidedScenarioState
-    String timeSeriesDatasetJsonResponseString;
+    String timeSeriesDatasetJSONResponse;
 
     @ScenarioState
     CurrentStep currentStep;
@@ -122,7 +122,7 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     }
 
 
-        addJSONStrinAsAttachmentAndDescription(allTimeSeriesJsonResponseString);
+        addJSONStrinAsAttachmentAndDescription(allTimeSeriesJSONResponse);
 
         return self();
     }
@@ -133,7 +133,7 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
         allDataTypesJsonResponseString = mockJsonResponses.mockAllDataTypesJsonResponseString;
         timeSeriesDatasetJsonResponseString = mockJsonResponses.mockTimeSeriesDatasetJsonResponseString;
 
-        addJSONStrinAsAttachmentAndDescription(allTimeSeriesJsonResponseString);
+        addJSONStrinAsAttachmentAndDescription(allTimeSeriesJSONResponse);
 
         return self();
     }
