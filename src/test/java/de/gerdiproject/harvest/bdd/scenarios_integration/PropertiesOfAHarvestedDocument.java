@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import com.tngtech.jgiven.junit.ScenarioTest;
 
 import de.gerdiproject.harvest.IDocument;
@@ -29,7 +30,11 @@ import de.gerdiproject.harvest.bdd.stages_integration.WhenHarvesting;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
 import de.gerdiproject.harvest.bdd.tags.TagIntegrationTest;
+import de.gerdiproject.json.datacite.enums.ContributorType;
+import de.gerdiproject.json.datacite.enums.DescriptionType;
+import de.gerdiproject.json.datacite.enums.NameType;
 import de.gerdiproject.json.datacite.enums.ResourceTypeGeneral;
+import de.gerdiproject.json.datacite.extension.constants.ResearchDisciplineConstants;
 import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 
 /**
@@ -46,37 +51,103 @@ import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 @RunWith(DataProviderRunner.class)
 public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingDataCiteProperties>
 {
-    // formatter:off
-    @Test
-    @DataProvider(value = {
-        "repositoryIdentifier | OCEANTEA",
-        "publisher            | OceanTEA demo, Software Engineering, Computer Science, Kiel University",
-    }, splitBy = "\\|", trimValues = true)
-    // formatter:on
-    public void genericDataCiteProperties(String propertyName, String stringValue)
+
+    @DataProvider
+    public static Object[][] dataProviderConstants()
     {
-        // formatter:off
+        return new Object[][] {
+
+        {
+            "resource type", ResourceTypeGeneral.Dataset, "JSON"
+        }, {
+            "publisher", "OceanTEA demo, Software Engineering, Computer Science, Kiel University"
+        },
+               };
+    }
+
+    @DataProvider
+    public static Object[][] dataProviderListConstants()
+    {
+        return new Object[][] {
+            {
+                "formats", "application/json",
+            }, {
+                "subjects", "MoLab"
+            }, {
+                "subjects", "modular ocean laboratory",
+            }, {
+                "subjects", "underwater measurement",
+            }, {
+                "subjects", "oceanography",
+            }, {
+                "research disciplines", ResearchDisciplineConstants.OCEANOGRAPHY
+            }, {
+                "weblinks", WebLinkType.Related, "https://oceanrep.geomar.de/22245/"
+            }, {
+                "weblinks", WebLinkType.ProviderLogoURL, "http://www.se.informatik.uni-kiel.de/en/research/pictures/research-projects/oceantea-logo.png"
+            }, {
+                "descriptions", DescriptionType.Abstract, "Underwater measurements captured by a MoLab device (modular ocean laboratory) by GEOMAR, Kiel, Germany"
+            }, {
+                "creators", NameType.Organisational, "GEOMAR, Kiel, Germany"
+            }, {
+                "contributors", ContributorType.Producer, "GEOMAR, Kiel, Germany"
+            },
+
+        };
+    }
+
+    @DataProvider
+    public static Object[][] dataProviderListVariables()
+    {
+        return new Object[][] {
+            {
+                "titles", "Conductivity measurements, underwater (depth 215.0 m) in the region 'Northern Norway'"
+            }, {
+                "dates", "2012-06-02T11:48:18Z/2012-06-02T20:03:18Z"
+            }, {
+                "geolocations", 70.2681, 22.4749666666667, -215.0
+            }, {
+                "research data list", "http://maui.se.informatik.uni-kiel.de:9090/timeseries/scalar/POS434-156/conductivity/215", "Conductivity measurements, collected underwater (depth 215.0 m) in the open water region 'Northern Norway' by MoLab device MLM", "application/json"
+            },
+
+        };
+    }
+
+    @Test
+    @UseDataProvider("dataProviderConstants")
+    public void constant_DataCite_properties_with_single_values(String propertyName, Object... values)
+    {
         given().a_random_time_series_data_set();
 
         when().harvested();
 
-        then().the_name_of_resourceType_is_$_and_the_ResourceTypeGeneral_is_$("JSON", ResourceTypeGeneral.Dataset).
-        and ().webLinks_contains(WebLinkType.ProviderLogoURL,
-                                 "http://www.se.informatik.uni-kiel.de/en/research/pictures/research-projects/oceantea-logo.png").
-        and ().webLinks_contains(WebLinkType.Related, "https://oceanrep.geomar.de/22245/").
-        and ().DataCite_string_property_$_is_$(propertyName, stringValue);
-        // formatter:on
+        then().the_DataCite_property_$_is_$(propertyName, values);
     }
 
     @Test
-    public void individualDataCiteProperties()
+    @UseDataProvider("dataProviderListConstants")
+    public void constant_DataCite_properties_with_lists(String listPropertyName, Object... values)
     {
-        // formatter:off
-        given().one_conductivity_time_series_data_set();
-        when().harvested();
-        then().one_title_is("Conductivity measurements, underwater (depth 215.0 m) in the region 'Northern Norway'")
-        .and().one_geolocation_is_$_$_$(70.2681, 22.4749666666667, -215.0);
-        // formatter:on
+        given().a_random_time_series_data_set();
 
+        when().harvested();
+
+        then().the_DataCite_list_property_$_contains_$(listPropertyName, values);
+    }
+
+    @Test
+    @UseDataProvider("dataProviderListVariables")
+    public void variable_DataCite_properties_depending_on_the_time_series_dataset(
+        String listPropertyName,
+        Object... values
+    )
+    {
+        given().one_conductivity_time_series_data_set();
+
+        when().harvested();
+
+        then().the_DataCite_property_$_is_$("year", 2012).and().the_DataCite_list_property_$_contains_$(
+            listPropertyName,
+            values);
     }
 }
