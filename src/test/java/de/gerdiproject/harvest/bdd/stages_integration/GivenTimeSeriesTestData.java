@@ -22,71 +22,20 @@ import com.tngtech.jgiven.annotation.ScenarioState;
 import com.tngtech.jgiven.attachment.Attachment;
 import com.tngtech.jgiven.attachment.MediaType;
 
-@SuppressWarnings("PMD.AvoidDuplicateLiterals") // The representation is not the best anyway
-class mockJsonResponses
-{
-    // @formatter:off
-    static String mockAllTimeSeriesJsonResponseString     = "{\n" +
-                                                            "   \"timeseries\" : [\n" +
-                                                            "      {\n" +
-                                                            "         \"tsType\" : \"scalar\",\n" +
-                                                            "         \"t_reference\" : \"2012-06-01T00:00:01Z\",\n" +
-                                                            "         \"lon\" : 22.4749666666667,\n" +
-                                                            "         \"dataType\" : \"conductivity\",\n" +
-                                                            "         \"lat\" : 70.2681,\n" +
-                                                            "         \"regionPrintName\" : \"Northern Norway\",\n" +
-                                                            "         \"station\" : \"POS434-156\",\n" +
-                                                            "         \"device\" : \"MLM\",\n" +
-                                                            "         \"region\" : \"northern-norway\",\n" +
-                                                            "         \"depth\" : 215\n" +
-                                                            "      }\n" +
-                                                            "   ]\n" +
-                                                            "}";
+import de.gerdiproject.harvest.TestDataProvider;
+import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
+import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
+import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 
-    static String mockAllDataTypesJsonResponseString      = "{\n" +
-                                                            "   \"conductivity\" : {\n" +
-                                                            "      \"printName\" : \"Conductivity\",\n" +
-                                                            "      \"unit\" : \"mS/cm\"\n" +
-                                                            "   },\n" +
-                                                            "   \"potentialDensityAnomaly\" : {\n" +
-                                                            "      \"unit\" : \"\",\n" +
-                                                            "      \"printName\" : \"Potential Density Anomaly\"\n" +
-                                                            "   }\n" +
-                                                            "}";
-
-    static String mockTimeSeriesDatasetJsonResponseString = "{\n" +
-                                                            "   \"data\" : [\n" +
-                                                            "      [\n" +
-                                                            "         128897,\n" +
-                                                            "         -0.75\n" +
-                                                            "      ],\n" +
-                                                            "      [\n" +
-                                                            "         129197,\n" +
-                                                            "         -0.7469\n" +
-                                                            "      ],\n" +
-                                                            "      [\n" +
-                                                            "         129497,\n" +
-                                                            "         -0.75\n" +
-                                                            "      ],\n" +
-                                                            "      [\n" +
-                                                            "         129797,\n" +
-                                                            "         -0.75\n" +
-                                                            "      ],\n" +
-                                                            "      [\n" +
-                                                            "         130097,\n" +
-                                                            "         -0.75\n" +
-                                                            "      ],\n" +
-                                                            "      [\n" +
-                                                            "         130397,\n" +
-                                                            "         -0.7492\n" +
-                                                            "      ]\n" +
-                                                            "   ]\n" +
-                                                            "}";
-
-    // @formatter:on
-}
-
-
+/**
+ * Each step (method) in this Given stage (class) selects the JSON responses
+ * from the {@linkplain TestDataProvider} that are used to initialize
+ * {@linkplain AllTimeSeriesResponse }, {@linkplain AllDataTypesResponse} and
+ * {@linkplain TimeSeriesDatasetResponse}.
+ *
+ * @author Ingo Thomsen
+ *
+ */
 public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
 {
     @ProvidedScenarioState
@@ -101,7 +50,6 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     @ScenarioState
     CurrentStep currentStep;
 
-    public GivenTimeSeriesTestData one_conductivity_time_series_data_set()
     /**
      * Add the JSON string as attachment for the HTML report on this stage and set
      * the description (e. g. shown as tooltip) accordingly.
@@ -110,10 +58,6 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
      */
     private void addJSONStrinAsAttachmentAndDescription(String aJSONResponse)
     {
-        allTimeSeriesJsonResponseString = mockJsonResponses.mockAllTimeSeriesJsonResponseString;
-        allDataTypesJsonResponseString = mockJsonResponses.mockAllDataTypesJsonResponseString;
-        timeSeriesDatasetJsonResponseString = mockJsonResponses.mockTimeSeriesDatasetJsonResponseString;
-
         Attachment attachment = Attachment.fromText(aJSONResponse, MediaType.JSON_UTF_8);
         currentStep.addAttachment(attachment);
 
@@ -121,6 +65,12 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
             "The applied JSON responses are attached - numbered accordingly in the event of multiple calls to this step due to multiple cases.");
     }
 
+    public GivenTimeSeriesTestData one_conductivity_time_series_data_set()
+    {
+        allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
+        timeSeriesDatasetJSONResponse = TestDataProvider.getTimeSeriesDatasetJSON(
+                                            "POS434-156_conductivity_215.first_100");
+        allTimeSeriesJSONResponse = TestDataProvider.getAllTimeSeriesJSON("POS434-156_conductivity_215");
 
         addJSONStrinAsAttachmentAndDescription(allTimeSeriesJSONResponse);
 
@@ -129,9 +79,9 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
 
     public GivenTimeSeriesTestData a_random_time_series_data_set()
     {
-        allTimeSeriesJsonResponseString = mockJsonResponses.mockAllTimeSeriesJsonResponseString;
-        allDataTypesJsonResponseString = mockJsonResponses.mockAllDataTypesJsonResponseString;
-        timeSeriesDatasetJsonResponseString = mockJsonResponses.mockTimeSeriesDatasetJsonResponseString;
+        allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
+        allTimeSeriesJSONResponse = TestDataProvider.getRandomAllTimeSeriesJSON();
+        timeSeriesDatasetJSONResponse = TestDataProvider.getTimeSeriesDatasetJSON("synthetic.no_data");
 
         addJSONStrinAsAttachmentAndDescription(allTimeSeriesJSONResponse);
 
