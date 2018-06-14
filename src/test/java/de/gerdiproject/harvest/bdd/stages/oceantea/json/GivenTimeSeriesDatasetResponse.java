@@ -25,6 +25,11 @@ import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 
+/**
+ * Given stage with steps on the {@linkplain TimeSeriesDatasetResponse} class.
+ *
+ * @author Ingo Thomsen
+ */
 public class GivenTimeSeriesDatasetResponse extends Stage<GivenTimeSeriesDatasetResponse>
 {
 

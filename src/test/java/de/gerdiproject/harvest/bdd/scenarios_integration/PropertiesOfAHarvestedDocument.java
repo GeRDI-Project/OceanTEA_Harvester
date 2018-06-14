@@ -22,6 +22,7 @@ import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.jgiven.junit.ScenarioTest;
 
+import de.gerdiproject.harvest.IDocument;
 import de.gerdiproject.harvest.bdd.stages_integration.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages_integration.ThenResultingDataCiteProperties;
 import de.gerdiproject.harvest.bdd.stages_integration.WhenHarvesting;
@@ -31,6 +32,14 @@ import de.gerdiproject.harvest.bdd.tags.TagIntegrationTest;
 import de.gerdiproject.json.datacite.enums.ResourceTypeGeneral;
 import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 
+/**
+ * The integration tests of the DataCite properties of the created
+ * {@linkplain IDocument}: some are dependent of the actual time series dataset
+ * and some are independent. The scenarios use data providers for the multiple
+ * test cases.
+ *
+ * @author Ingo Thomsen
+ */
 @Issue("SAI-312")
 @TagIntegrationTest
 @Tag("DataCite")

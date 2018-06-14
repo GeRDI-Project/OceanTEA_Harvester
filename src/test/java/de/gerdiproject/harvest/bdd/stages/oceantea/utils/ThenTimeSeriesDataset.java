@@ -24,12 +24,16 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 
 import de.gerdiproject.harvest.oceantea.utils.TimeSeriesDataset;
 
+/**
+ * Then stage with steps on the {@linkplain TimeSeriesDataset} class.
+ *
+ * @author Ingo Thomsen
+ */
 public class ThenTimeSeriesDataset extends Stage<ThenTimeSeriesDataset>
 {
 
     @ExpectedScenarioState
     TimeSeriesDataset timeSeriesDataset;
-
 
     public ThenTimeSeriesDataset the_TimeSeriesDataset_startInstant_is_$(Instant instant)
     {
@@ -54,7 +58,6 @@ public class ThenTimeSeriesDataset extends Stage<ThenTimeSeriesDataset>
         assertThat(timeSeriesDataset.getNumberOfValues()).isZero();
         return self();
     }
-
 
     public ThenTimeSeriesDataset startInstant_and_stopInstant_are_equal()
     {

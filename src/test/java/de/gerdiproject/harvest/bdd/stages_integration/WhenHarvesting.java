@@ -39,6 +39,12 @@ import de.gerdiproject.harvest.utils.cache.HarvesterCache;
 import de.gerdiproject.harvest.utils.data.HttpRequester;
 import de.gerdiproject.json.GsonUtils;
 
+/**
+ * This When stage starts the actual harvesting of the given JSON response
+ * strings.
+ *
+ * @author Ingo Thomsen
+ */
 public class WhenHarvesting extends Stage<WhenHarvesting>
 {
     @ExpectedScenarioState

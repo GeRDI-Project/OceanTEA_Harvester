@@ -24,6 +24,11 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 
 import de.gerdiproject.harvest.IDocument;
 
+/**
+ * Then stage testing the number of the resulting {@linkplain IDocument}s.
+ *
+ * @author Ingo Thomsen
+ */
 public class ThenResultingIDocuments extends Stage<ThenResultingIDocuments>
 {
     @ExpectedScenarioState

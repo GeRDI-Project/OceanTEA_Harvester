@@ -25,6 +25,11 @@ import de.gerdiproject.harvest.bdd.stages_integration.WhenHarvesting;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.TagIntegrationTest;
 
+/**
+ * A scenario with an exemplary integration test
+ *
+ * @author Ingo Thomsen
+ */
 @Issue("SAI-312")
 @TagIntegrationTest
 public class HarvestedDocumentForSingleTimeSeriesDataSet extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingIDocuments>

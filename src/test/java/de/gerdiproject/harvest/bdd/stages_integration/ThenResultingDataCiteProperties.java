@@ -37,6 +37,13 @@ import de.gerdiproject.json.datacite.extension.WebLink;
 import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 import de.gerdiproject.json.geo.Point;
 
+/**
+ * There are two step methods in this Then stage class for checking the DataCite
+ * properties of the first created IDocument: one for properties that consists
+ * of lists and one for the others.
+ *
+ * @author Ingo Thomsen
+ */
 public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCiteProperties>
 {
     @ExpectedScenarioState

@@ -28,7 +28,14 @@ import de.gerdiproject.harvest.bdd.stages.oceantea.json.GivenTimeSeriesDatasetRe
 import de.gerdiproject.harvest.bdd.stages.oceantea.utils.ThenTimeSeriesDataset;
 import de.gerdiproject.harvest.bdd.stages.oceantea.utils.WhenTimeSeriesDataset;
 import de.gerdiproject.harvest.bdd.tags.Tag;
+import de.gerdiproject.harvest.oceantea.utils.TimeSeriesDataset;
 
+/**
+ * This is an scenario describing some behavior of the initialization of the
+ * {@linkplain TimeSeriesDataset} class.
+ *
+ * @author Ingo Thomsen
+ */
 @Tag("Initialization")
 @RunWith(DataProviderRunner.class)
 public class Initialization_of_a_TimeSeriesDataset extends ScenarioTest<GivenTimeSeriesDatasetResponse, WhenTimeSeriesDataset, ThenTimeSeriesDataset>
