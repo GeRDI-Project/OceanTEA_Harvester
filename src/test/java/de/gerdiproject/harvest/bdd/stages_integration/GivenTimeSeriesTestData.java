@@ -17,8 +17,8 @@ package de.gerdiproject.harvest.bdd.stages_integration;
 
 import com.tngtech.jgiven.CurrentStep;
 import com.tngtech.jgiven.Stage;
-import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
+import com.tngtech.jgiven.annotation.ScenarioState;
 import com.tngtech.jgiven.attachment.Attachment;
 import com.tngtech.jgiven.attachment.MediaType;
 
@@ -98,18 +98,31 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     @ProvidedScenarioState
     String timeSeriesDatasetJsonResponseString;
 
-    @ExpectedScenarioState
+    @ScenarioState
     CurrentStep currentStep;
 
     public GivenTimeSeriesTestData one_conductivity_time_series_data_set()
+    /**
+     * Add the JSON string as attachment for the HTML report on this stage and set
+     * the description (e. g. shown as tooltip) accordingly.
+     *
+     * @param aJSONResponse The JSON string that is to be added to the HTML report
+     */
+    private void addJSONStrinAsAttachmentAndDescription(String aJSONResponse)
     {
         allTimeSeriesJsonResponseString = mockJsonResponses.mockAllTimeSeriesJsonResponseString;
         allDataTypesJsonResponseString = mockJsonResponses.mockAllDataTypesJsonResponseString;
         timeSeriesDatasetJsonResponseString = mockJsonResponses.mockTimeSeriesDatasetJsonResponseString;
 
-        Attachment attachment = Attachment.fromText(allTimeSeriesJsonResponseString, MediaType.JSON_UTF_8);
+        Attachment attachment = Attachment.fromText(aJSONResponse, MediaType.JSON_UTF_8);
         currentStep.addAttachment(attachment);
-        currentStep.setExtendedDescription(allTimeSeriesJsonResponseString);
+
+        currentStep.setExtendedDescription(
+            "The applied JSON responses are attached - numbered accordingly in the event of multiple calls to this step due to multiple cases.");
+    }
+
+
+        addJSONStrinAsAttachmentAndDescription(allTimeSeriesJsonResponseString);
 
         return self();
     }
@@ -120,9 +133,7 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
         allDataTypesJsonResponseString = mockJsonResponses.mockAllDataTypesJsonResponseString;
         timeSeriesDatasetJsonResponseString = mockJsonResponses.mockTimeSeriesDatasetJsonResponseString;
 
-        Attachment attachment = Attachment.fromText(allTimeSeriesJsonResponseString, MediaType.JSON_UTF_8);
-        currentStep.addAttachment(attachment);
-        currentStep.setExtendedDescription(allTimeSeriesJsonResponseString);
+        addJSONStrinAsAttachmentAndDescription(allTimeSeriesJsonResponseString);
 
         return self();
     }
