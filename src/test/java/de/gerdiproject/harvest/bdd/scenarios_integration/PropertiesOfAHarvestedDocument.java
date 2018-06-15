@@ -26,7 +26,7 @@ import com.tngtech.jgiven.junit.ScenarioTest;
 import de.gerdiproject.harvest.IDocument;
 import de.gerdiproject.harvest.bdd.stages_integration.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages_integration.ThenResultingDataCiteProperties;
-import de.gerdiproject.harvest.bdd.stages_integration.WhenHarvesting;
+import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
 import de.gerdiproject.harvest.bdd.tags.TagIntegrationTest;

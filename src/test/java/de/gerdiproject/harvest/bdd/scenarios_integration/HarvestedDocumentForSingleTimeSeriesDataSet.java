@@ -21,9 +21,9 @@ import com.tngtech.jgiven.junit.ScenarioTest;
 
 import de.gerdiproject.harvest.bdd.stages_integration.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages_integration.ThenResultingIDocuments;
-import de.gerdiproject.harvest.bdd.stages_integration.WhenHarvesting;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.TagIntegrationTest;
+import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
 
 /**
  * A scenario with an exemplary integration test

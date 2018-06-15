@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.gerdiproject.harvest.bdd.stages_integration;
+//package de.gerdiproject.harvest.bdd.stages_integration;
+package de.gerdiproject.harvest.harvester.subharvester;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.mockito.ArgumentMatchers;
@@ -24,24 +26,23 @@ import org.powermock.reflect.Whitebox;
 
 import com.google.gson.GsonBuilder;
 import com.tngtech.jgiven.Stage;
-import com.tngtech.jgiven.annotation.BeforeScenario;
 import com.tngtech.jgiven.annotation.BeforeStage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 
 import de.gerdiproject.harvest.IDocument;
-import de.gerdiproject.harvest.harvester.subharvester.TimeSeriesHarvester;
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 import de.gerdiproject.harvest.oceantea.utils.OceanTeaDownloader;
-import de.gerdiproject.harvest.utils.cache.HarvesterCache;
+import de.gerdiproject.harvest.oceantea.utils.TimeSeries;
 import de.gerdiproject.harvest.utils.data.HttpRequester;
 import de.gerdiproject.json.GsonUtils;
 
 /**
  * This When stage starts the actual harvesting of the given JSON response
- * strings.
+ * strings. For this the retrieval via HTTP request from OceanTEA is intercepted
+ * using mocking.
  *
  * @author Ingo Thomsen
  */
@@ -65,14 +66,14 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
         Mockito.when(mock.getObjectFromUrl(Mockito.anyString(), ArgumentMatchers.eq(targetClass))).thenReturn(value);
     }
 
-    @BeforeScenario
-    public void initializeHarvesterLibrary()
-    {
-    }
-
+    /**
+     * Create a mock HttpRequester, set up stubbed methods to return the JSOn
+     * strings (provided as ScenarioState) and inject it into
+     * {@linkplain OceanTeaDownloader}
+     */
     @BeforeStage
     @SuppressWarnings("PMD.EmptyCatchBlock") // There is really nothing to do if already initialized
-    public void prepareHarvesterLibaryForMockAccess()
+    private void prepareHarvesterLibaryForMockAccess()
     {
         // ensure GsonUtils are initialized
         try {
@@ -92,45 +93,17 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
         Whitebox.setInternalState(OceanTeaDownloader.class, HttpRequester.class, mockHttpRequester);
     }
 
-    /*
-     * Mocking by using a (nested) subclass the harvester class. It would be
-     * possible to mock the original class (by using stubs with call backs and
-     * spying on protected methods), but this way it is more transparent.
-     */
-    class TimeSeriesHarvesterForTesting extends TimeSeriesHarvester
-    {
-        List<IDocument> harvestedDocuments = new ArrayList<>();
-
-        @Override
-        @SuppressWarnings("PMD.EmptyCatchBlock") // With the mock data the is always one document
-        public void init()
-        {
-            super.init();
-
-            try {
-                harvestInternal(0, getMaxNumberOfDocuments());
-            } catch (Exception e) {
-            }
-        }
-
-        @Override
-        protected HarvesterCache initCache()
-        {
-            return new HarvesterCache(name);
-        }
-
-        @Override
-        protected void addDocument(IDocument document)
-        {
-            resultingIDocuments.add(document);
-        }
-    }
-
     public WhenHarvesting harvested()
     {
-        TimeSeriesHarvesterForTesting harvester = new TimeSeriesHarvesterForTesting();
+        TimeSeriesHarvester harvester = new TimeSeriesHarvester();
 
-        harvester.init();
+        Collection<TimeSeries> collectionOfTimeSeries = harvester.loadEntries();
+
+        for (TimeSeries timeSeries : collectionOfTimeSeries) {
+
+            List<IDocument> listOfIDocuments = harvester.harvestEntry(timeSeries);
+            resultingIDocuments.addAll(listOfIDocuments);
+        }
 
         return self();
     }
