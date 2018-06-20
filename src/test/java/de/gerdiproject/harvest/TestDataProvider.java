@@ -47,10 +47,10 @@ public final class TestDataProvider
 
     // the resource directors containing the JSON files
     private static final String baseDir                         = "json/";
-    private static final String dirDataTypes                    = baseDir + "all_data_types/";
-    private static final String dirTimeSeries                   = baseDir + "all_time_series/";
+    private static final String dirAllDataTypes                 = baseDir + "all_data_types/";
+    private static final String dirAllTimeSeries                = baseDir + "all_time_series/";
     private static final String dirDatasets                     = baseDir + "time_series_datasets/";
-    private static final String dirTimeSeriesWithSingleDatasets = dirTimeSeries + "all_time_series_with_single_dataset_each/";
+    private static final String dirTimeSeriesWithSingleDatasets = dirAllTimeSeries + "all_time_series_with_single_dataset_each/";
 
     // class loader for accessing the resource dirs and files
     private static ClassLoader classLoader = TestDataProvider.class.getClassLoader();
@@ -140,9 +140,11 @@ public final class TestDataProvider
         for (File file : dir.listFiles()) {
 
             String fileName = file.getName();
-            String name = fileName.replaceAll(".json", "");
+            String name = fileName.replaceAll("(?i).json", "");
 
-            mapping.put(name, getResourceFileAsString(dirWithJSONFiles + fileName));
+            // add to HashMap if the file had a proper extension
+            if (fileName != name)
+                mapping.put(name, getResourceFileAsString(dirWithJSONFiles + fileName));
         }
     }
 
@@ -154,7 +156,7 @@ public final class TestDataProvider
     {
         HashMap<String, String> mapping = new HashMap<>();
 
-        mapping.put("all", getResourceFileAsString(dirDataTypes + "all.json"));
+        mapping.put("all", getResourceFileAsString(dirAllDataTypes + "all.json"));
 
         return mapping;
     }
@@ -167,7 +169,7 @@ public final class TestDataProvider
     {
         HashMap<String, String> mapping = new HashMap<>();
 
-        mapping.put("all", getResourceFileAsString(dirTimeSeries + "all.json"));
+        mapping.put("all", getResourceFileAsString(dirAllTimeSeries + "all.json"));
         addJSONStringsFromFilesToHashMap(mapping, dirTimeSeriesWithSingleDatasets);
 
         return mapping;
