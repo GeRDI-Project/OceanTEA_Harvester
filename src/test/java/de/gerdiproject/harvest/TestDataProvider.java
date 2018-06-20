@@ -115,10 +115,13 @@ public final class TestDataProvider
         return allTimeSeriesJSONStrings.values().stream().skip(randomIndex).findFirst().get();
     };
 
-    //
-    // private helper method to read a resource file (as input stream) and return
-    // its content as String
-    //
+    /**
+     * Private helper to get the content of a resource as string (read as input
+     * stream)
+     *
+     * @param filePath file path (relative to the resource folder)
+     * @return string content of the file
+     */
     private static String getResourceFileAsString(String filePath)
     {
         InputStream is = classLoader.getResourceAsStream(filePath);
@@ -128,10 +131,16 @@ public final class TestDataProvider
         return br.lines().collect(Collectors.joining());
     }
 
-    //
-    // private helper method to read all files from a resource directory & add each
-    // string content to a given HashMap using the file name (w/o extension) as key
-    //
+    /**
+     * Private helper to read all JSON files from a resource directory and add each
+     * string content to a given HashMap using the file name as key - with the .json
+     * extension removed (case-insensitive).
+     *
+     *
+     * @param mapping target HashMap to store the file contents in
+     * @param dirWithJSONFiles directory (relative to the resource folder)
+     *            containing .json files
+     */
     private static void addJSONStringsFromFilesToHashMap(HashMap<String, String> mapping, String dirWithJSONFiles)
     {
 
@@ -148,10 +157,12 @@ public final class TestDataProvider
         }
     }
 
-    //
-    // private helper method to assemble and save the JSON dataType responses from
-    // the respective resource dir
-    //
+    /**
+     * Private helper to create a HashMap with the allDataTypes responses - read
+     * from JSON files - using the file names (w/o extension) as key.
+     *
+     * @return HashMap containing all allDataTypes responses
+     */
     private static HashMap<String, String> assembleAllDataTypesJSONStrings()
     {
         HashMap<String, String> mapping = new HashMap<>();
@@ -161,10 +172,12 @@ public final class TestDataProvider
         return mapping;
     }
 
-    //
-    // private helper method to assemble and save the JSON allTimeSeries responses
-    // from the resource dirs
-    //
+    /**
+     * Private helper to create a HashMap with the allTimeSeriesResponses responses
+     * - read from JSON files - using the file names (w/o extension) as key.
+     *
+     * @return HashMap containing all allTimeSeriesResponses responses
+     */
     private static HashMap<String, String> assembleAllTimeSeriesJSONStrings()
     {
         HashMap<String, String> mapping = new HashMap<>();
@@ -175,10 +188,12 @@ public final class TestDataProvider
         return mapping;
     }
 
-    //
-    // private helper method to assemble and save the JSON dataset responses from
-    // the respective resource dir
-    //
+    /**
+     * Private helper to create a HashMap with the dataset responses - read from
+     * JSON files - using the file names (w/o extension) as key.
+     *
+     * @return HashMap containing all dataset responses
+     */
     private static HashMap<String, String> assembleDatasetJSONStrings()
     {
         HashMap<String, String> mapping = new HashMap<>();
@@ -187,5 +202,4 @@ public final class TestDataProvider
 
         return mapping;
     }
-
 }

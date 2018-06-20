@@ -41,9 +41,11 @@ import de.gerdiproject.json.datacite.extension.WebLink;
 import de.gerdiproject.json.geo.Point;
 
 /**
- * There are two step methods in this Then stage class for checking the DataCite
- * properties of the first created IDocument: one for properties that consists
- * of lists and one for the others.
+ * This Then stages checks the DataCite properties of the first created
+ * IDocument.
+ *
+ * There are two step methods to check the properties, depending on whether they
+ * contain lists or not.
  *
  * @author Ingo Thomsen
  */
@@ -54,13 +56,19 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
 
     DataCiteJson dataCiteJSON;
 
+    /**
+     * Private method to make the first document of the list resulting IDocuments
+     * available to the step methods in this state class. This is called before any
+     * stage methods.
+     */
     @BeforeStage
-    @SuppressWarnings("PMD.UnusedPrivateMethod") // This method IS called via @BeforeStage
+    @SuppressWarnings("PMD.UnusedPrivateMethod")
     private void extractDataCiteJSONFromFirstEntry()
     {
         dataCiteJSON = (DataCiteJson) resultingIDocuments.get(0);
     }
 
+    // step method
     public ThenResultingDataCiteProperties the_DataCite_property_$_is_$(String propertyName, Object... values)
     {
 
@@ -101,6 +109,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
         return self();
     }
 
+    // step method
     public ThenResultingDataCiteProperties the_DataCite_list_property_$_contains_$(
         String listPropertyName,
         Object... values

@@ -35,30 +35,35 @@ public class ThenTimeSeriesDataset extends Stage<ThenTimeSeriesDataset>
     @ExpectedScenarioState
     TimeSeriesDataset timeSeriesDataset;
 
+    // step method
     public ThenTimeSeriesDataset the_TimeSeriesDataset_startInstant_is_$(Instant instant)
     {
         assertThat(instant).isEqualTo(timeSeriesDataset.getStartInstant());
         return self();
     }
 
+    // step method
     public ThenTimeSeriesDataset the_TimeSeriesDataset_stopInstant_is_$(Instant instant)
     {
         assertThat(instant).isEqualTo(timeSeriesDataset.getStopInstant());
         return self();
     }
 
+    // step method
     public ThenTimeSeriesDataset the_TimeSeriesDataset_has_at_least_$_values(int count)
     {
         assertThat(timeSeriesDataset.getNumberOfValues()).isGreaterThanOrEqualTo(count);
         return self();
     }
 
+    // step method
     public ThenTimeSeriesDataset the_TimeSeriesDataset_has_no_values()
     {
         assertThat(timeSeriesDataset.getNumberOfValues()).isZero();
         return self();
     }
 
+    // step method
     public ThenTimeSeriesDataset startInstant_and_stopInstant_are_equal()
     {
         assertThat(timeSeriesDataset.getStartInstant()).isEqualTo(timeSeriesDataset.getStopInstant());

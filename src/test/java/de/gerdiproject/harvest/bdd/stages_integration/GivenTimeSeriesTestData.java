@@ -65,6 +65,7 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
             "The applied JSON responses are attached - numbered accordingly in the event of multiple calls to this step due to multiple cases.");
     }
 
+    // step method
     public GivenTimeSeriesTestData one_conductivity_time_series_data_set()
     {
         allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
@@ -77,6 +78,7 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
         return self();
     }
 
+    // step method
     public GivenTimeSeriesTestData a_random_time_series_data_set()
     {
         allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");

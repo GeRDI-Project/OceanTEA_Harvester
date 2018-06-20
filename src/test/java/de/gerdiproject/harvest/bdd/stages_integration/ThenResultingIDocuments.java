@@ -34,6 +34,7 @@ public class ThenResultingIDocuments extends Stage<ThenResultingIDocuments>
     @ExpectedScenarioState
     List<IDocument> resultingIDocuments;
 
+    // step method
     public ThenResultingIDocuments one_resulting_document()
     {
         assertThat(resultingIDocuments.size()).isOne();
