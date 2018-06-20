@@ -35,7 +35,7 @@ import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
 public class HarvestedDocumentForSingleTimeSeriesDataSet extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingIDocuments>
 {
     @Test
-    public void OneConductivityTimeSeriesDataset()
+    public void one_conductivity_TimeSeries_dataset()
     {
         given().one_conductivity_time_series_data_set();
         when().harvested();

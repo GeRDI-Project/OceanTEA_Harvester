@@ -26,10 +26,10 @@ import com.tngtech.jgiven.junit.ScenarioTest;
 import de.gerdiproject.harvest.IDocument;
 import de.gerdiproject.harvest.bdd.stages_integration.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages_integration.ThenResultingDataCiteProperties;
-import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
 import de.gerdiproject.harvest.bdd.tags.TagIntegrationTest;
+import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
 import de.gerdiproject.json.datacite.enums.ContributorType;
 import de.gerdiproject.json.datacite.enums.DescriptionType;
 import de.gerdiproject.json.datacite.enums.NameType;
@@ -52,6 +52,14 @@ import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingDataCiteProperties>
 {
 
+    /**
+     * Provides the expected DataCite properties for scenario:
+     * constant_DataCite_properties_with_single_values
+     *
+     * @return (an array of) arrays, where the first item is the name of the
+     *         property - as expected by the corresponding stage method - and the
+     *         rest the expected item(s)
+     */
     @DataProvider
     public static Object[][] dataProviderConstants()
     {
@@ -65,6 +73,14 @@ public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeries
                };
     }
 
+    /**
+     * Provides the expected DataCite properties for scenario:
+     * constant_DataCite_properties_with_lists
+     *
+     * @return (an array of) arrays, where the first item is the name of the
+     *         property - as expected by the corresponding stage method - and the
+     *         rest the expected item(s)
+     */
     @DataProvider
     public static Object[][] dataProviderListConstants()
     {
@@ -96,6 +112,14 @@ public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeries
         };
     }
 
+    /**
+     * Provides the expected DataCite properties for scenario:
+     * variable_DataCite_properties_depending_on_the_time_series_dataset
+     *
+     * @return (an array of) arrays, where the first item is the name of the
+     *         property - as expected by the corresponding stage method - and the
+     *         rest the expected item(s)
+     */
     @DataProvider
     public static Object[][] dataProviderListVariables()
     {
