@@ -1,22 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-	http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
 		<groupId>de.gerdi-project</groupId>
 		<artifactId>GeRDI-parent-harvester</artifactId>
-		<version>6.8.3-SNAPSHOT</version>
+		<version>6.8.5</version>
 	</parent>
 
 	<artifactId>OceanTea-HarvesterService</artifactId>
-	<version>6.8.3-SNAPSHOT</version>
-
+	<version>6.8.5</version>
 	<packaging>war</packaging>
-
-	<name>OceanTEA Harvester Service</name>
-
+	<name>OceanTEA Harvester Service</name>	
 	<description>
 		A restful harvester for the TimeSeries data provided
 		by the OceanTEA demo at http://maui.se.informatik.uni-kiel.de:9090/
