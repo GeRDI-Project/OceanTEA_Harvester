@@ -16,6 +16,7 @@
 //package de.gerdiproject.harvest.bdd.stages_integration;
 package de.gerdiproject.harvest.harvester.subharvester;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -36,6 +37,7 @@ import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 import de.gerdiproject.harvest.oceantea.utils.OceanTeaDownloader;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeries;
+import de.gerdiproject.harvest.utils.HashGenerator;
 import de.gerdiproject.harvest.utils.data.HttpRequester;
 import de.gerdiproject.json.GsonUtils;
 
@@ -95,6 +97,8 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
 
     public WhenHarvesting harvested()
     {
+        HashGenerator.init(StandardCharsets.UTF_8);
+
         TimeSeriesHarvester harvester = new TimeSeriesHarvester();
 
         Collection<TimeSeries> collectionOfTimeSeries = harvester.loadEntries();

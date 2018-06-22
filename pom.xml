@@ -28,7 +28,7 @@
 		</developer>
 	</developers>
 
-	<!-- Define Sonatype repository for retrieving SNAPSHOT versions -->
+	<!-- Define Sonatype repository -->
 	<repositories>
 		<repository>
 			<id>Sonatype</id>
