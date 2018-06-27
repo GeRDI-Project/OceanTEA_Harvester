@@ -54,7 +54,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     @ExpectedScenarioState
     List<IDocument> resultingIDocuments = new ArrayList<>();
 
-    DataCiteJson dataCiteJSON;
+    DataCiteJson resultDocument;
 
     /**
      * Private method to make the first document of the list resulting IDocuments
@@ -65,7 +65,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     @SuppressWarnings("PMD.UnusedPrivateMethod")
     private void extractDataCiteJSONFromFirstEntry()
     {
-        dataCiteJSON = (DataCiteJson) resultingIDocuments.get(0);
+        resultDocument = (DataCiteJson) resultingIDocuments.get(0);
     }
 
     // step method
@@ -77,7 +77,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
             case "resource type":
                 // excepts a ResourceTypeGeneral and a string description
 
-                ResourceType resourceType = dataCiteJSON.getResourceType();
+                ResourceType resourceType = resultDocument.getResourceType();
 
                 assertThat(resourceType.getGeneralType()).isEqualTo(values[0]);
                 assertThat(resourceType.getValue()).isEqualTo(values[1]);
@@ -87,19 +87,19 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
             case "repository identifier":
                 // expects a string
 
-                assertThat(dataCiteJSON.getRepositoryIdentifier()).isEqualTo(values[0]);
+                assertThat(resultDocument.getRepositoryIdentifier()).isEqualTo(values[0]);
                 break;
 
             case "publisher":
                 // expects a string
 
-                assertThat(dataCiteJSON.getPublisher()).isEqualTo(values[0]);
+                assertThat(resultDocument.getPublisher()).isEqualTo(values[0]);
                 break;
 
             case "year":
                 // expects a year (e. g. 2012) as int
 
-                assertThat((int) dataCiteJSON.getPublicationYear()).isEqualTo(values[0]);
+                assertThat((int) resultDocument.getPublicationYear()).isEqualTo(values[0]);
                 break;
 
             default:
@@ -111,8 +111,8 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
 
     // step method
     public ThenResultingDataCiteProperties the_DataCite_list_property_$_contains_$(
-        String listPropertyName,
-        Object... values
+                                                                                   String listPropertyName,
+                                                                                   Object... values
     )
     {
         switch (listPropertyName) {
@@ -120,19 +120,19 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
             case "formats":
                 // expects string with the format (e.g. mimetype "application/json")
 
-                assertThat(values[0]).isIn(dataCiteJSON.getFormats());
+                assertThat(values[0]).isIn(resultDocument.getFormats());
                 break;
 
             case "subjects":
                 // expects one string, that is compared to the getValue() of Subject
 
-                assertThat(values[0]).isIn(dataCiteJSON.getSubjects().stream().map(Subject::getValue).toArray());
+                assertThat(values[0]).isIn(resultDocument.getSubjects().stream().map(Subject::getValue).toArray());
                 break;
 
             case "research disciplines":
                 // expects one of the ResearchDisciplineConstants
 
-                assertThat(values[0]).isIn(dataCiteJSON.getResearchDisciplines());
+                assertThat(values[0]).isIn(resultDocument.getResearchDisciplines());
                 break;
 
             case "weblinks":
@@ -140,7 +140,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
 
                 Predicate<WebLink> webLinkPredicate = wl -> wl.getType() == values[0] & wl.getUrl() == values[1];
 
-                assertThat(dataCiteJSON.getWebLinks().stream().anyMatch(webLinkPredicate));
+                assertThat(resultDocument.getWebLinks().stream().anyMatch(webLinkPredicate));
 
                 break;
 
@@ -149,37 +149,37 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
 
                 Predicate<Description> descriptionPredicate = d -> d.getType() == values[0] & d.getValue() == values[1];
 
-                assertThat(dataCiteJSON.getDescriptions().stream().anyMatch(descriptionPredicate));
+                assertThat(resultDocument.getDescriptions().stream().anyMatch(descriptionPredicate));
 
                 break;
 
             case "creators":
                 // expects one NameType and one name string
 
-                assertThat(dataCiteJSON.getCreators().stream().map(Creator::getName).filter(x -> x
-                                                                                            .getNameType() == values[0] & x.getValue() == values[1]).count()).isPositive();
+                assertThat(resultDocument.getCreators().stream().map(Creator::getName).filter(x -> x
+                    .getNameType() == values[0] & x.getValue() == values[1]).count()).isPositive();
                 break;
 
             case "contributors": // expects one ContributorType and one name string
 
                 Predicate<Contributor> contributorPredicate = c -> c.getType() == values[0] & c.getName()
-                                                              .getValue() == values[1];
+                    .getValue() == values[1];
 
-                assertThat(dataCiteJSON.getContributors().stream().anyMatch(contributorPredicate));
+                assertThat(resultDocument.getContributors().stream().anyMatch(contributorPredicate));
 
                 break;
 
             case "titles":
                 // expects on title string
 
-                assertThat(values[0]).isIn(dataCiteJSON.getTitles().stream().map(Title::getValue).toArray());
+                assertThat(values[0]).isIn(resultDocument.getTitles().stream().map(Title::getValue).toArray());
 
                 break;
 
             case "dates":
                 // expects a string representation of a date
 
-                assertThat(values[0]).isIn(dataCiteJSON.getDates().stream().map(AbstractDate::getValue).toArray());
+                assertThat(values[0]).isIn(resultDocument.getDates().stream().map(AbstractDate::getValue).toArray());
                 break;
 
             case "geolocations": // expects three doubles: latitude, longitude and elevation
@@ -188,8 +188,8 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
                                                                                    p.getLongitude(),
                                                                                    p.getElevation()));
 
-                assertThat(dataCiteJSON.getGeoLocations().stream().map(x -> (Point) x.getPoint().getCoordinates())
-                           .anyMatch(pointPredicate));
+                assertThat(resultDocument.getGeoLocations().stream().map(x -> (Point) x.getPoint().getCoordinates())
+                    .anyMatch(pointPredicate));
 
                 break;
 
@@ -197,10 +197,10 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
                 // expects 3 strings: file url, label & format (e.g. "application/json")
 
                 Predicate<ResearchData> researchDataPredicate = rd -> values.equals(Arrays.asList(rd.getUrl(),
-                                                                                    rd.getLabel(),
-                                                                                    rd.getType()));
+                                                                                                  rd.getLabel(),
+                                                                                                  rd.getType()));
 
-                assertThat(dataCiteJSON.getResearchDataList().stream().anyMatch(researchDataPredicate));
+                assertThat(resultDocument.getResearchDataList().stream().anyMatch(researchDataPredicate));
 
                 break;
 
