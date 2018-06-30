@@ -8,11 +8,11 @@
 	<parent>
 		<groupId>de.gerdi-project</groupId>
 		<artifactId>GeRDI-parent-harvester</artifactId>
-		<version>6.8.3-SNAPSHOT</version>
+		<version>6.8.5</version>
 	</parent>
 
 	<artifactId>OceanTea-HarvesterService</artifactId>
-	<version>6.8.3-SNAPSHOT</version>
+	<version>6.8.5</version>
 
 	<packaging>war</packaging>
 
@@ -33,7 +33,7 @@
 		</developer>
 	</developers>
 
-	<!-- Define Sonatype repository for retrieving SNAPSHOT versions -->
+	<!-- Define Sonatype repository -->
 	<repositories>
 		<repository>
 			<id>Sonatype</id>
