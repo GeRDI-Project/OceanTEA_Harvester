@@ -18,9 +18,7 @@ package de.gerdiproject.harvest.bdd.scenarios_integration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
-import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import com.tngtech.jgiven.junit.ScenarioTest;
 
 import de.gerdiproject.harvest.IDocument;
@@ -28,150 +26,52 @@ import de.gerdiproject.harvest.bdd.stages_integration.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages_integration.ThenResultingDataCiteProperties;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
-import de.gerdiproject.harvest.bdd.tags.TagIntegrationTest;
 import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
-import de.gerdiproject.json.datacite.enums.ContributorType;
-import de.gerdiproject.json.datacite.enums.DescriptionType;
-import de.gerdiproject.json.datacite.enums.NameType;
-import de.gerdiproject.json.datacite.enums.ResourceTypeGeneral;
-import de.gerdiproject.json.datacite.extension.constants.ResearchDisciplineConstants;
-import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
 
 /**
- * The integration tests of the DataCite properties of the created
- * {@linkplain IDocument}: some are dependent of the actual time series dataset
- * and some are independent. The scenarios use data providers for the multiple
- * test cases.
+ * The tests of the DataCite properties of the created {@linkplain IDocument}:
+ * some are independent of the actual time series dataset while others are
+ * partly or fully dependent.
  *
  * @author Ingo Thomsen
  */
 @Issue("SAI-312")
-@TagIntegrationTest
 @Tag("DataCite")
 @RunWith(DataProviderRunner.class)
-public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingDataCiteProperties>
+public class PropertiesOfAHarvestedDocument extends
+    ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingDataCiteProperties>
 {
 
-    /**
-     * Provides the expected DataCite properties for scenario:
-     * constant_DataCite_properties_with_single_values
-     *
-     * @return (an array of) arrays, where the first item is the name of the
-     *         property - as expected by the corresponding stage method - and the
-     *         rest the expected item(s)
-     */
-    @DataProvider
-    public static Object[][] dataProviderConstants()
-    {
-        return new Object[][] {
-
-        {
-            "resource type", ResourceTypeGeneral.Dataset, "JSON"
-        }, {
-            "publisher", "OceanTEA demo, Software Engineering, Computer Science, Kiel University"
-        },
-               };
-    }
-
-    /**
-     * Provides the expected DataCite properties for scenario:
-     * constant_DataCite_properties_with_lists
-     *
-     * @return (an array of) arrays, where the first item is the name of the
-     *         property - as expected by the corresponding stage method - and the
-     *         rest the expected item(s)
-     */
-    @DataProvider
-    public static Object[][] dataProviderListConstants()
-    {
-        return new Object[][] {
-            {
-                "formats", "application/json",
-            }, {
-                "subjects", "MoLab"
-            }, {
-                "subjects", "modular ocean laboratory",
-            }, {
-                "subjects", "underwater measurement",
-            }, {
-                "subjects", "oceanography",
-            }, {
-                "research disciplines", ResearchDisciplineConstants.OCEANOGRAPHY
-            }, {
-                "weblinks", WebLinkType.Related, "https://oceanrep.geomar.de/22245/"
-            }, {
-                "weblinks", WebLinkType.ProviderLogoURL, "http://www.se.informatik.uni-kiel.de/en/research/pictures/research-projects/oceantea-logo.png"
-            }, {
-                "descriptions", DescriptionType.Abstract, "Underwater measurements captured by a MoLab device (modular ocean laboratory) by GEOMAR, Kiel, Germany"
-            }, {
-                "creators", NameType.Organisational, "GEOMAR, Kiel, Germany"
-            }, {
-                "contributors", ContributorType.Producer, "GEOMAR, Kiel, Germany"
-            },
-
-        };
-    }
-
-    /**
-     * Provides the expected DataCite properties for scenario:
-     * variable_DataCite_properties_depending_on_the_time_series_dataset
-     *
-     * @return (an array of) arrays, where the first item is the name of the
-     *         property - as expected by the corresponding stage method - and the
-     *         rest the expected item(s)
-     */
-    @DataProvider
-    public static Object[][] dataProviderListVariables()
-    {
-        return new Object[][] {
-            {
-                "titles", "Conductivity measurements, underwater (depth 215.0 m) in the region 'Northern Norway'"
-            }, {
-                "dates", "2012-06-02T11:48:18Z/2012-06-02T20:03:18Z"
-            }, {
-                "geolocations", 70.2681, 22.4749666666667, -215.0
-            }, {
-                "research data list", "http://maui.se.informatik.uni-kiel.de:9090/timeseries/scalar/POS434-156/conductivity/215", "Conductivity measurements, collected underwater (depth 215.0 m) in the open water region 'Northern Norway' by MoLab device MLM", "application/json"
-            },
-
-        };
-    }
-
     @Test
-    @UseDataProvider("dataProviderConstants")
-    public void constant_DataCite_properties_with_single_values(String propertyName, Object... values)
+    public void constant_DataCite_properties_for_random_time_series_dataset()
     {
-        given().a_random_time_series_data_set();
+        // @formatter:off
+
+        given().a_random_time_series_data_set().
+        and ().an_expected_DataCiteJSON_named_$("constant_properties");
 
         when().harvested();
 
-        then().the_DataCite_property_$_is_$(propertyName, values);
+        then().all_constant_DataCite_properties_equal_those_in_expected_DataCiteJSON().
+        and ().all_partly_variable_DataCite_properties_contain_those_in_expected_DataCiteJSON();
+
+        // @formatter:on
     }
 
+
     @Test
-    @UseDataProvider("dataProviderListConstants")
-    public void constant_DataCite_properties_with_lists(String listPropertyName, Object... values)
+    public void variable_DataCite_properties_for_exemplary_time_series_dataset()
     {
-        given().a_random_time_series_data_set();
+        // @formatter:off
+
+        given().a_time_series_data_set_named_$("POS434-156_conductivity_215").
+        and ().an_expected_DataCiteJSON_named_$("POS434-156_conductivity_215");
 
         when().harvested();
 
-        then().the_DataCite_list_property_$_contains_$(listPropertyName, values);
-    }
+        then().all_partly_variable_DataCite_properties_contain_those_in_expected_DataCiteJSON().
+        and ().all_variable_DataCite_properties_equal_those_in_expected_DataCiteJSON();
 
-    @Test
-    @UseDataProvider("dataProviderListVariables")
-    public void variable_DataCite_properties_depending_on_the_time_series_dataset(
-        String listPropertyName,
-        Object... values
-    )
-    {
-        given().one_conductivity_time_series_data_set();
-
-        when().harvested();
-
-        then().the_DataCite_property_$_is_$("year", 2012).and().the_DataCite_list_property_$_contains_$(
-            listPropertyName,
-            values);
+        // @formatter:on
     }
 }
