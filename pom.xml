@@ -11,6 +11,7 @@
 
 	<artifactId>OceanTea-HarvesterService</artifactId>
 	<version>6.8.5</version>
+
 	<packaging>war</packaging>
 	<name>OceanTEA Harvester Service</name>	
 	<description>
