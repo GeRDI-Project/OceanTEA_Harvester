@@ -22,7 +22,6 @@ import com.tngtech.jgiven.junit.ScenarioTest;
 import de.gerdiproject.harvest.bdd.stages_integration.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages_integration.ThenResultingIDocuments;
 import de.gerdiproject.harvest.bdd.tags.Issue;
-import de.gerdiproject.harvest.bdd.tags.TagIntegrationTest;
 import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
 
 /**
@@ -31,14 +30,18 @@ import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
  * @author Ingo Thomsen
  */
 @Issue("SAI-312")
-@TagIntegrationTest
-public class HarvestedDocumentForSingleTimeSeriesDataSet extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingIDocuments>
+public class HarvestedDocumentForSingleTimeSeriesDataSet extends
+    ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingIDocuments>
 {
+
     @Test
     public void one_conductivity_TimeSeries_dataset()
     {
-        given().one_conductivity_time_series_data_set();
+        given().a_random_time_series_data_set();
+
         when().harvested();
-        then().one_resulting_document();
+
+        then().one_there_is_one_resulting_document();
     }
+
 }

@@ -35,7 +35,7 @@ public class ThenResultingIDocuments extends Stage<ThenResultingIDocuments>
     List<IDocument> resultingIDocuments;
 
     // step method
-    public ThenResultingIDocuments one_resulting_document()
+    public ThenResultingIDocuments one_there_is_one_resulting_document()
     {
         assertThat(resultingIDocuments.size()).isOne();
         return self();
