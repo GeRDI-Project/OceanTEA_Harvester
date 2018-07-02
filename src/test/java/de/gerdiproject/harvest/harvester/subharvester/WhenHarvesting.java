@@ -62,11 +62,23 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
     @ProvidedScenarioState
     List<IDocument> resultingIDocuments = new ArrayList<>();
 
+
+    /**
+     * Private generic helper to define for a mocked HttpRequester the behavior of
+     * the getObjectFromUrl() method: If requesting a JSON response for a specific
+     * targetClass the respective JSON string - provided through the scenario state
+     * variable - is returned.
+     *
+     * @param mock the mocked HttpRequester
+     * @param targetClass the requested target class
+     * @param aJSONResponse the JSON response string to be returned
+     */
     private <T> void setStubReturnValue(HttpRequester mock, Class<T> targetClass, String aJSONResponse)
     {
         T value = GsonUtils.getGson().fromJson(aJSONResponse, targetClass);
         Mockito.when(mock.getObjectFromUrl(Mockito.anyString(), ArgumentMatchers.eq(targetClass))).thenReturn(value);
     }
+
 
     /**
      * Create a mock HttpRequester, set up stubbed methods to return the JSOn
@@ -95,6 +107,8 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
         Whitebox.setInternalState(OceanTeaDownloader.class, HttpRequester.class, mockHttpRequester);
     }
 
+
+    // step method
     public WhenHarvesting harvested()
     {
         HashGenerator.init(StandardCharsets.UTF_8);
