@@ -1,0 +1,64 @@
+{
+  "titles": [
+    {
+      "value": "Conductivity measurements, underwater (depth 215.0 m) in the region \u0027Northern Norway\u0027",
+      "lang": "en-US"
+    }
+  ],
+  "publicationYear": 2012,
+  "subjects": [
+    {
+      "value": "Conductivity"
+    },
+    {
+      "value": "POS434-156"
+    },
+    {
+      "value": "Northern Norway"
+    },
+    {
+      "value": "MoLab MLM"
+    }
+  ],
+  "dates": [
+    {
+      "value": "2012-06-02T11:48:18Z/2012-07-25T14:23:18Z",
+      "dateType": "Created"
+    }
+  ],
+  "descriptions": [
+    {
+      "value": "Conductivity time series data (from 2012-06-02T11:48:18Z to 2012-07-25T14:23:18Z). 15296 measurements are provided in the JSON format - relative (in seconds) to timestamp 2012-06-01T00:00:01Z. Data was collected in the open water region \u0027Northern Norway\u0027 at geo location (22.4750;70.2681) at a depth of 215.0 m. The measurement unit is mS/cm.",
+      "descriptionType": "Abstract",
+      "lang": "en-US"
+    }
+  ],
+  "geoLocations": [
+    {
+      "geoLocationPlace": "measurement region of Northern Norway",
+      "geoLocationPoint": {
+        "type": "Point",
+        "coordinates": [
+          22.4749666666667,
+          70.2681,
+          -215.0
+        ]
+      }
+    }
+  ],
+  "webLinks": [
+    {
+      "webLinkName": "Conductivity measurements, underwater (depth 215.0 m) in the region \u0027Northern Norway\u0027",
+      "webLinkURI": "http://maui.se.informatik.uni-kiel.de:9090/",
+      "webLinkType": "ViewURL"
+    }
+  ],
+  "researchDataList": [
+    {
+      "researchDataURL": "http://maui.se.informatik.uni-kiel.de:9090/timeseries/scalar/POS434-156/conductivity/215",
+      "researchDataLabel": "Conductivity measurements, collected underwater (depth 215.0 m) in the open water region \u0027Northern Norway\u0027 by MoLab device MLM",
+      "researchDataIdentifier": "989285257",
+      "researchDataType": "application/json"
+    }
+  ]
+}

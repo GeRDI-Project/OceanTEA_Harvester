@@ -1,0 +1,123 @@
+{
+  "creators": [
+    {
+      "creatorName": {
+        "value": "GEOMAR, Kiel, Germany",
+        "nameType": "Organisational"
+      }
+    }
+  ],
+  "titles": [
+    {
+      "value": "Conductivity measurements, underwater (depth 215.0 m) in the region \u0027Northern Norway\u0027",
+      "lang": "en-US"
+    }
+  ],
+  "publisher": "OceanTEA demo, Software Engineering, Computer Science, Kiel University",
+  "publicationYear": 2012,
+  "resourceType": {
+    "value": "JSON",
+    "resourceTypeGeneral": "Dataset"
+  },
+  "subjects": [
+    {
+      "value": "MoLab"
+    },
+    {
+      "value": "modular ocean laboratory"
+    },
+    {
+      "value": "underwater measurement"
+    },
+    {
+      "value": "oceanography"
+    },
+    {
+      "value": "MoLab MLM"
+    },
+    {
+      "value": "Conductivity"
+    },
+    {
+      "value": "POS434-156"
+    },
+    {
+      "value": "Northern Norway"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorName": {
+        "value": "GEOMAR, Kiel, Germany",
+        "nameType": "Organisational"
+      },
+      "contributorType": "Producer"
+    }
+  ],
+  "dates": [
+    {
+      "value": "2012-06-01T00:00:01Z/2012-06-01T00:00:01Z",
+      "dateType": "Created"
+    }
+  ],
+  "formats": [
+    "application/json"
+  ],
+  "descriptions": [
+    {
+      "value": "Underwater measurements captured by a MoLab device (modular ocean laboratory) by GEOMAR, Kiel, Germany",
+      "descriptionType": "Abstract",
+      "lang": "en-US"
+    },
+    {
+      "value": "Conductivity time series data (from 2012-06-01T00:00:01Z to 2012-06-01T00:00:01Z). 0 measurements are provided in the JSON format - relative (in seconds) to timestamp 2012-06-01T00:00:01Z. Data was collected in the open water region \u0027Northern Norway\u0027 at geo location (22.4750;70.2681) at a depth of 215.0 m. The measurement unit is mS/cm.",
+      "descriptionType": "Abstract",
+      "lang": "en-US"
+    }
+  ],
+  "geoLocations": [
+    {
+      "geoLocationPlace": "measurement region of Northern Norway",
+      "geoLocationPoint": {
+        "type": "Point",
+        "coordinates": [
+          22.4749666666667,
+          70.2681,
+          -215.0
+        ]
+      }
+    }
+  ],
+  "webLinks": [
+    {
+      "webLinkURI": "https://oceanrep.geomar.de/22245/",
+      "webLinkType": "Related"
+    },
+    {
+      "webLinkURI": "http://www.se.informatik.uni-kiel.de/en/research/pictures/research-projects/oceantea-logo.png",
+      "webLinkType": "ProviderLogoURL"
+    },
+    {
+      "webLinkName": "Conductivity measurements, underwater (depth 215.0 m) in the region \u0027Northern Norway\u0027",
+      "webLinkURI": "http://maui.se.informatik.uni-kiel.de:9090/",
+      "webLinkType": "ViewURL"
+    }
+  ],
+  "researchDataList": [
+    {
+      "researchDataURL": "http://maui.se.informatik.uni-kiel.de:9090/timeseries/scalar/POS434-156/conductivity/215",
+      "researchDataLabel": "Conductivity measurements, collected underwater (depth 215.0 m) in the open water region \u0027Northern Norway\u0027 by MoLab device MLM",
+      "researchDataIdentifier": "989285257",
+      "researchDataType": "application/json"
+    }
+  ],
+  "repositoryIdentifier": "OCEANTEA",
+  "researchDisciplines": [
+    {
+      "area": "Atmospheric Science, Oceanography and Climate Research",
+      "category": "Natural Sciences",
+      "rnbr": "313-02",
+      "discipline": "Oceanography"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "creators": [
+    {
+      "creatorName": {
+        "value": "GEOMAR, Kiel, Germany",
+        "nameType": "Organisational"
+      }
+    }
+  ],
+  "publisher": "OceanTEA demo, Software Engineering, Computer Science, Kiel University",
+  "resourceType": {
+    "value": "JSON",
+    "resourceTypeGeneral": "Dataset"
+  },
+  "subjects": [
+    {
+      "value": "MoLab"
+    },
+    {
+      "value": "modular ocean laboratory"
+    },
+    {
+      "value": "underwater measurement"
+    },
+    {
+      "value": "oceanography"
+    }
+  ],
+  "contributors": [
+    {
+      "contributorName": {
+        "value": "GEOMAR, Kiel, Germany",
+        "nameType": "Organisational"
+      },
+      "contributorType": "Producer"
+    }
+  ],
+  "formats": [
+    "application/json"
+  ],
+  "descriptions": [
+    {
+      "value": "Underwater measurements captured by a MoLab device (modular ocean laboratory) by GEOMAR, Kiel, Germany",
+      "descriptionType": "Abstract",
+      "lang": "en-US"
+    }
+  ],
+  "webLinks": [
+    {
+      "webLinkURI": "https://oceanrep.geomar.de/22245/",
+      "webLinkType": "Related"
+    },
+    {
+      "webLinkURI": "http://www.se.informatik.uni-kiel.de/en/research/pictures/research-projects/oceantea-logo.png",
+      "webLinkType": "ProviderLogoURL"
+    }
+  ],
+  "repositoryIdentifier": "OCEANTEA",
+  "researchDisciplines": [
+    {
+      "area": "Atmospheric Science, Oceanography and Climate Research",
+      "category": "Natural Sciences",
+      "rnbr": "313-02",
+      "discipline": "Oceanography"
+    }
+  ]
+}
