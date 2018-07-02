@@ -22,9 +22,14 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
+import de.gerdiproject.json.GsonUtils;
+import de.gerdiproject.json.datacite.DataCiteJson;
 
 /**
  * Non-instantiable utility class providing test data for the various scenario
@@ -47,25 +52,23 @@ public final class TestDataProvider
 
     // the resource directors containing the JSON files
     private static final String baseDir                         = "json/";
+    private static final String dirDataCiteDocuments            = baseDir + "data_cite_documents/";
     private static final String dirAllDataTypes                 = baseDir + "all_data_types/";
-    private static final String dirAllTimeSeries                = baseDir + "all_time_series/";
     private static final String dirDatasets                     = baseDir + "time_series_datasets/";
+    private static final String dirAllTimeSeries                = baseDir + "all_time_series/";
     private static final String dirTimeSeriesWithSingleDatasets = dirAllTimeSeries + "all_time_series_with_single_dataset_each/";
 
     // class loader for accessing the resource dirs and files
     private static ClassLoader classLoader = TestDataProvider.class.getClassLoader();
 
-    // the HashMaps containing the JSON response strings
+    // A Gson object (for creating DataCiteJson objects)
+    private static Gson gson = getGson();
+
+    // the HashMaps containing the JSON strings
     private static HashMap<String, String> allDataTypesJSONStrings  = assembleAllDataTypesJSONStrings();
     private static HashMap<String, String> allTimeSeriesJSONStrings = assembleAllTimeSeriesJSONStrings();
     private static HashMap<String, String> datasetJSONStrings       = assembleDatasetJSONStrings();
-
-    /**
-     * private constructor to enforce non-instantiability
-     */
-    private TestDataProvider()
-    {
-    }
+    private static HashMap<String, String> dataCiteJsonStrings      = assembleDataCiteJsonStrings();
 
     /**
      * Return a allDataTypes JSON response
@@ -76,6 +79,9 @@ public final class TestDataProvider
      */
     public static String getAllDataTypesJSON(String name)
     {
+        if (!allDataTypesJSONStrings.containsKey(name))
+            throw new RuntimeException("Expected JSON string '" + name + "' not present!");
+
         return allDataTypesJSONStrings.get(name);
     }
 
@@ -88,6 +94,9 @@ public final class TestDataProvider
      */
     public static String getAllTimeSeriesJSON(String name)
     {
+        if (!allTimeSeriesJSONStrings.containsKey(name))
+            throw new RuntimeException("Expected JSON string '" + name + "' not present!");
+
         return allTimeSeriesJSONStrings.get(name);
     }
 
@@ -100,8 +109,10 @@ public final class TestDataProvider
      */
     public static String getTimeSeriesDatasetJSON(String name)
     {
-        return datasetJSONStrings.get(name);
+        if (!datasetJSONStrings.containsKey(name))
+            throw new RuntimeException("Expected JSON string '" + name + "' not present!");
 
+        return datasetJSONStrings.get(name);
     }
 
     /**
@@ -114,6 +125,39 @@ public final class TestDataProvider
         int randomIndex = (int)(Math.random() * allTimeSeriesJSONStrings.size());
         return allTimeSeriesJSONStrings.values().stream().skip(randomIndex).findFirst().get();
     };
+
+    /**
+     * Return a DataCiteJson object
+     *
+     * @param name Name of the DataCiteJson string to create the object from
+     *
+     * @return DataCiteJson document created from JSON string
+     */
+    public static DataCiteJson getExpectedtDataCiteJSON(String name)
+    {
+        if (!dataCiteJsonStrings.containsKey(name))
+            throw new RuntimeException("Expected JSON string '" + name + "' not present!");
+
+        return gson.fromJson(dataCiteJsonStrings.get(name), DataCiteJson.class);
+    }
+
+    /**
+     * private constructor to enforce non-instantiability
+     */
+    private TestDataProvider()
+    {
+    }
+
+    /**
+     * Initialize Gson and return a PrettyGson object
+     *
+     * @return Gson object
+     */
+    private static Gson getGson()
+    {
+        GsonUtils.init(new GsonBuilder());
+        return GsonUtils.getPrettyGson();
+    }
 
     /**
      * Private helper to get the content of a resource as string (read as input
@@ -199,6 +243,22 @@ public final class TestDataProvider
         HashMap<String, String> mapping = new HashMap<>();
 
         addJSONStringsFromFilesToHashMap(mapping, dirDatasets);
+
+        return mapping;
+    }
+
+    /**
+     * Private helper to create a HashMap with with the strings - read from JSON
+     * files - that represent DataCiteJson documents with the file name (w/o
+     * extension) used as key.
+     *
+     * @return HashMap containing all DataCiteJson strings
+     */
+    private static HashMap<String, String> assembleDataCiteJsonStrings()
+    {
+        HashMap<String, String> mapping = new HashMap<>();
+
+        addJSONStringsFromFilesToHashMap(mapping, dirDataCiteDocuments);
 
         return mapping;
     }
