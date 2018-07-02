@@ -26,6 +26,8 @@ import de.gerdiproject.harvest.TestDataProvider;
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
+import de.gerdiproject.json.GsonUtils;
+import de.gerdiproject.json.datacite.DataCiteJson;
 
 /**
  * Each step (method) in this Given stage (class) selects the JSON responses
@@ -47,36 +49,36 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     @ProvidedScenarioState
     String timeSeriesDatasetJSONResponse;
 
+    @ProvidedScenarioState
+    DataCiteJson expectedDataCiteJson;
+
     @ScenarioState
     CurrentStep currentStep;
 
-    /**
-     * Add the JSON string as attachment for the HTML report on this stage and set
-     * the description (e. g. shown as tooltip) accordingly.
-     *
-     * @param aJSONResponse The JSON string that is to be added to the HTML report
-     */
-    private void addJSONStrinAsAttachmentAndDescription(String aJSONResponse)
-    {
-        Attachment attachment = Attachment.fromText(aJSONResponse, MediaType.JSON_UTF_8);
-        currentStep.addAttachment(attachment);
-
-        currentStep.setExtendedDescription(
-            "The applied JSON responses are attached - numbered accordingly in the event of multiple calls to this step due to multiple cases.");
-    }
 
     // step method
-    public GivenTimeSeriesTestData one_conductivity_time_series_data_set()
+    public GivenTimeSeriesTestData a_time_series_data_set_named_$(String name)
     {
         allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
-        timeSeriesDatasetJSONResponse = TestDataProvider.getTimeSeriesDatasetJSON(
-                                            "POS434-156_conductivity_215.first_100");
-        allTimeSeriesJSONResponse = TestDataProvider.getAllTimeSeriesJSON("POS434-156_conductivity_215");
+        timeSeriesDatasetJSONResponse = TestDataProvider.getTimeSeriesDatasetJSON(name);
+        allTimeSeriesJSONResponse = TestDataProvider.getAllTimeSeriesJSON(name);
 
-        addJSONStrinAsAttachmentAndDescription(allTimeSeriesJSONResponse);
+        addJSONStringAsAttachmentAndDescription(allTimeSeriesJSONResponse);
 
         return self();
     }
+
+
+    // step method
+    public GivenTimeSeriesTestData an_expected_DataCiteJSON_named_$(String name)
+    {
+        expectedDataCiteJson = TestDataProvider.getExpectedtDataCiteJSON(name);
+
+        addJSONStringAsAttachmentAndDescription(GsonUtils.getPrettyGson().toJson(expectedDataCiteJson));
+
+        return self();
+    }
+
 
     // step method
     public GivenTimeSeriesTestData a_random_time_series_data_set()
@@ -85,8 +87,24 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
         allTimeSeriesJSONResponse = TestDataProvider.getRandomAllTimeSeriesJSON();
         timeSeriesDatasetJSONResponse = TestDataProvider.getTimeSeriesDatasetJSON("synthetic.no_data");
 
-        addJSONStrinAsAttachmentAndDescription(allTimeSeriesJSONResponse);
+        addJSONStringAsAttachmentAndDescription(allTimeSeriesJSONResponse);
 
         return self();
+    }
+
+
+    /**
+     * A private helper to add the JSON string as attachment for the HTML report on
+     * this stage and set the description (e. g. shown as tooltip) accordingly.
+     *
+     * @param aJSONResponse The JSON string that is to be added to the HTML report
+     */
+    private void addJSONStringAsAttachmentAndDescription(String aJSONResponse)
+    {
+        Attachment attachment = Attachment.fromText(aJSONResponse, MediaType.JSON_UTF_8);
+        currentStep.addAttachment(attachment);
+
+        currentStep.setExtendedDescription(
+            "The applied JSON responses are attached - numbered accordingly in the event of multiple calls to this step due to multiple cases.");
     }
 }
