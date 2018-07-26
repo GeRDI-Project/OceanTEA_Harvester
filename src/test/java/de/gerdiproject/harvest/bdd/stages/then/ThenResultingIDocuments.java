@@ -25,7 +25,8 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import de.gerdiproject.harvest.IDocument;
 
 /**
- * A Then stage testing general properties - independant of the acutally harvested datasets - of the resulting {@linkplain IDocument}s
+ * A Then stage testing general properties - independent of the actually
+ * harvested dataset(s) - of the resulting {@linkplain IDocument}s
  *
  * @author Ingo Thomsen
  */
@@ -34,8 +35,7 @@ public class ThenResultingIDocuments extends Stage<ThenResultingIDocuments>
     @ExpectedScenarioState
     List<IDocument> resultingIDocuments;
 
-
-    public ThenResultingIDocuments one_there_is_one_resulting_document()
+    public ThenResultingIDocuments there_is_exactly_one_resulting_document()
     {
         assertThat(resultingIDocuments.size()).isOne();
         return self();

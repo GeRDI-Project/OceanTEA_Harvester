@@ -27,18 +27,20 @@ import com.tngtech.jgiven.junit.ScenarioTest;
 import de.gerdiproject.harvest.bdd.stages.given.GivenTimeSeriesDatasetResponse;
 import de.gerdiproject.harvest.bdd.stages.then.ThenTimeSeriesDataset;
 import de.gerdiproject.harvest.bdd.stages.when.WhenTimeSeriesDataset;
+import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeriesDataset;
 
 /**
- * This is an scenario describing some behavior of the initialization of the
+ * This scenario describes some initialization behavior of the
  * {@linkplain TimeSeriesDataset} class.
  *
  * @author Ingo Thomsen
  */
+@Issue("SAI-312")
 @Tag("Initialization")
 @RunWith(DataProviderRunner.class)
-public class Initialization_of_a_TimeSeriesDataset extends ScenarioTest<GivenTimeSeriesDatasetResponse, WhenTimeSeriesDataset, ThenTimeSeriesDataset>
+public class InitializationOfATimeSeriesDataset extends ScenarioTest<GivenTimeSeriesDatasetResponse, WhenTimeSeriesDataset, ThenTimeSeriesDataset>
 {
 
     @Test

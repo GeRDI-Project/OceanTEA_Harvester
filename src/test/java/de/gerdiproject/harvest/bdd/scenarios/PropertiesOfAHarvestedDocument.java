@@ -29,17 +29,18 @@ import de.gerdiproject.harvest.bdd.tags.Tag;
 import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
 
 /**
- * The tests of the DataCite properties of the created {@linkplain IDocument}:
- * some are independent of the actual time series dataset while others are
- * partly or fully dependent.
+ * Scenarios on how given OceanTEA data is translated into valid
+ * {@linkplain IDocument}s.
+ *
+ * Some of the resulting properties are independent of the specific dataset while
+ * others are partly or even fully dependent.
  *
  * @author Ingo Thomsen
  */
 @Issue("SAI-312")
 @Tag("DataCite")
 @RunWith(DataProviderRunner.class)
-public class PropertiesOfAHarvestedDocument extends
-    ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingDataCiteProperties>
+public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingDataCiteProperties>
 {
 
     @Test
@@ -57,7 +58,6 @@ public class PropertiesOfAHarvestedDocument extends
 
         // @formatter:on
     }
-
 
     @Test
     public void variable_DataCite_properties_for_exemplary_time_series_dataset()

@@ -22,16 +22,17 @@ import com.tngtech.jgiven.junit.ScenarioTest;
 import de.gerdiproject.harvest.bdd.stages.given.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages.then.ThenResultingIDocuments;
 import de.gerdiproject.harvest.bdd.tags.Issue;
+import de.gerdiproject.harvest.bdd.tags.Tag;
 import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
 
 /**
- * A scenario with an exemplary integration test
+ * Scenario about the general structure of list of the resulting IDocuments.
  *
  * @author Ingo Thomsen
  */
 @Issue("SAI-312")
-public class HarvestedDocumentForSingleTimeSeriesDataSet extends
-    ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingIDocuments>
+@Tag("DataCite")
+public class HarvestedDocumentForSingleTimeSeriesDataset extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingIDocuments>
 {
 
     @Test
@@ -41,7 +42,7 @@ public class HarvestedDocumentForSingleTimeSeriesDataSet extends
 
         when().harvested();
 
-        then().one_there_is_one_resulting_document();
+        then().there_is_exactly_one_resulting_document();
     }
 
 }
