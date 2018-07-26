@@ -13,31 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.gerdiproject.harvest.bdd.stages_integration;
+package de.gerdiproject.harvest.bdd.stages.when;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
+import java.time.Instant;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 
-import de.gerdiproject.harvest.IDocument;
+import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
+import de.gerdiproject.harvest.oceantea.utils.TimeSeriesDataset;
 
 /**
- * A Then stage testing general properties - independant of the acutally harvested datasets - of the resulting {@linkplain IDocument}s
+ * A When stage with steps methods for the {@linkplain TimeSeriesDataset} class.
  *
  * @author Ingo Thomsen
  */
-public class ThenResultingIDocuments extends Stage<ThenResultingIDocuments>
+public class WhenTimeSeriesDataset extends Stage<WhenTimeSeriesDataset>
 {
+
     @ExpectedScenarioState
-    List<IDocument> resultingIDocuments;
+    TimeSeriesDatasetResponse timeSeriesDatasetResponse;
 
+    @ProvidedScenarioState
+    TimeSeriesDataset timeSeriesDataset;
 
-    public ThenResultingIDocuments one_there_is_one_resulting_document()
+    public WhenTimeSeriesDataset a_TimeSeriesDataset_is_created_for_Instant(Instant referenceInstant)
     {
-        assertThat(resultingIDocuments.size()).isOne();
+        timeSeriesDataset = new TimeSeriesDataset(timeSeriesDatasetResponse, referenceInstant);
         return self();
     }
 }

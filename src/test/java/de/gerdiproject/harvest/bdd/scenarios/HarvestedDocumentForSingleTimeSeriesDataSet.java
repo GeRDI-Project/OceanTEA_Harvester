@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.gerdiproject.harvest.bdd.scenarios_integration;
+package de.gerdiproject.harvest.bdd.scenarios;
 
 import org.junit.Test;
 
 import com.tngtech.jgiven.junit.ScenarioTest;
 
-import de.gerdiproject.harvest.bdd.stages_integration.GivenTimeSeriesTestData;
-import de.gerdiproject.harvest.bdd.stages_integration.ThenResultingIDocuments;
+import de.gerdiproject.harvest.bdd.stages.given.GivenTimeSeriesTestData;
+import de.gerdiproject.harvest.bdd.stages.then.ThenResultingIDocuments;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
 

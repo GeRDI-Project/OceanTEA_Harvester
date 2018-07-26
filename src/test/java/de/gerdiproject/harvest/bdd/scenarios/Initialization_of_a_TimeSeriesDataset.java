@@ -24,9 +24,9 @@ import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.jgiven.junit.ScenarioTest;
 
-import de.gerdiproject.harvest.bdd.stages.oceantea.json.GivenTimeSeriesDatasetResponse;
-import de.gerdiproject.harvest.bdd.stages.oceantea.utils.ThenTimeSeriesDataset;
-import de.gerdiproject.harvest.bdd.stages.oceantea.utils.WhenTimeSeriesDataset;
+import de.gerdiproject.harvest.bdd.stages.given.GivenTimeSeriesDatasetResponse;
+import de.gerdiproject.harvest.bdd.stages.then.ThenTimeSeriesDataset;
+import de.gerdiproject.harvest.bdd.stages.when.WhenTimeSeriesDataset;
 import de.gerdiproject.harvest.bdd.tags.Tag;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeriesDataset;
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.gerdiproject.harvest.bdd.stages_integration;
+package de.gerdiproject.harvest.bdd.stages.then;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

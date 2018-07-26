@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.gerdiproject.harvest.bdd.stages.oceantea.json;
+package de.gerdiproject.harvest.bdd.stages.given;
 
 import java.util.ArrayList;
 import java.util.Arrays;

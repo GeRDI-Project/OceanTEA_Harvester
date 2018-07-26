@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.gerdiproject.harvest.bdd.stages_integration;
+package de.gerdiproject.harvest.bdd.stages.given;
 
 import com.tngtech.jgiven.CurrentStep;
 import com.tngtech.jgiven.Stage;
@@ -92,7 +92,7 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
 
     /**
      * A private helper to add the JSON string as attachment for the HTML report on
-     * this stage and set the description (e. g. shown as tooltip) accordingly.
+     * this stage and set the description (e. g. shown as tool tip) accordingly.
      *
      * @param aJSONResponse The JSON string that is to be added to the HTML report
      */
@@ -102,6 +102,6 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
         currentStep.addAttachment(attachment);
 
         currentStep.setExtendedDescription(
-            "The applied JSON responses are attached - numbered accordingly in the event of multiple calls to this step due to multiple cases.");
+            "The given resp. expected JSON strings are attached.");
     }
 }

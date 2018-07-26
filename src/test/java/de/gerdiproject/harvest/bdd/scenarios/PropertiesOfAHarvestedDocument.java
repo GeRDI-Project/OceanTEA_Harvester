@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.gerdiproject.harvest.bdd.scenarios_integration;
+package de.gerdiproject.harvest.bdd.scenarios;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,8 +22,8 @@ import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.jgiven.junit.ScenarioTest;
 
 import de.gerdiproject.harvest.IDocument;
-import de.gerdiproject.harvest.bdd.stages_integration.GivenTimeSeriesTestData;
-import de.gerdiproject.harvest.bdd.stages_integration.ThenResultingDataCiteProperties;
+import de.gerdiproject.harvest.bdd.stages.given.GivenTimeSeriesTestData;
+import de.gerdiproject.harvest.bdd.stages.then.ThenResultingDataCiteProperties;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
 import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
