@@ -74,10 +74,10 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     DataCiteJson expectedDataCiteJson;
 
     // The first of resulting IDocuments, which is used for all comparisons
-    DataCiteJson resultingDataCiteJson;
+    private DataCiteJson resultingDataCiteJson;
 
     // A Gson object (for creating JSON for messages)
-    private static Gson gson = getGson();
+    private static final Gson gson = getGson();
 
 
     // step method (using other step methods)

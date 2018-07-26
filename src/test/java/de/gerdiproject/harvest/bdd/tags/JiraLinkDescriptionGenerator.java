@@ -25,7 +25,7 @@ import com.tngtech.jgiven.config.TagConfiguration;
  */
 public class JiraLinkDescriptionGenerator implements TagDescriptionGenerator
 {
-    static final String linkTextTemplate = "<a href='https://tasks.gerdi-project.de/browse/%s'>%s (→ JIRA)</a>";
+    private static final String linkTextTemplate = "<a href='https://tasks.gerdi-project.de/browse/%s'>%s (→ JIRA)</a>";
 
     @Override
     public String generateDescription(TagConfiguration tagConfiguration, Annotation annotation, Object tagValue)

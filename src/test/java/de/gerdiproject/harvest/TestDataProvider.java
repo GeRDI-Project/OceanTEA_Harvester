@@ -49,7 +49,6 @@ import de.gerdiproject.json.datacite.DataCiteJson;
  */
 public final class TestDataProvider
 {
-
     // the resource directors containing the JSON files
     private static final String baseDir                         = "json/";
     private static final String dirDataCiteDocuments            = baseDir + "data_cite_documents/";
@@ -59,16 +58,16 @@ public final class TestDataProvider
     private static final String dirTimeSeriesWithSingleDatasets = dirAllTimeSeries + "all_time_series_with_single_dataset_each/";
 
     // class loader for accessing the resource dirs and files
-    private static ClassLoader classLoader = TestDataProvider.class.getClassLoader();
+    private static final ClassLoader classLoader = TestDataProvider.class.getClassLoader();
 
     // A Gson object (for creating DataCiteJson objects)
-    private static Gson gson = getGson();
+    private static final Gson gson = getGson();
 
     // the HashMaps containing the JSON strings
-    private static HashMap<String, String> allDataTypesJSONStrings  = assembleAllDataTypesJSONStrings();
-    private static HashMap<String, String> allTimeSeriesJSONStrings = assembleAllTimeSeriesJSONStrings();
-    private static HashMap<String, String> datasetJSONStrings       = assembleDatasetJSONStrings();
-    private static HashMap<String, String> dataCiteJsonStrings      = assembleDataCiteJsonStrings();
+    private static final HashMap<String, String> allDataTypesJSONStrings  = assembleAllDataTypesJSONStrings();
+    private static final HashMap<String, String> allTimeSeriesJSONStrings = assembleAllTimeSeriesJSONStrings();
+    private static final HashMap<String, String> datasetJSONStrings       = assembleDatasetJSONStrings();
+    private static final HashMap<String, String> dataCiteJsonStrings      = assembleDataCiteJsonStrings();
 
     /**
      * Return a allDataTypes JSON response
@@ -122,7 +121,7 @@ public final class TestDataProvider
      */
     public static String getRandomAllTimeSeriesJSON()
     {
-        int randomIndex = (int)(Math.random() * allTimeSeriesJSONStrings.size());
+        int randomIndex = (int) (Math.random() * allTimeSeriesJSONStrings.size());
         return allTimeSeriesJSONStrings.values().stream().skip(randomIndex).findFirst().get();
     };
 
