@@ -57,7 +57,7 @@ public final class TestDataProvider
     private static final String dirAllTimeSeries                = baseDir + "all_time_series/";
     private static final String dirTimeSeriesWithSingleDatasets = dirAllTimeSeries + "all_time_series_with_single_dataset_each/";
 
-    // class loader for accessing the resource dirs and files
+    // class loader for accessing the resource directories and files
     private static final ClassLoader classLoader = TestDataProvider.class.getClassLoader();
 
     // A Gson object (for creating DataCiteJson objects)
@@ -121,7 +121,7 @@ public final class TestDataProvider
      */
     public static String getRandomAllTimeSeriesJSON()
     {
-        int randomIndex = (int) (Math.random() * allTimeSeriesJSONStrings.size());
+        int randomIndex = (int)(Math.random() * allTimeSeriesJSONStrings.size());
         return allTimeSeriesJSONStrings.values().stream().skip(randomIndex).findFirst().get();
     };
 

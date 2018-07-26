@@ -25,7 +25,7 @@ import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeriesDataset;
 
 /**
- * When stage with steps on the {@linkplain TimeSeriesDataset} class.
+ * A When stage with steps methods for the {@linkplain TimeSeriesDataset} class.
  *
  * @author Ingo Thomsen
  */
@@ -38,7 +38,6 @@ public class WhenTimeSeriesDataset extends Stage<WhenTimeSeriesDataset>
     @ProvidedScenarioState
     TimeSeriesDataset timeSeriesDataset;
 
-    // step method
     public WhenTimeSeriesDataset a_TimeSeriesDataset_is_created_for_Instant(Instant referenceInstant)
     {
         timeSeriesDataset = new TimeSeriesDataset(timeSeriesDatasetResponse, referenceInstant);

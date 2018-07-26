@@ -25,7 +25,7 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import de.gerdiproject.harvest.IDocument;
 
 /**
- * Then stage testing the number of the resulting {@linkplain IDocument}s.
+ * A Then stage testing general properties - independant of the acutally harvested datasets - of the resulting {@linkplain IDocument}s
  *
  * @author Ingo Thomsen
  */
@@ -34,7 +34,7 @@ public class ThenResultingIDocuments extends Stage<ThenResultingIDocuments>
     @ExpectedScenarioState
     List<IDocument> resultingIDocuments;
 
-    // step method
+
     public ThenResultingIDocuments one_there_is_one_resulting_document()
     {
         assertThat(resultingIDocuments.size()).isOne();

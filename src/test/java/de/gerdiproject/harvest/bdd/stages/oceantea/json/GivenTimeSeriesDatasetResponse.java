@@ -26,7 +26,7 @@ import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 
 /**
- * Given stage with steps on the {@linkplain TimeSeriesDatasetResponse} class.
+ * A Given stage with steps for the {@linkplain TimeSeriesDatasetResponse} class.
  *
  * @author Ingo Thomsen
  */
@@ -42,7 +42,7 @@ public class GivenTimeSeriesDatasetResponse extends Stage<GivenTimeSeriesDataset
         return self();
     }
 
-    // step method
+
     public GivenTimeSeriesDatasetResponse a_TimeSeriesDatasetResponse_with_boundary_time_offsets_$_and_$(int v1, int v2)
     {
         // create list of lists
@@ -57,7 +57,7 @@ public class GivenTimeSeriesDatasetResponse extends Stage<GivenTimeSeriesDataset
         return self();
     }
 
-    // step method
+
     public GivenTimeSeriesDatasetResponse an_TimeSeriesDatasetResponse_with_one_random_value_pair()
     {
         Random random = new Random();

@@ -56,7 +56,6 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     CurrentStep currentStep;
 
 
-    // step method
     public GivenTimeSeriesTestData a_time_series_data_set_named_$(String name)
     {
         allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
@@ -69,7 +68,6 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     }
 
 
-    // step method
     public GivenTimeSeriesTestData an_expected_DataCiteJSON_named_$(String name)
     {
         expectedDataCiteJson = TestDataProvider.getExpectedtDataCiteJSON(name);
@@ -80,7 +78,6 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     }
 
 
-    // step method
     public GivenTimeSeriesTestData a_random_time_series_data_set()
     {
         allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");

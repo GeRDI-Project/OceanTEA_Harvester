@@ -119,7 +119,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_contributors_are_as_expected()
     {
         // comparator that ignores affiliations, name identifiers, family & given name
@@ -135,7 +134,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_creators_are_as_expected()
     {
         // comparator (ignoring affiliations, name identifiers, family & given name)
@@ -150,7 +148,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_dates_are_as_expected()
     {
         Comparator<AbstractDate> comparator = (AbstractDate a, AbstractDate b) -> {
@@ -164,7 +161,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_descriptions_list_contains_exptected()
     {
         Comparator<Description> comparator = (Description a, Description b) -> {
@@ -179,7 +175,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_formats_are_as_expected()
     {
         List<String> resulting = resultingDataCiteJson.getFormats();
@@ -193,7 +188,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_geolocations_are_as_exptected()
     {
         Comparator<GeoLocation> comparator = (GeoLocation a, GeoLocation b) -> {
@@ -213,7 +207,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_publication_year_is_as_expected()
     {
         assertThat(resultingDataCiteJson.getPublicationYear()).
@@ -222,7 +215,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_publisher_is_as_expected()
     {
         assertThat(resultingDataCiteJson.getPublisher()).
@@ -231,7 +223,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_repository_identifier_as_expected()
     {
         assertThat(resultingDataCiteJson.getRepositoryIdentifier()).
@@ -240,7 +231,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_research_data_list_is_as_expected()
     {
         Comparator<ResearchData> comparator = (ResearchData a, ResearchData b) -> {
@@ -255,7 +245,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_research_disciplines_are_as_expected()
     {
         Comparator<AbstractResearch> comparator = (AbstractResearch a, AbstractResearch b) -> {
@@ -271,7 +260,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_resource_type_is_as_expected()
     {
         ResourceType resultingResourceType = resultingDataCiteJson.getResourceType();
@@ -282,7 +270,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_subjects_list_contains_exptected()
     {
         // comparator (ignoring lang, schemeURI, subjectScheme, valueURI)
@@ -294,7 +281,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_titles_are_as_expected()
     {
         Comparator<Title> comparator = (Title a, Title b) -> {
@@ -309,7 +295,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    // step method
     public void the_weblinks_list_contains_expected()
     {
         Comparator<WebLink> comparator = (WebLink a, WebLink b) -> {
@@ -338,7 +323,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
         List<T> resulting = getter.apply(resultingDataCiteJson);
         List<T> expected = getter.apply(expectedDataCiteJson);
 
-        assertThat(resulting).as("The resulting list %s does not the same elements as expteced list %s",
+        assertThat(resulting).as("The resulting list %s does not contain the same elements as expteced list %s",
                                  gson.toJson(resulting),
                                  gson.toJson(expected)).usingElementComparator(comparator).hasSameElementsAs(expected);
     }
@@ -360,7 +345,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
         List<T> resulting = getter.apply(resultingDataCiteJson);
         List<T> expected = getter.apply(expectedDataCiteJson);
 
-        assertThat(resulting).as("The resulting list %s does not conatain all elements of expteced list %s",
+        assertThat(resulting).as("The resulting list %s does not contain all elements of expteced list %s",
                                  gson.toJson(resulting),
                                  gson.toJson(expected)).usingElementComparator(comparator).containsAll(expected);
     }
@@ -368,8 +353,9 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
 
     /**
      * Private method to make the first document of the list resulting IDocuments
-     * available to the step methods in this state class. This is called before any
-     * stage methods.
+     * available to the step methods in this state class.
+     *
+     * Because of {@linkplain BeforeStage} it is called before any other stage method.
      */
     @BeforeStage
     @SuppressWarnings("PMD.UnusedPrivateMethod")
