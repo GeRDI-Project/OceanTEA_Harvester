@@ -31,8 +31,8 @@ import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
  * @author Ingo Thomsen
  */
 @Issue("SAI-312")
-@Tag("DataCite")
-public class HarvestedDocumentForSingleTimeSeriesDataset extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingIDocuments>
+@Tag("IDocument")
+public class StructureOfListOfResultingIDocuments extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingIDocuments>
 {
 
     @Test
