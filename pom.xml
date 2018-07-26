@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.gerdi-project</groupId>
@@ -47,7 +47,7 @@
 		<jgiven.report.dir>${project.build.directory}/bdd-reports/json</jgiven.report.dir>
 
 		<jgiven.report.htmldir>${project.build.directory}/bdd-reports/html</jgiven.report.htmldir>
-		<maven.surefirefailsaife.version>2.21.0</maven.surefirefailsaife.version>
+		<maven.surefire.version>2.22.0</maven.surefire.version>
 	</properties>
 
 	<dependencies>
@@ -125,7 +125,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven.surefirefailsaife.version}</version>
+				<version>${maven.surefire.version}</version>
 
 				<configuration>
 					<includes>
@@ -140,37 +140,6 @@
 
 				</configuration>
 			</plugin>			
-
-
-			<!-- configuring failsafe to run BBD tests for integration testing -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>${maven.surefirefailsaife.version}</version>
-
-				<configuration>
-
-					<includes>
-						<!-- location of BDD (instead of default IT*.java, *IT.java and *ITCase.java)  -->
-						<include>**/bdd/scenarios_integration/**.java</include>
-					</includes>
-
-					<systemPropertyVariables>
-						<jgiven.report.text>${jgiven.report.text}</jgiven.report.text>
-						<jgiven.report.dir>${jgiven.report.dir}</jgiven.report.dir>
-					</systemPropertyVariables>					
-
-				</configuration>
-
-				<executions>
-					<execution>
-						<goals>
-							<goal>integration-test</goal>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 
 			<!-- configuration of JGiven reporting  -->
 			<plugin>
@@ -188,6 +157,7 @@
 
 				<executions>
 					<execution>
+						<phase>verify</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
