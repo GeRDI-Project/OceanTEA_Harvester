@@ -119,7 +119,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_contributors_are_as_expected()
+    private void the_contributors_are_as_expected()
     {
         // comparator that ignores affiliations, name identifiers, family & given name
         Comparator<Contributor> comparator = (Contributor a, Contributor b) -> {
@@ -134,7 +134,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_creators_are_as_expected()
+    private void the_creators_are_as_expected()
     {
         // comparator (ignoring affiliations, name identifiers, family & given name)
         Comparator<Creator> comparator = (Creator a, Creator b) -> {
@@ -148,7 +148,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_dates_are_as_expected()
+    private void the_dates_are_as_expected()
     {
         Comparator<AbstractDate> comparator = (AbstractDate a, AbstractDate b) -> {
             return (
@@ -161,7 +161,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_descriptions_list_contains_exptected()
+    private void the_descriptions_list_contains_exptected()
     {
         Comparator<Description> comparator = (Description a, Description b) -> {
             return (
@@ -175,7 +175,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_formats_are_as_expected()
+    private void the_formats_are_as_expected()
     {
         List<String> resulting = resultingDataCiteJson.getFormats();
         List<String> expected = expectedDataCiteJson.getFormats();
@@ -188,7 +188,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_geolocations_are_as_exptected()
+    private void the_geolocations_are_as_exptected()
     {
         Comparator<GeoLocation> comparator = (GeoLocation a, GeoLocation b) -> {
 
@@ -207,7 +207,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_publication_year_is_as_expected()
+    private void the_publication_year_is_as_expected()
     {
         assertThat(resultingDataCiteJson.getPublicationYear()).
         as("Publication Year").
@@ -215,7 +215,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_publisher_is_as_expected()
+    private void the_publisher_is_as_expected()
     {
         assertThat(resultingDataCiteJson.getPublisher()).
         as("Publisher").
@@ -223,7 +223,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_repository_identifier_as_expected()
+    private void the_repository_identifier_as_expected()
     {
         assertThat(resultingDataCiteJson.getRepositoryIdentifier()).
         as("Repository Identifier").
@@ -231,7 +231,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_research_data_list_is_as_expected()
+    private void the_research_data_list_is_as_expected()
     {
         Comparator<ResearchData> comparator = (ResearchData a, ResearchData b) -> {
             return (
@@ -245,7 +245,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_research_disciplines_are_as_expected()
+    private void the_research_disciplines_are_as_expected()
     {
         Comparator<AbstractResearch> comparator = (AbstractResearch a, AbstractResearch b) -> {
             return (
@@ -260,7 +260,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_resource_type_is_as_expected()
+    private void the_resource_type_is_as_expected()
     {
         ResourceType resultingResourceType = resultingDataCiteJson.getResourceType();
         ResourceType exptectedResourceType = expectedDataCiteJson.getResourceType();
@@ -270,7 +270,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_subjects_list_contains_exptected()
+    private void the_subjects_list_contains_exptected()
     {
         // comparator (ignoring lang, schemeURI, subjectScheme, valueURI)
         Comparator<Subject> comparator = (Subject a, Subject b) -> {
@@ -281,7 +281,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_titles_are_as_expected()
+    private void the_titles_are_as_expected()
     {
         Comparator<Title> comparator = (Title a, Title b) -> {
             return (
@@ -295,7 +295,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    public void the_weblinks_list_contains_expected()
+    private void the_weblinks_list_contains_expected()
     {
         Comparator<WebLink> comparator = (WebLink a, WebLink b) -> {
             return (
