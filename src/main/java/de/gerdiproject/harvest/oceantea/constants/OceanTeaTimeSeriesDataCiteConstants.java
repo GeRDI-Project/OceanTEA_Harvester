@@ -61,7 +61,7 @@ public final class OceanTeaTimeSeriesDataCiteConstants
     //
     // OceanTEA demo as repository (+ GEOMAR for MoLab reference)
     //
-    public static final String BASE_URL = "http://maui.se.informatik.uni-kiel.de:9090/";
+    public static final String BASE_URL = "http://oceantea.uni-kiel.de/";
     public static final String PROVIDER = "OceanTEA demo, Software Engineering, Computer Science, Kiel University";
     public static final String REPOSITORY_ID = "OCEANTEA";
     public static final String VIEW_URL = BASE_URL;
