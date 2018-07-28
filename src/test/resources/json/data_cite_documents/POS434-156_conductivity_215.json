@@ -49,15 +49,15 @@
   "webLinks": [
     {
       "webLinkName": "Conductivity measurements, underwater (depth 215.0 m) in the region \u0027Northern Norway\u0027",
-      "webLinkURI": "http://maui.se.informatik.uni-kiel.de:9090/",
+      "webLinkURI": "http://oceantea.uni-kiel.de/",
       "webLinkType": "ViewURL"
     }
   ],
   "researchDataList": [
     {
-      "researchDataURL": "http://maui.se.informatik.uni-kiel.de:9090/timeseries/scalar/POS434-156/conductivity/215",
+      "researchDataURL": "http://oceantea.uni-kiel.de/timeseries/scalar/POS434-156/conductivity/215",
       "researchDataLabel": "Conductivity measurements, collected underwater (depth 215.0 m) in the open water region \u0027Northern Norway\u0027 by MoLab device MLM",
-      "researchDataIdentifier": "989285257",
+      "researchDataIdentifier": "-1264599671",
       "researchDataType": "application/json"
     }
   ]
