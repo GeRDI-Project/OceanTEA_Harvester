@@ -108,7 +108,6 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
     }
 
 
-    // step method
     public WhenHarvesting harvested()
     {
         HashGenerator.init(StandardCharsets.UTF_8);
