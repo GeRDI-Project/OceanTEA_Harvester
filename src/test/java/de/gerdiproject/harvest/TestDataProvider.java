@@ -198,8 +198,8 @@ public final class TestDataProvider
     private static void addJSONStringsFromFilesToHashMap(Map<String, String> mapping, String dirWithJSONFiles)
     {
 
-        File dir = new File(classLoader.getResource(dirWithJSONFiles).getPath());
-        File[] filesInDir = dir == null? null : dir.listFiles();
+        final File dir = new File(classLoader.getResource(dirWithJSONFiles).getPath());
+        final File[] filesInDir = dir.listFiles();
         
         if (filesInDir != null) {
             for (File file : filesInDir) {
