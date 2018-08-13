@@ -85,7 +85,7 @@ public final class TestDataProvider
 
         return allDataTypesJSONStrings.get(name);
     }
-    
+
 
     /**
      * Return a allTimeSeries JSON response
