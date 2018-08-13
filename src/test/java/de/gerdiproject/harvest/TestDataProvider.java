@@ -187,7 +187,7 @@ public final class TestDataProvider
      * @param dirWithJSONFiles directory (relative to the resource folder)
      *            containing .json files
      */
-    private static void addJSONStringsFromFilesToHashMap(HashMap<String, String> mapping, String dirWithJSONFiles)
+    private static void addJSONStringsFromFilesToHashMap(Map<String, String> mapping, String dirWithJSONFiles)
     {
 
         File dir = new File(classLoader.getResource(dirWithJSONFiles).getPath());
