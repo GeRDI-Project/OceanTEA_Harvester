@@ -199,9 +199,10 @@ public final class TestDataProvider
     {
 
         File dir = new File(classLoader.getResource(dirWithJSONFiles).getPath());
-
-        if (dir != null) {
-            for (File file : dir.listFiles()) {
+        File[] filesInDir = dir == null? null : dir.listFiles();
+        
+        if (filesInDir != null) {
+            for (File file : filesInDir) {
 
                 String fileName = file.getName();
                 String name = fileName.replaceAll("(?i).json", "");
