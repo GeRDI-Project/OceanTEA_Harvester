@@ -15,6 +15,7 @@
  */
 package de.gerdiproject.harvest.oceantea.json;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public final class TimeSeriesDatasetResponse
 {
 
     // This field is directly populated by GSON - accessed by name via Reflection
-    private List<List<String>> data;
+    private List<List<String>> data = new ArrayList<>();
 
     //
     // Getter and Setter
@@ -43,6 +44,11 @@ public final class TimeSeriesDatasetResponse
     public List<List<String>> getListOfPairsOfTimeOffsetAndValue()
     {
         return data;
+    }
+
+    public void setListOfPairsOfTimeOffsetAndValue(List<List<String>> data)
+    {
+        this.data = data;
     }
 
 }

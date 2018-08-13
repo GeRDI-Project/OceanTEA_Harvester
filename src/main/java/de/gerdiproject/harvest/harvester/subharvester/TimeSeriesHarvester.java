@@ -44,7 +44,6 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
     // parser to harvest non-constant information about time series datasets
     private final TimeSeriesParser timeSeriesParser = new TimeSeriesParser();
 
-
     /**
      * Default constructor, naming the harvester and ensuring one document per
      * harvested entry
@@ -54,22 +53,19 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
         super("OceanTEA - Time Series", 1);
     }
 
-
     @Override
     protected Collection<TimeSeries> loadEntries()
     {
         return OceanTeaDownloader.getAllTimeSeries();
     }
 
-
     @Override
     protected String initHash() throws NoSuchAlgorithmException, NullPointerException
     {
-        // OceanTea entries are not altered. If timeseries are modified, new ones were added
-        // thus the number of documents suffices to check for changes
+        // OceanTea entries are not altered. If timeseries are modified, new ones were
+        // added thus the number of documents suffices to check for changes
         return HashGenerator.instance().getShaHash(String.valueOf(entries.size()));
     }
-
 
     @Override
     protected List<IDocument> harvestEntry(TimeSeries timeSeries)
