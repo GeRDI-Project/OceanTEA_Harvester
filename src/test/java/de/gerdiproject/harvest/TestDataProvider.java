@@ -17,6 +17,7 @@ package de.gerdiproject.harvest;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -172,9 +173,16 @@ public final class TestDataProvider
     {
         InputStream is = classLoader.getResourceAsStream(filePath);
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        String resourceFileString;
 
-        return br.lines().collect(Collectors.joining());
+        try
+            (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+            resourceFileString = br.lines().collect(Collectors.joining());
+        } catch (IOException e) {
+            resourceFileString = null;
+        }
+
+        return resourceFileString;
     }
 
     /**
@@ -192,14 +200,16 @@ public final class TestDataProvider
 
         File dir = new File(classLoader.getResource(dirWithJSONFiles).getPath());
 
-        for (File file : dir.listFiles()) {
+        if (dir != null) {
+            for (File file : dir.listFiles()) {
 
-            String fileName = file.getName();
-            String name = fileName.replaceAll("(?i).json", "");
+                String fileName = file.getName();
+                String name = fileName.replaceAll("(?i).json", "");
 
-            // add to HashMap if the file had a proper extension
-            if (fileName != name)
-                mapping.put(name, getResourceFileAsString(dirWithJSONFiles + fileName));
+                // add to HashMap if the file had a proper extension
+                if (!fileName.equals(name))
+                    mapping.put(name, getResourceFileAsString(dirWithJSONFiles + fileName));
+            }
         }
     }
 
