@@ -23,3 +23,6 @@ project.xml
 # Harvester Utilities
 /scripts/
 /bamboo-specs/
+
+# Reporting
+/jgiven-reports

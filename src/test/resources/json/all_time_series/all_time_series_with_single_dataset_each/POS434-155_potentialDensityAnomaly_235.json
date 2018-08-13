@@ -1,0 +1,16 @@
+{
+  "timeseries" : [
+      {
+         "dataType" : "potentialDensityAnomaly",
+         "depth" : 235,
+         "device" : "SLM2",
+         "lat" : 70.2580833333333,
+         "lon" : 22.4723,
+         "region" : "northern-norway",
+         "regionPrintName" : "Northern Norway",
+         "station" : "POS434-155",
+         "t_reference" : "2012-06-01T00:00:01Z",
+         "tsType" : "scalar"
+      }
+   ]
+}

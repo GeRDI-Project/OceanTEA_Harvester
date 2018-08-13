@@ -50,25 +50,26 @@ public final class OceanTeaDownloader
      */
     public static List<TimeSeries> getAllTimeSeries()
     {
-        AllTimeSeriesResponse allTimeSeriesResponse = HTTP_REQUESTER
-                                                      .getObjectFromUrl(OceanTeaTimeSeriesDownloaderConstants.TIMESERIES_URL, AllTimeSeriesResponse.class);
+        AllTimeSeriesResponse allTimeSeriesResponse = HTTP_REQUESTER.getObjectFromUrl(
+                                                          OceanTeaTimeSeriesDownloaderConstants.TIMESERIES_URL,
+                                                          AllTimeSeriesResponse.class);
 
-        AllDataTypesResponse allDatatypesResponse = HTTP_REQUESTER
-                                                    .getObjectFromUrl(OceanTeaTimeSeriesDownloaderConstants.DATATYPES_URL, AllDataTypesResponse.class);
+        AllDataTypesResponse allDataTypesResponse = HTTP_REQUESTER.getObjectFromUrl(
+                                                        OceanTeaTimeSeriesDownloaderConstants.DATATYPES_URL,
+                                                        AllDataTypesResponse.class);
 
-        // WORKAROUND: Setting manually one missing unit, which is not given by the OceanTEA (demo) site
-        allDatatypesResponse.getPotentialDensityAnomaly().setUnit("kg/m^3");
+        // WORKAROUND: Setting manually one missing unit, which is not given by the
+        // OceanTEA (demo) site
+        allDataTypesResponse.getPotentialDensityAnomaly().setUnit("kg/m^3");
 
-        return JsonResponsesMerger.getAllTimeSeries(allTimeSeriesResponse, allDatatypesResponse);
+        return JSONResponsesMerger.getAllTimeSeries(allTimeSeriesResponse, allDataTypesResponse);
     }
 
     /**
      * Download an actual dataset.
      *
-     * @param url
-     *            the download URL of the time series dataset.
-     * @param referenceInstant
-     *            the associated reference {@linkplain Instant}
+     * @param url the download URL of the time series dataset.
+     * @param referenceInstant the associated reference {@linkplain Instant}
      * @return a {@linkplain TimeSeriesDataset} object
      */
     public static TimeSeriesDataset getTimeSeriesDataset(String url, Instant referenceInstant)

@@ -33,13 +33,13 @@ import de.gerdiproject.json.geo.Point;
  *
  * @author Ingo Thomsen
  */
-public final class JsonResponsesMerger
+public final class JSONResponsesMerger
 {
 
     /**
      * private constructor to enforce non-instantiability
      */
-    private JsonResponsesMerger()
+    private JSONResponsesMerger()
     {
     }
 
