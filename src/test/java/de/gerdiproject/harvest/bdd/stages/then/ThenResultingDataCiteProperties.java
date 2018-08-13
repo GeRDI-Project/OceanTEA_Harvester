@@ -98,8 +98,8 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     // step method (using other step methods)
     public ThenResultingDataCiteProperties all_partly_variable_DataCite_properties_contain_those_in_expected_DataCiteJSON()
     {
-        the_descriptions_list_contains_exptected();
-        the_subjects_list_contains_exptected();
+        the_descriptions_list_contains_expected();
+        the_subjects_list_contains_expected();
         the_weblinks_list_contains_expected();
 
         return self();
@@ -161,7 +161,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    private void the_descriptions_list_contains_exptected()
+    private void the_descriptions_list_contains_expected()
     {
         Comparator<Description> comparator = (Description a, Description b) -> {
             return (
@@ -181,7 +181,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
         List<String> expected = expectedDataCiteJson.getFormats();
 
         assertThat(resulting).
-        as("The resulting list %s does not the same elements as expteced list %s",
+        as("The resulting list %s does not the same elements as expected list %s",
            gson.toJson(resulting),
            gson.toJson(expected)).
         containsAll(expected);
@@ -270,7 +270,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     }
 
 
-    private void the_subjects_list_contains_exptected()
+    private void the_subjects_list_contains_expected()
     {
         // comparator (ignoring lang, schemeURI, subjectScheme, valueURI)
         Comparator<Subject> comparator = (Subject a, Subject b) -> {

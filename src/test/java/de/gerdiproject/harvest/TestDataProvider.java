@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
@@ -50,12 +51,13 @@ import de.gerdiproject.json.datacite.DataCiteJson;
 public final class TestDataProvider
 {
     // the resource directors containing the JSON files
-    private static final String baseDir                         = "json/";
-    private static final String dirDataCiteDocuments            = baseDir + "data_cite_documents/";
-    private static final String dirAllDataTypes                 = baseDir + "all_data_types/";
-    private static final String dirDatasets                     = baseDir + "time_series_datasets/";
-    private static final String dirAllTimeSeries                = baseDir + "all_time_series/";
-    private static final String dirTimeSeriesWithSingleDatasets = dirAllTimeSeries + "all_time_series_with_single_dataset_each/";
+    private static final String BASE_DIR = "json/";
+    private static final String DATACITE_DOC_DIR = BASE_DIR + "data_cite_documents/";
+    private static final String ALL_DATA_TYPES_DIR = BASE_DIR + "all_data_types/";
+    private static final String DATASETS_DIR = BASE_DIR + "time_series_datasets/";
+    private static final String ALL_TIME_SERIES_DIR  = BASE_DIR + "all_time_series/";
+    private static final String SINGLE_TIME_SERIES_DIR = ALL_TIME_SERIES_DIR + "all_time_series_with_single_dataset_each/";
+    private static final String JSON_MISSING = "Expected JSON string '%s' not present!";
 
     // class loader for accessing the resource directories and files
     private static final ClassLoader classLoader = TestDataProvider.class.getClassLoader();
@@ -64,10 +66,10 @@ public final class TestDataProvider
     private static final Gson gson = getGson();
 
     // the HashMaps containing the JSON strings
-    private static final HashMap<String, String> allDataTypesJSONStrings  = assembleAllDataTypesJSONStrings();
-    private static final HashMap<String, String> allTimeSeriesJSONStrings = assembleAllTimeSeriesJSONStrings();
-    private static final HashMap<String, String> datasetJSONStrings       = assembleDatasetJSONStrings();
-    private static final HashMap<String, String> dataCiteJsonStrings      = assembleDataCiteJsonStrings();
+    private static final Map<String, String> allDataTypesJSONStrings  = assembleAllDataTypesJSONStrings();
+    private static final Map<String, String> allTimeSeriesJSONStrings = assembleAllTimeSeriesJSONStrings();
+    private static final Map<String, String> datasetJSONStrings       = assembleDatasetJSONStrings();
+    private static final Map<String, String> dataCiteJsonStrings      = assembleDataCiteJsonStrings();
 
     /**
      * Return a allDataTypes JSON response
@@ -79,10 +81,11 @@ public final class TestDataProvider
     public static String getAllDataTypesJSON(String name)
     {
         if (!allDataTypesJSONStrings.containsKey(name))
-            throw new RuntimeException("Expected JSON string '" + name + "' not present!");
+            throw new RuntimeException(String.format(JSON_MISSING, name));
 
         return allDataTypesJSONStrings.get(name);
     }
+    
 
     /**
      * Return a allTimeSeries JSON response
@@ -94,7 +97,7 @@ public final class TestDataProvider
     public static String getAllTimeSeriesJSON(String name)
     {
         if (!allTimeSeriesJSONStrings.containsKey(name))
-            throw new RuntimeException("Expected JSON string '" + name + "' not present!");
+            throw new RuntimeException(String.format(JSON_MISSING, name));
 
         return allTimeSeriesJSONStrings.get(name);
     }
@@ -109,7 +112,7 @@ public final class TestDataProvider
     public static String getTimeSeriesDatasetJSON(String name)
     {
         if (!datasetJSONStrings.containsKey(name))
-            throw new RuntimeException("Expected JSON string '" + name + "' not present!");
+            throw new RuntimeException(String.format(JSON_MISSING, name));
 
         return datasetJSONStrings.get(name);
     }
@@ -135,7 +138,7 @@ public final class TestDataProvider
     public static DataCiteJson getExpectedtDataCiteJSON(String name)
     {
         if (!dataCiteJsonStrings.containsKey(name))
-            throw new RuntimeException("Expected JSON string '" + name + "' not present!");
+            throw new RuntimeException(String.format(JSON_MISSING, name));
 
         return gson.fromJson(dataCiteJsonStrings.get(name), DataCiteJson.class);
     }
@@ -206,11 +209,11 @@ public final class TestDataProvider
      *
      * @return HashMap containing all allDataTypes responses
      */
-    private static HashMap<String, String> assembleAllDataTypesJSONStrings()
+    private static Map<String, String> assembleAllDataTypesJSONStrings()
     {
         HashMap<String, String> mapping = new HashMap<>();
 
-        mapping.put("all", getResourceFileAsString(dirAllDataTypes + "all.json"));
+        mapping.put("all", getResourceFileAsString(ALL_DATA_TYPES_DIR + "all.json"));
 
         return mapping;
     }
@@ -221,12 +224,12 @@ public final class TestDataProvider
      *
      * @return HashMap containing all allTimeSeriesResponses responses
      */
-    private static HashMap<String, String> assembleAllTimeSeriesJSONStrings()
+    private static Map<String, String> assembleAllTimeSeriesJSONStrings()
     {
         HashMap<String, String> mapping = new HashMap<>();
 
-        mapping.put("all", getResourceFileAsString(dirAllTimeSeries + "all.json"));
-        addJSONStringsFromFilesToHashMap(mapping, dirTimeSeriesWithSingleDatasets);
+        mapping.put("all", getResourceFileAsString(ALL_TIME_SERIES_DIR + "all.json"));
+        addJSONStringsFromFilesToHashMap(mapping, SINGLE_TIME_SERIES_DIR);
 
         return mapping;
     }
@@ -237,11 +240,11 @@ public final class TestDataProvider
      *
      * @return HashMap containing all dataset responses
      */
-    private static HashMap<String, String> assembleDatasetJSONStrings()
+    private static Map<String, String> assembleDatasetJSONStrings()
     {
         HashMap<String, String> mapping = new HashMap<>();
 
-        addJSONStringsFromFilesToHashMap(mapping, dirDatasets);
+        addJSONStringsFromFilesToHashMap(mapping, DATASETS_DIR);
 
         return mapping;
     }
@@ -253,11 +256,11 @@ public final class TestDataProvider
      *
      * @return HashMap containing all DataCiteJson strings
      */
-    private static HashMap<String, String> assembleDataCiteJsonStrings()
+    private static Map<String, String> assembleDataCiteJsonStrings()
     {
         HashMap<String, String> mapping = new HashMap<>();
 
-        addJSONStringsFromFilesToHashMap(mapping, dirDataCiteDocuments);
+        addJSONStringsFromFilesToHashMap(mapping, DATACITE_DOC_DIR);
 
         return mapping;
     }
