@@ -1,0 +1,16 @@
+{
+  "timeseries" : [
+      {
+         "dataType" : "pressure",
+         "depth" : 215,
+         "device" : "MLM",
+         "lat" : 70.2681,
+         "lon" : 22.4749666666667,
+         "region" : "northern-norway",
+         "regionPrintName" : "Northern Norway",
+         "station" : "POS434-156",
+         "t_reference" : "2012-06-01T00:00:01Z",
+         "tsType" : "scalar"
+      }
+   ]
+}
