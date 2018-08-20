@@ -176,7 +176,7 @@ public final class TestDataProvider
         String resourceFileString;
 
         try
-            (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+            (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
             resourceFileString = br.lines().collect(Collectors.joining());
         } catch (IOException e) {
             resourceFileString = null;
@@ -200,8 +200,8 @@ public final class TestDataProvider
 
         final File dir = new File(classLoader.getResource(dirWithJSONFiles).getPath());
         final File[] filesInDir = dir.listFiles();
-        
-        if (filesInDir != null) {
+
+        if (filesInDir != null)
             for (File file : filesInDir) {
 
                 String fileName = file.getName();
@@ -211,7 +211,6 @@ public final class TestDataProvider
                 if (!fileName.equals(name))
                     mapping.put(name, getResourceFileAsString(dirWithJSONFiles + fileName));
             }
-        }
     }
 
     /**
