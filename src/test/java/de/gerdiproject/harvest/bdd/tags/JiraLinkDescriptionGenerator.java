@@ -25,11 +25,11 @@ import com.tngtech.jgiven.config.TagConfiguration;
  */
 public class JiraLinkDescriptionGenerator implements TagDescriptionGenerator
 {
-    private static final String LINK_TEST_TEMPLATE = "<a href='https://tasks.gerdi-project.de/browse/%s'>%s (→ JIRA)</a>";
+    private static final String LINK_TEXT_TEMPLATE = "<a href='https://tasks.gerdi-project.de/browse/%s'>%s (→ JIRA)</a>";
 
     @Override
     public String generateDescription(TagConfiguration tagConfiguration, Annotation annotation, Object tagValue)
     {
-        return String.format(LINK_TEST_TEMPLATE, tagValue, tagConfiguration.getName());
+        return String.format(LINK_TEXT_TEMPLATE, tagValue, tagConfiguration.getName());
     }
 }
