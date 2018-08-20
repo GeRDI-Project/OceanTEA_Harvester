@@ -77,7 +77,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     private DataCiteJson resultingDataCiteJson;
 
     // A Gson object (for creating JSON for messages)
-    private static final Gson gson = getGson();
+    private static final Gson GSON = getGson();
 
 
     // step method (using other step methods)
@@ -182,8 +182,8 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
 
         assertThat(resulting).
         as("The resulting list %s does not the same elements as expected list %s",
-           gson.toJson(resulting),
-           gson.toJson(expected)).
+           GSON.toJson(resulting),
+           GSON.toJson(expected)).
         containsAll(expected);
     }
 
@@ -324,8 +324,8 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
         List<T> expected = getter.apply(expectedDataCiteJson);
 
         assertThat(resulting).as("The resulting list %s does not contain the same elements as expteced list %s",
-                                 gson.toJson(resulting),
-                                 gson.toJson(expected)).usingElementComparator(comparator).hasSameElementsAs(expected);
+                                 GSON.toJson(resulting),
+                                 GSON.toJson(expected)).usingElementComparator(comparator).hasSameElementsAs(expected);
     }
 
 
@@ -346,8 +346,8 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
         List<T> expected = getter.apply(expectedDataCiteJson);
 
         assertThat(resulting).as("The resulting list %s does not contain all elements of expteced list %s",
-                                 gson.toJson(resulting),
-                                 gson.toJson(expected)).usingElementComparator(comparator).containsAll(expected);
+                                 GSON.toJson(resulting),
+                                 GSON.toJson(expected)).usingElementComparator(comparator).containsAll(expected);
     }
 
 
