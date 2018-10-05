@@ -28,6 +28,7 @@ import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 import de.gerdiproject.json.GsonUtils;
 import de.gerdiproject.json.datacite.DataCiteJson;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Each step (method) in this Given stage (class) selects the JSON responses
@@ -44,9 +45,11 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     String allTimeSeriesJSONResponse;
 
     @ProvidedScenarioState
+    @SuppressFBWarnings("URF_UNREAD_FIELD") // As ProvidedScenarioState this is read by another Stage class
     String allDataTypesJSONResponse;
 
     @ProvidedScenarioState
+    @SuppressFBWarnings("URF_UNREAD_FIELD") // As ProvidedScenarioState this is read by another Stage class
     String timeSeriesDatasetJSONResponse;
 
     @ProvidedScenarioState
@@ -58,6 +61,8 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
 
     public GivenTimeSeriesTestData a_time_series_data_set_named_$(String name)
     {
+
+
         allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
         timeSeriesDatasetJSONResponse = TestDataProvider.getTimeSeriesDatasetJSON(name);
         allTimeSeriesJSONResponse = TestDataProvider.getAllTimeSeriesJSON(name);

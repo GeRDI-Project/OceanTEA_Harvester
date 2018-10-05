@@ -23,6 +23,7 @@ import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeriesDataset;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * A When stage with steps methods for the {@linkplain TimeSeriesDataset} class.
@@ -36,6 +37,7 @@ public class WhenTimeSeriesDataset extends Stage<WhenTimeSeriesDataset>
     TimeSeriesDatasetResponse timeSeriesDatasetResponse;
 
     @ProvidedScenarioState
+    @SuppressFBWarnings("URF_UNREAD_FIELD") // As ProvidedScenarioState this is read by another Stage class
     TimeSeriesDataset timeSeriesDataset;
 
     public WhenTimeSeriesDataset a_TimeSeriesDataset_is_created_for_Instant(Instant referenceInstant)

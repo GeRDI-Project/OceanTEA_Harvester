@@ -87,7 +87,7 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
      */
     @BeforeStage
     @SuppressWarnings("PMD.EmptyCatchBlock") // There is really nothing to do if already initialized
-    private void prepareHarvesterLibaryForMockAccess()
+    public void prepareHarvesterLibaryForMockAccess()
     {
         // ensure GsonUtils are initialized
         try {
