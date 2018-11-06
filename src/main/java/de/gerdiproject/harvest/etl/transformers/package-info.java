@@ -15,7 +15,9 @@
  *  under the License.
  */
 /**
- * @author Robin Weiss
+ * This package contains {@linkplain de.gerdiproject.harvest.etls.transformers.ITransformer} implementations
+ * for transforming OceanTea (meta-)data to search documents.
  *
+ * @author Robin Weiss
  */
 package de.gerdiproject.harvest.etl.transformers;

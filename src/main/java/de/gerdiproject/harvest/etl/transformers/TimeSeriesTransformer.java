@@ -36,7 +36,8 @@ import de.gerdiproject.json.datacite.Subject;
 import de.gerdiproject.json.datacite.extension.WebLink;
 
 /**
- * TODO
+ * This {@linkplain AbstractIteratorTransformer} implementation transforms OceanTea
+ * {@linkplain TimeSeries} to {@linkplain DataCiteJson} documents.
  *
  * @author Ingo Thomsen, Robin Weiss
  */
