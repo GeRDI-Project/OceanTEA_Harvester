@@ -28,9 +28,10 @@ public final class TimeSeriesResponse
     private String region;
     private String regionPrintName;
     private String device;
-    private String tsType;
     private String station;
     private String dataType;
+
+    private String tsType;
     private double depth;
     private double lat;
     private double lon;

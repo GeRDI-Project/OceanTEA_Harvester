@@ -23,7 +23,7 @@ import de.gerdiproject.harvest.bdd.stages.given.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages.then.ThenResultingIDocuments;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
-import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
+import de.gerdiproject.harvest.etl.WhenHarvesting;
 
 /**
  * Scenario about the general structure of list of the resulting IDocuments.

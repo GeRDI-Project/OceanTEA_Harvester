@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
@@ -157,8 +156,7 @@ public final class TestDataProvider
      */
     private static Gson getGson()
     {
-        GsonUtils.init(new GsonBuilder());
-        return GsonUtils.getPrettyGson();
+        return GsonUtils.createGerdiDocumentGsonBuilder().setPrettyPrinting().create();
     }
 
     /**

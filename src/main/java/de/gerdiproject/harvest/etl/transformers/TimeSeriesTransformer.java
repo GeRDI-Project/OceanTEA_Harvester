@@ -1,84 +1,70 @@
-/**
-, * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de)
+/*
+ *  Copyright © 2018 Robin Weiss (http://www.gerdi-project.de/)
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
  */
-package de.gerdiproject.harvest.harvester.subharvester;
+package de.gerdiproject.harvest.etl.transformers;
 
-import java.security.NoSuchAlgorithmException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
-import de.gerdiproject.harvest.IDocument;
-import de.gerdiproject.harvest.harvester.AbstractListHarvester;
+import com.google.gson.Gson;
+
+import de.gerdiproject.harvest.etls.transformers.AbstractIteratorTransformer;
+import de.gerdiproject.harvest.etls.transformers.TransformerException;
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDataCiteConstants;
-import de.gerdiproject.harvest.oceantea.utils.OceanTeaDownloader;
+import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeries;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeriesParser;
-import de.gerdiproject.harvest.utils.HashGenerator;
+import de.gerdiproject.harvest.utils.data.HttpRequester;
 import de.gerdiproject.json.datacite.DataCiteJson;
 import de.gerdiproject.json.datacite.Description;
 import de.gerdiproject.json.datacite.Subject;
 import de.gerdiproject.json.datacite.extension.WebLink;
 
 /**
- * Harvester for OceanTEA time series data
+ * TODO
  *
- * @author Ingo Thomsen
+ * @author Ingo Thomsen, Robin Weiss
  */
-public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
+public class TimeSeriesTransformer extends AbstractIteratorTransformer<TimeSeries, DataCiteJson>
 {
-
-    // parser to harvest non-constant information about time series datasets
-    private final TimeSeriesParser timeSeriesParser = new TimeSeriesParser();
+    private final HttpRequester httpRequester = new HttpRequester(new Gson(), StandardCharsets.UTF_8);
 
     /**
-     * Default constructor, naming the harvester and ensuring one document per
-     * harvested entry
+     *  Parser to harvest non-constant information about time series datasets
      */
-    public TimeSeriesHarvester()
-    {
-        super("OceanTEA - Time Series", 1);
-    }
+    private final TimeSeriesParser timeSeriesParser = new TimeSeriesParser();
+
 
     @Override
-    protected Collection<TimeSeries> loadEntries()
+    protected DataCiteJson transformElement(TimeSeries timeSeries) throws TransformerException
     {
-        return OceanTeaDownloader.getAllTimeSeries();
-    }
-
-    @Override
-    protected String initHash() throws NoSuchAlgorithmException, NullPointerException
-    {
-        // OceanTea entries are not altered. If timeseries are modified, new ones were
-        // added thus the number of documents suffices to check for changes
-        return HashGenerator.instance().getShaHash(String.valueOf(entries.size()));
-    }
-
-    @Override
-    protected List<IDocument> harvestEntry(TimeSeries timeSeries)
-    {
-        // specify the TimeSeries object for parsing
+        // specify the TimeSeries objects for parsing
         timeSeriesParser.setTimeSeries(timeSeries);
+        timeSeriesParser.setTimeSeriesDataset(
+            httpRequester.getObjectFromUrl(
+                timeSeriesParser.getDownloadUrl(),
+                TimeSeriesDatasetResponse.class)
+        );
 
         // create the document
-        DataCiteJson document = new DataCiteJson(timeSeries.createIdentifier());
+        final DataCiteJson document = new DataCiteJson(timeSeries.getIdentifier());
 
-        //
         // derived from constants
-        //
         document.setResourceType(OceanTeaTimeSeriesDataCiteConstants.RESOURCE_TYPE);
         document.setPublisher(OceanTeaTimeSeriesDataCiteConstants.PROVIDER);
         document.setRepositoryIdentifier(OceanTeaTimeSeriesDataCiteConstants.REPOSITORY_ID);
@@ -87,9 +73,7 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
         document.setResearchDisciplines(OceanTeaTimeSeriesDataCiteConstants.DISCIPLINES);
         document.setFormats(OceanTeaTimeSeriesDataCiteConstants.FORMATS);
 
-        //
         // derived from both constants and the harvested entry
-        //
 
         // Subjects
         List<Subject> subjects = new ArrayList<>(OceanTeaTimeSeriesDataCiteConstants.SUBJECTS);
@@ -106,16 +90,14 @@ public class TimeSeriesHarvester extends AbstractListHarvester<TimeSeries>
         webLinks.addAll(timeSeriesParser.getWebLinks());
         document.setWebLinks(webLinks);
 
-        //
         // derived exclusively from the harvested entry
-        //
         document.setResearchDataList(timeSeriesParser.getResearchDataList());
         document.setPublicationYear(timeSeriesParser.getPublicationYear());
         document.setTitles(Arrays.asList(timeSeriesParser.getMainTitle()));
         document.setGeoLocations(timeSeriesParser.getGeoLocations());
         document.setDates(timeSeriesParser.getDates());
 
-        return Arrays.asList(document);
+        return document;
     }
 
 }

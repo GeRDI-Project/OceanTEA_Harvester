@@ -23,6 +23,7 @@ import java.util.List;
 
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDataCiteConstants;
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDownloaderConstants;
+import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 import de.gerdiproject.json.datacite.DateRange;
 import de.gerdiproject.json.datacite.Description;
 import de.gerdiproject.json.datacite.GeoLocation;
@@ -45,9 +46,9 @@ import de.gerdiproject.json.geo.Point;
  */
 public class TimeSeriesParser
 {
-
-    private TimeSeries        timeSeries;
+    private TimeSeries timeSeries;
     private TimeSeriesDataset timeSeriesDataset;
+
 
     /**
      * Set up an {@linkplain TimeSeries} object for parsing by downloading the
@@ -58,9 +59,22 @@ public class TimeSeriesParser
     public void setTimeSeries(TimeSeries timeSeries)
     {
         this.timeSeries = timeSeries;
-        this.timeSeriesDataset = OceanTeaDownloader.getTimeSeriesDataset(getDownloadUrl(),
-                                                                         timeSeries.getReferenceInstant());
+
     }
+
+
+    /**
+     * Sets up the corresponding {@linkplain TimeSeriesDataset} to the current {@linkplain TimeSeries}.
+     *
+     * @param timeSeriesDatasetResponse a server response to a timeseries request
+     */
+    public void setTimeSeriesDataset(TimeSeriesDatasetResponse timeSeriesDatasetResponse)
+    {
+        this.timeSeriesDataset = new TimeSeriesDataset(
+            timeSeriesDatasetResponse,
+            timeSeries.getReferenceInstant());
+    }
+
 
     /**
      * Assemble the URL for downloading the JSON representation.
@@ -69,16 +83,14 @@ public class TimeSeriesParser
      */
     public String getDownloadUrl()
     {
-        // For the link an integer depth must be inserted without ".0"
-        String depthString = Integer.toString((int) timeSeries.getDepth());
-        String url = String.format(OceanTeaTimeSeriesDownloaderConstants.DATASET_DOWNLOAD_URL,
-                                   timeSeries.getTimeSeriesType(),
-                                   timeSeries.getStation(),
-                                   timeSeries.getDataType(),
-                                   depthString);
-
-        return url;
+        return String.format(
+                   OceanTeaTimeSeriesDownloaderConstants.DATASET_DOWNLOAD_URL,
+                   timeSeries.getTimeSeriesType(),
+                   timeSeries.getStation(),
+                   timeSeries.getDataType(),
+                   timeSeries.getDepth());
     }
+
 
     /**
      * Assemble the DataCite description of the ResearchData for the download URL of
@@ -100,6 +112,7 @@ public class TimeSeriesParser
         return Arrays.asList(researchData);
     }
 
+
     /**
      * The year of the publication (in OceanTEA) is not available, so the time of
      * the measurement is as close as it gets.
@@ -114,6 +127,7 @@ public class TimeSeriesParser
 
         return Short.parseShort(df.format(date));
     }
+
 
     /**
      * Get the list of strings describing the subjects
@@ -130,6 +144,7 @@ public class TimeSeriesParser
 
         return subjectList;
     }
+
 
     /**
      * Get DataCite description - using a template string
@@ -165,6 +180,7 @@ public class TimeSeriesParser
                                              OceanTeaTimeSeriesDataCiteConstants.LANG));
     }
 
+
     /**
      * Get DataCite title.
      *
@@ -183,6 +199,7 @@ public class TimeSeriesParser
         return title;
     }
 
+
     /**
      * The WebLinks consist only of the ViewURL, which has a varying title, but the
      * actual URL is always the same, because it is not possible to control the Demo
@@ -199,6 +216,7 @@ public class TimeSeriesParser
         return Arrays.asList(webLink);
     }
 
+
     /**
      * Return the one GeoLocation associated with the measurements including
      * mentioning of the region name.
@@ -214,6 +232,7 @@ public class TimeSeriesParser
 
         return Arrays.asList(geoLocation);
     }
+
 
     /**
      * Return the DataCite dates, which here is the {@linkplain DateRange} of the

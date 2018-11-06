@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 /**
- * This package contains the actual harvester for the Ocean TEA time series
- * data, implemented as a sub harvester of
- * {@linkplain de.gerdiproject.harvest.harvester.OceanTeaHarvester}
+ * This package contains the harvester class used by
+ * {@linkplain de.gerdiproject.harvest.OceanTeaContextListener} and the package
+ * with the underlying sub harvester.
  *
  * @author Ingo Thomsen
  */
-package de.gerdiproject.harvest.harvester.subharvester;
+package de.gerdiproject.harvest.etl;

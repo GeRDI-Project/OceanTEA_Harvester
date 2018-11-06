@@ -20,8 +20,8 @@ import java.util.Date;
 
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
-import de.gerdiproject.harvest.utils.HashGenerator;
-import de.gerdiproject.json.GsonUtils;
+import de.gerdiproject.harvest.oceantea.json.DataTypeResponse;
+import de.gerdiproject.harvest.oceantea.json.TimeSeriesResponse;
 import de.gerdiproject.json.geo.Point;
 
 /**
@@ -32,12 +32,12 @@ import de.gerdiproject.json.geo.Point;
  */
 public final class TimeSeries
 {
-
     private String region;
     private String regionPrintName;
     private String device;
     private String station;
     private String dataType;
+
     private String dataTypePrintName;
     private String dataTypeUnit;
 
@@ -47,6 +47,40 @@ public final class TimeSeries
 
     // geolocation point combining longitude, latitude AND depth
     private Point geoLocationPoint;
+
+    private final String identifier;
+
+
+    /**
+     * Constructor that sets fields from JSON responses.
+     *
+     * @param index the unique index of the timeseries
+     * @param timeSeriesData part of a JSON response to a timeseries request
+     * @param dataTypeInfo the corresponding data type information
+     */
+    public TimeSeries(int index, TimeSeriesResponse timeSeriesData, DataTypeResponse dataTypeInfo)
+    {
+        this.identifier = getClass().getSimpleName() + index;
+
+        // fields with a direct mapping
+        setRegion(timeSeriesData.getRegion());
+        setRegionPrintName(timeSeriesData.getRegionPrintName());
+        setDevice(timeSeriesData.getDevice());
+        setTimeSeriesType(timeSeriesData.getTsType());
+        setStation(timeSeriesData.getStation());
+        setDataType(timeSeriesData.getDataType());
+
+        // creating the geolocation
+        setGeoLocationPoint(new Point(timeSeriesData.getLon(), timeSeriesData.getLat(), timeSeriesData.getDepth() * -1));
+
+        // converting reference ISO 8601 date (example: 2012-06-01T00:00:01Z) to Instant
+        setReferenceInstant(Instant.parse(timeSeriesData.getTReference()));
+
+        // enrich with data type information
+        setDataTypePrintName(dataTypeInfo.getPrintName());
+        setDataTypeUnit(dataTypeInfo.getUnit());
+    }
+
 
     /**
      * Get the depth of the measurement, which is the negative elevation value of
@@ -226,14 +260,12 @@ public final class TimeSeries
 
 
     /**
-     * Creates a hash value from the JSON representation of this class. Since
-     * existing timeseries are not updated in OceanTea, this serves as a unique
-     * identifier.
+     * Returns a unique identifier of this timeseries within OceanTea.
      *
      * @return an unique identifier of the timeseries within OceanTea
      */
-    public String createIdentifier()
+    public String getIdentifier()
     {
-        return HashGenerator.instance().getShaHash(GsonUtils.getGson().toJson(this, TimeSeries.class));
+        return identifier;
     }
 }

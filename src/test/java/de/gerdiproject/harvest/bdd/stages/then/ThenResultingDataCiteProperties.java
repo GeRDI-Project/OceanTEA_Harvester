@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.function.Function;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.BeforeStage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
@@ -77,7 +76,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     private DataCiteJson resultingDataCiteJson;
 
     // A Gson object (for creating JSON for messages)
-    private static final Gson GSON = getGson();
+    private static final Gson GSON = GsonUtils.createGerdiDocumentGsonBuilder().setPrettyPrinting().create();
 
 
     // step method (using other step methods)
@@ -361,17 +360,5 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     public void extractDataCiteJSONFromFirstEntry()
     {
         resultingDataCiteJson = (DataCiteJson) resultingIDocuments.get(0);
-    }
-
-
-    /**
-     * Initialize Gson and return a PrettyGson object
-     *
-     * @return Gson object
-     */
-    private static Gson getGson()
-    {
-        GsonUtils.init(new GsonBuilder());
-        return GsonUtils.getPrettyGson();
     }
 }

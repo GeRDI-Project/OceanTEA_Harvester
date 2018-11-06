@@ -31,7 +31,7 @@ public final class OceanTeaTimeSeriesDownloaderConstants
     public static final String NON_UNIVARIANT_TIME_SERIES = "adcp";
 
     // template string
-    public static final String DATASET_DOWNLOAD_URL = TIMESERIES_URL + "%s/%s/%s/%s";
+    public static final String DATASET_DOWNLOAD_URL = TIMESERIES_URL + "%s/%s/%s/%.0f";
 
     /**
      * private constructor to enforce non-instantiability

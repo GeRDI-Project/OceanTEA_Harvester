@@ -15,6 +15,7 @@
  */
 package de.gerdiproject.harvest.bdd.stages.given;
 
+import com.google.gson.Gson;
 import com.tngtech.jgiven.CurrentStep;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
@@ -41,6 +42,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
 {
+    private static final Gson GSON = GsonUtils.createGerdiDocumentGsonBuilder().setPrettyPrinting().create();
+
     @ProvidedScenarioState
     String allTimeSeriesJSONResponse;
 
@@ -77,7 +80,7 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     {
         expectedDataCiteJson = TestDataProvider.getExpectedtDataCiteJSON(name);
 
-        addJSONStringAsAttachmentAndDescription(GsonUtils.getPrettyGson().toJson(expectedDataCiteJson));
+        addJSONStringAsAttachmentAndDescription(GSON.toJson(expectedDataCiteJson));
 
         return self();
     }

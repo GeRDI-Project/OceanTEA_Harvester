@@ -26,7 +26,7 @@ import de.gerdiproject.harvest.bdd.stages.given.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages.then.ThenResultingDataCiteProperties;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
-import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
+import de.gerdiproject.harvest.etl.WhenHarvesting;
 
 /**
  * Scenarios on how given OceanTEA data is translated into valid
