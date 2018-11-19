@@ -20,4 +20,4 @@
  *
  * @author Ingo Thomsen
  */
-package de.gerdiproject.harvest.etl;
+package de.gerdiproject.harvest.etls;

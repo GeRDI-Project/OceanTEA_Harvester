@@ -30,12 +30,12 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 
 import de.gerdiproject.harvest.IDocument;
-import de.gerdiproject.harvest.etl.TimeSeriesETL;
-import de.gerdiproject.harvest.etl.extractors.TimeSeriesExtractor;
-import de.gerdiproject.harvest.etl.transformers.TimeSeriesTransformer;
+import de.gerdiproject.harvest.etls.TimeSeriesETL;
+import de.gerdiproject.harvest.etls.extractors.TimeSeriesExtractor;
 import de.gerdiproject.harvest.etls.loaders.AbstractIteratorLoader;
 import de.gerdiproject.harvest.etls.loaders.LoaderException;
 import de.gerdiproject.harvest.etls.loaders.events.CreateLoaderEvent;
+import de.gerdiproject.harvest.etls.transformers.TimeSeriesTransformer;
 import de.gerdiproject.harvest.event.EventSystem;
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;

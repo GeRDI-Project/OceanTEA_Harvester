@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package de.gerdiproject.harvest.etl.transformers;
+package de.gerdiproject.harvest.etls.transformers;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -69,34 +69,34 @@ public class TimeSeriesTransformer extends AbstractIteratorTransformer<TimeSerie
         document.setResourceType(OceanTeaTimeSeriesDataCiteConstants.RESOURCE_TYPE);
         document.setPublisher(OceanTeaTimeSeriesDataCiteConstants.PROVIDER);
         document.setRepositoryIdentifier(OceanTeaTimeSeriesDataCiteConstants.REPOSITORY_ID);
-        document.setCreators(OceanTeaTimeSeriesDataCiteConstants.CREATORS);
-        document.setContributors(OceanTeaTimeSeriesDataCiteConstants.CONTRIBUTORS);
-        document.setResearchDisciplines(OceanTeaTimeSeriesDataCiteConstants.DISCIPLINES);
-        document.setFormats(OceanTeaTimeSeriesDataCiteConstants.FORMATS);
+        document.addCreators(OceanTeaTimeSeriesDataCiteConstants.CREATORS);
+        document.addContributors(OceanTeaTimeSeriesDataCiteConstants.CONTRIBUTORS);
+        document.addResearchDisciplines(OceanTeaTimeSeriesDataCiteConstants.DISCIPLINES);
+        document.addFormats(OceanTeaTimeSeriesDataCiteConstants.FORMATS);
 
         // derived from both constants and the harvested entry
 
         // Subjects
         List<Subject> subjects = new ArrayList<>(OceanTeaTimeSeriesDataCiteConstants.SUBJECTS);
         subjects.addAll(timeSeriesParser.getSubjectsStrings());
-        document.setSubjects(subjects);
+        document.addSubjects(subjects);
 
         // Descriptions
         List<Description> descriptions = new ArrayList<>(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTIONS);
         descriptions.addAll(timeSeriesParser.getDescription());
-        document.setDescriptions(descriptions);
+        document.addDescriptions(descriptions);
 
         // WebLinks
         List<WebLink> webLinks = new ArrayList<>(OceanTeaTimeSeriesDataCiteConstants.WEB_LINKS);
         webLinks.addAll(timeSeriesParser.getWebLinks());
-        document.setWebLinks(webLinks);
+        document.addWebLinks(webLinks);
 
         // derived exclusively from the harvested entry
-        document.setResearchDataList(timeSeriesParser.getResearchDataList());
+        document.addResearchDataList(timeSeriesParser.getResearchDataList());
         document.setPublicationYear(timeSeriesParser.getPublicationYear());
-        document.setTitles(Arrays.asList(timeSeriesParser.getMainTitle()));
-        document.setGeoLocations(timeSeriesParser.getGeoLocations());
-        document.setDates(timeSeriesParser.getDates());
+        document.addTitles(Arrays.asList(timeSeriesParser.getMainTitle()));
+        document.addGeoLocations(timeSeriesParser.getGeoLocations());
+        document.addDates(timeSeriesParser.getDates());
 
         return document;
     }

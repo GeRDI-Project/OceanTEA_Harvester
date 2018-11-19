@@ -14,10 +14,11 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+
 /**
- * This package contains {@linkplain de.gerdiproject.harvest.etls.transformers.ITransformer} implementations
- * for transforming OceanTea (meta-)data to search documents.
+ * This package contains {@linkplain de.gerdiproject.harvest.etls.extractors.IExtractor} implementations
+ * for extracting OceanTea (meta-)data.
  *
  * @author Robin Weiss
  */
-package de.gerdiproject.harvest.etl.transformers;
+package de.gerdiproject.harvest.etls.extractors;

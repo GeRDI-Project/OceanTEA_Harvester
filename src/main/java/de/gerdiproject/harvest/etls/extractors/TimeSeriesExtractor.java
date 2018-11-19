@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package de.gerdiproject.harvest.etl.extractors;
+package de.gerdiproject.harvest.etls.extractors;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
