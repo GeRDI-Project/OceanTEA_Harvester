@@ -92,18 +92,7 @@ public final class TimeSeries
     {
         return -1 * geoLocationPoint.getElevation();
     }
-
-    /**
-     * Set the depth of the measurement point. It is stored as a negative elevation
-     * value of the geolocation {@linkplain Point}}.
-     *
-     * @param depth
-     *            a positive double value for the depth (in m)
-     */
-    public void setDepth(double depth)
-    {
-        geoLocationPoint.setElevation(-1 * depth);
-    }
+    
 
     //
     // Setter and Getter
@@ -139,21 +128,9 @@ public final class TimeSeries
     }
 
 
-    public void setLatitude(double latitude)
-    {
-        this.geoLocationPoint.setLatitude(latitude);
-    }
-
-
     public double getLongitude()
     {
         return geoLocationPoint.getLongitude();
-    }
-
-
-    public void setLongitude(double longitude)
-    {
-        this.geoLocationPoint.setLongitude(longitude);
     }
 
 

@@ -92,7 +92,7 @@ public class TimeSeriesTransformer extends AbstractIteratorTransformer<TimeSerie
         document.addWebLinks(webLinks);
 
         // derived exclusively from the harvested entry
-        document.addResearchDataList(timeSeriesParser.getResearchDataList());
+        document.addResearchData(timeSeriesParser.getResearchDataList());
         document.setPublicationYear(timeSeriesParser.getPublicationYear());
         document.addTitles(Arrays.asList(timeSeriesParser.getMainTitle()));
         document.addGeoLocations(timeSeriesParser.getGeoLocations());

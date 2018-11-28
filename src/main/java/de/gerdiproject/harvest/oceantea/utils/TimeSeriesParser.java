@@ -119,13 +119,13 @@ public class TimeSeriesParser
      *
      * @return year of publication (4 digits)
      */
-    public short getPublicationYear()
+    public int getPublicationYear()
     {
         Date date = timeSeries.getReferenceDate();
         SimpleDateFormat df = new SimpleDateFormat(
             OceanTeaTimeSeriesDataCiteConstants.PUBLICATION_YEAR_SIMPLE_DATE_FORMAT_STRING);
 
-        return Short.parseShort(df.format(date));
+        return Integer.parseInt(df.format(date));
     }
 
 
