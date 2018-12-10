@@ -33,7 +33,7 @@ import de.gerdiproject.harvest.utils.data.HttpRequester;
 import de.gerdiproject.json.datacite.DataCiteJson;
 import de.gerdiproject.json.datacite.Description;
 import de.gerdiproject.json.datacite.Subject;
-import de.gerdiproject.json.datacite.extension.WebLink;
+import de.gerdiproject.json.datacite.extension.generic.WebLink;
 
 /**
  * This {@linkplain AbstractIteratorTransformer} implementation transforms OceanTea
