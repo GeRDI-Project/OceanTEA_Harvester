@@ -30,6 +30,7 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 
 import de.gerdiproject.harvest.IDocument;
+import de.gerdiproject.harvest.config.Configuration;
 import de.gerdiproject.harvest.etls.TimeSeriesETL;
 import de.gerdiproject.harvest.etls.extractors.TimeSeriesExtractor;
 import de.gerdiproject.harvest.etls.loaders.AbstractIteratorLoader;
@@ -107,8 +108,14 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
 
     public WhenHarvesting harvested()
     {
+
         // make sure harvested documents are loaded into 'resultingIDocuments'
         EventSystem.addSynchronousListener(CreateLoaderEvent.class, (CreateLoaderEvent e) -> new MockedLoader());
+
+        // create a configuration
+        Configuration configuration = new Configuration(null);
+        configuration.addEventListeners();
+
         final TimeSeriesETL etl = new TimeSeriesETL();
         EventSystem.removeSynchronousListener(CreateLoaderEvent.class);
 
