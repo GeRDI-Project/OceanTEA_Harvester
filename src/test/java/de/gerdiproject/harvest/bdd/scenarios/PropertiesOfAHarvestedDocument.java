@@ -11,19 +11,12 @@
 package de.gerdiproject.harvest.bdd.scenarios;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import com.tngtech.jgiven.junit.ScenarioTest;
 
 import de.gerdiproject.harvest.IDocument;
 import de.gerdiproject.harvest.bdd.stages.given.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages.then.ThenResultingDataCiteProperties;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
-import de.gerdiproject.harvest.etl.WhenHarvesting;
-import de.gerdiproject.harvest.etls.extractors.TimeSeriesExtractor;
 
 /**
  * Scenarios on how given OceanTEA data is translated into valid
@@ -34,9 +27,7 @@ import de.gerdiproject.harvest.etls.extractors.TimeSeriesExtractor;
  */
 @Issue("SAI-312")
 @Tag("DataCite")
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(TimeSeriesExtractor.class)
-public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingDataCiteProperties>
+public class PropertiesOfAHarvestedDocument extends AbstractHarvestingScenarioTest<GivenTimeSeriesTestData, ThenResultingDataCiteProperties>
 {
 
     @Test

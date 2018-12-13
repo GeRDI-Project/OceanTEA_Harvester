@@ -11,29 +11,22 @@
 package de.gerdiproject.harvest.bdd.scenarios;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.tngtech.jgiven.junit.ScenarioTest;
-
+import de.gerdiproject.harvest.IDocument;
 import de.gerdiproject.harvest.bdd.stages.given.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages.then.ThenResultingIDocuments;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
-import de.gerdiproject.harvest.etl.WhenHarvesting;
-import de.gerdiproject.harvest.etls.extractors.TimeSeriesExtractor;
 
 /**
- * Scenario about the general structure of list of the resulting IDocuments.
+ * Scenario about the general structure of list of the resulting
+ * {@linkplain IDocument}s.
  *
  * @author Ingo Thomsen
  */
 @Issue("SAI-312")
 @Tag("IDocument")
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(TimeSeriesExtractor.class)
-public class StructureOfListOfResultingIDocuments extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingIDocuments>
+public class StructureOfListOfResultingIDocuments extends AbstractHarvestingScenarioTest<GivenTimeSeriesTestData, ThenResultingIDocuments>
 {
 
     @Test
