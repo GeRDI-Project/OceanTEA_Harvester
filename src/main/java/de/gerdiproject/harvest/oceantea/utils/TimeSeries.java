@@ -92,7 +92,7 @@ public final class TimeSeries
     {
         return -1 * geoLocationPoint.getElevation();
     }
-    
+
 
     //
     // Setter and Getter

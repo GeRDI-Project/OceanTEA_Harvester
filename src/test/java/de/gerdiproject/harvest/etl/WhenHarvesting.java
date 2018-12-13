@@ -109,8 +109,6 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
      */
     public WhenHarvesting harvested()
     {
-
-        System.out.println(1);
         // make sure harvested documents are loaded into 'resultingIDocuments'
         EventSystem.addSynchronousListener(CreateLoaderEvent.class, (CreateLoaderEvent e) -> new MockedLoader());
 
