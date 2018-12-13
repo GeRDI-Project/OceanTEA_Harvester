@@ -15,7 +15,6 @@ import org.junit.Test;
 import de.gerdiproject.harvest.IDocument;
 import de.gerdiproject.harvest.bdd.stages.given.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages.then.ThenResultingDataCiteProperties;
-import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
 
 /**
@@ -25,7 +24,6 @@ import de.gerdiproject.harvest.bdd.tags.Tag;
  *
  * @author Ingo Thomsen
  */
-@Issue("SAI-312")
 @Tag("DataCite")
 public class PropertiesOfAHarvestedDocument extends AbstractHarvestingScenarioTest<GivenTimeSeriesTestData, ThenResultingDataCiteProperties>
 {
