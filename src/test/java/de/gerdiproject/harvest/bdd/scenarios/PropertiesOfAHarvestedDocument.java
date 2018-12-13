@@ -1,24 +1,20 @@
 /**
- * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de) Licensed under
+ * the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License
+ * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
+ * law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
 package de.gerdiproject.harvest.bdd.scenarios;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.jgiven.junit.ScenarioTest;
 
 import de.gerdiproject.harvest.IDocument;
@@ -27,19 +23,19 @@ import de.gerdiproject.harvest.bdd.stages.then.ThenResultingDataCiteProperties;
 import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
 import de.gerdiproject.harvest.etl.WhenHarvesting;
+import de.gerdiproject.harvest.etls.extractors.TimeSeriesExtractor;
 
 /**
  * Scenarios on how given OceanTEA data is translated into valid
- * {@linkplain IDocument}s.
- *
- * Some of the resulting properties are independent of the specific dataset while
- * others are partly or even fully dependent.
+ * {@linkplain IDocument}s. Some of the resulting properties are independent of
+ * the specific dataset while others are partly or even fully dependent.
  *
  * @author Ingo Thomsen
  */
 @Issue("SAI-312")
 @Tag("DataCite")
-@RunWith(DataProviderRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(TimeSeriesExtractor.class)
 public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingDataCiteProperties>
 {
 
@@ -58,6 +54,7 @@ public class PropertiesOfAHarvestedDocument extends ScenarioTest<GivenTimeSeries
 
         // @formatter:on
     }
+
 
     @Test
     public void variable_DataCite_properties_for_exemplary_time_series_dataset()
