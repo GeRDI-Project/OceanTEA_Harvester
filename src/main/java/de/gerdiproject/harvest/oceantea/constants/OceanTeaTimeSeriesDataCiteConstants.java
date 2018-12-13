@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import de.gerdiproject.json.datacite.Contributor;
 import de.gerdiproject.json.datacite.Creator;
@@ -104,6 +105,8 @@ public final class OceanTeaTimeSeriesDataCiteConstants
     public static final String DESCRIPTION_MISSING_VALUES_SUFFIX = " %d data points were missing ('NA').";
     public static final String PUBLICATION_YEAR_SIMPLE_DATE_FORMAT_STRING = "yyyy";
     public static final String GEOLOCATION_PLACE_DESCRIPTION = "measurement region of %s";
+
+    public static final Locale FORMATTING_LOCALE = Locale.ENGLISH;
 
     /**
      * private constructor to enforce non-instantiability
