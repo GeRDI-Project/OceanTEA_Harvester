@@ -119,7 +119,9 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
      * actually created DataCite document, using a given {@linkplain DataCiteJson}
      * getter.
      *
-     * @param {@linkplain DataCiteJson} getter
+     * @param getter {@linkplain DataCiteJson} getter
+     * @param <T> type of the DataCite field returned by the getter
+     *
      */
     private <T> void assertEqualDataCiteField(Function<DataCiteJson, T> getter)
     {
@@ -138,7 +140,8 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
      * collection. The field is accessed using a given {@linkplain DataCiteJson}
      * getter.
      *
-     * @param {@linkplain DataCiteJson} getter for a collection
+     * @param getter {@linkplain DataCiteJson} getter for a collection
+     * @param <T> element type of the collection returned by the getter
      */
     private <T> void assertExpectedDataCiteFieldArePresent(Function<DataCiteJson, Collection<T>> getter)
     {
