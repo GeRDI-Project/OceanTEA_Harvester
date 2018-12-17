@@ -23,10 +23,13 @@ import java.util.Random;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 
+import de.gerdiproject.harvest.IDocument;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 
 /**
- * A Given stage with steps for the {@linkplain TimeSeriesDatasetResponse} class.
+ * A Given stage with steps for providing specific
+ * {@linkplain TimeSeriesDatasetResponse}s to the When stage for testing generic
+ * properties of the resulting {@linkplain IDocument}s
  *
  * @author Ingo Thomsen
  */
@@ -35,6 +38,7 @@ public class GivenTimeSeriesDatasetResponse extends Stage<GivenTimeSeriesDataset
 
     @ProvidedScenarioState
     TimeSeriesDatasetResponse timeSeriesDatasetResponse;
+
 
     public GivenTimeSeriesDatasetResponse an_empty_TimeSeriesDatasetResponse()
     {

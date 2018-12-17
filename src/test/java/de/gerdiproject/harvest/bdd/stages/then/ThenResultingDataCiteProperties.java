@@ -1,12 +1,17 @@
 /**
- * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de) Licensed under
- * the Apache License, Version 2.0 (the "License"); you may not use this file
- * except in compliance with the License. You may obtain a copy of the License
- * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
- * law or agreed to in writing, software distributed under the License is
- * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
+ * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package de.gerdiproject.harvest.bdd.stages.then;
 
@@ -30,12 +35,16 @@ import de.gerdiproject.json.datacite.DataCiteJson;
  * This stage is for comparing the DataCite properties of the expected
  * DataCiteJson and the provided DataCiteJson (the first element of the
  * resulting IDocuments). Both is provided via ScenarioState variables.
- * Generally, there are three kinds of properties: "constant": list or value
- * that is independent of the actual time series dataset "variable": list or
- * value that is only dependent of the time series dataset "partly variable":
- * list with elements dependent & independent of the time series dataset There
- * are two step methods to check the properties, depending on whether they
- * contain lists or not.
+ * Generally, there are three kinds of {@linkplain DataCiteJson} properties:
+ * <ul>
+ * <li>"constant": (collection of) values, independent of the harvested time
+ * series dataset
+ * <li>"variable": (collection of) values, solely dependent of the harvested
+ * time series dataset
+ * <li>"partly variable": collection of values with elements dependent &
+ * independent of the harvested time series dataset. For this there is a method
+ * to check if the "actual DataCite fields" contain the "expected" ones.
+ * </ul>
  *
  * @author Ingo Thomsen
  */
@@ -54,18 +63,6 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     private static final Gson GSON = GsonUtils.createGerdiDocumentGsonBuilder().setPrettyPrinting().create();
 
 
-    /**
-     * Private method to make the first document of the list resulting IDocuments
-     * available to the step methods in this state class. Because of
-     * {@linkplain BeforeStage} it is called before any other stage method.
-     */
-    @BeforeStage
-    private void extractDataCiteJSONFromFirstEntry()
-    {
-        resultingDataCiteJson = (DataCiteJson) resultingIDocuments.get(0);
-    }
-
-
     // step method
     public ThenResultingDataCiteProperties all_constant_DataCite_properties_equal_those_in_expected_DataCiteJSON()
     {
@@ -76,6 +73,7 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
         assertEqualDataCiteField(DataCiteJson::getFormats);
         assertEqualDataCiteField(DataCiteJson::getRepositoryIdentifier);
         assertEqualDataCiteField(DataCiteJson::getResearchDisciplines);
+
         return self();
     }
 
@@ -105,6 +103,18 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
 
 
     /**
+     * Private method to make the first document of the list resulting IDocuments
+     * available to the step methods in this state class. Because of
+     * {@linkplain BeforeStage} it is called before any other stage method.
+     */
+    @BeforeStage
+    private void extractDataCiteJSONFromFirstEntry()
+    {
+        resultingDataCiteJson = (DataCiteJson) resultingIDocuments.get(0);
+    }
+
+
+    /**
      * Function to check equality of DataCite fields between an expected and the
      * actually created DataCite document, using a given {@linkplain DataCiteJson}
      * getter.
@@ -119,14 +129,14 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
         assertThat(actual).as("The resulting DataCite field %s does not match the expected %s",
                               GSON.toJson(actual),
                               GSON.toJson(expected)).isEqualTo(expected);
-
     }
 
 
     /**
      * Function to check for a given DataCite field - which is a collection (either
      * Set or List) - that all expected collection items are in the actually created
-     * collection. The field is accessed using a given DataCiteJson getter.
+     * collection. The field is accessed using a given {@linkplain DataCiteJson}
+     * getter.
      *
      * @param {@linkplain DataCiteJson} getter for a collection
      */
@@ -139,5 +149,4 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
                                                GSON.toJson(actual),
                                                GSON.toJson(expected)).isIn(actual));
     }
-
 }

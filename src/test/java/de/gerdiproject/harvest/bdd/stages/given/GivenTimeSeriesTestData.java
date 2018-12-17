@@ -32,13 +32,12 @@ import de.gerdiproject.json.datacite.DataCiteJson;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Each step (method) in this Given stage (class) selects the JSON responses
- * from the {@linkplain TestDataProvider} that are used to initialize
- * {@linkplain AllTimeSeriesResponse }, {@linkplain AllDataTypesResponse} and
- * {@linkplain TimeSeriesDatasetResponse}.
+ * A stage using the {@linkplain TestDataProvider} with steps to provide certain
+ * instances of {@linkplain AllTimeSeriesResponse},
+ * {@linkplain AllDataTypesResponse} and {@linkplain TimeSeriesDatasetResponse}
+ * to the When stage.
  *
  * @author Ingo Thomsen
- *
  */
 public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
 {
@@ -64,7 +63,6 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
 
     public GivenTimeSeriesTestData a_time_series_data_set_named_$(String name)
     {
-
 
         allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
         timeSeriesDatasetJSONResponse = TestDataProvider.getTimeSeriesDatasetJSON(name);
@@ -109,7 +107,6 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
         Attachment attachment = Attachment.fromText(aJSONResponse, MediaType.JSON_UTF_8);
         currentStep.addAttachment(attachment);
 
-        currentStep.setExtendedDescription(
-            "The given resp. expected JSON strings are attached.");
+        currentStep.setExtendedDescription("The given resp. expected JSON strings are attached.");
     }
 }

@@ -25,7 +25,8 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeriesDataset;
 
 /**
- * A Then stage with steps methods for the {@linkplain TimeSeriesDataset} class.
+ * A Then stage with steps methods for creation of
+ * {@linkplain TimeSeriesDataset}s.
  *
  * @author Ingo Thomsen
  */

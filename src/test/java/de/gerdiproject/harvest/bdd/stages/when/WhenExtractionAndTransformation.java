@@ -1,15 +1,20 @@
 /**
- * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de) Licensed under
- * the Apache License, Version 2.0 (the "License"); you may not use this file
- * except in compliance with the License. You may obtain a copy of the License
- * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
- * law or agreed to in writing, software distributed under the License is
- * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
+ * Copyright © 2018 Ingo Thomsen, Robin Weiss (http://www.gerdi-project.de)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 // package de.gerdiproject.harvest.bdd.stages_integration;
-package de.gerdiproject.harvest.etl;
+package de.gerdiproject.harvest.bdd.stages.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +30,9 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 
 import de.gerdiproject.harvest.IDocument;
+import de.gerdiproject.harvest.TestDataProvider;
 import de.gerdiproject.harvest.config.Configuration;
 import de.gerdiproject.harvest.etls.TimeSeriesETL;
-import de.gerdiproject.harvest.etls.extractors.TimeSeriesExtractor;
 import de.gerdiproject.harvest.etls.loaders.AbstractIteratorLoader;
 import de.gerdiproject.harvest.etls.loaders.LoaderException;
 import de.gerdiproject.harvest.etls.loaders.events.CreateLoaderEvent;
@@ -39,14 +44,16 @@ import de.gerdiproject.harvest.utils.data.HttpRequester;
 import de.gerdiproject.json.datacite.DataCiteJson;
 
 /**
- * This When stage provides the step method to start the actual harvesting of
- * the given JSON response strings. For this a mock {@linkplain HttpRequester}
- * is created for the {@linkplain TimeSeriesExtractor} that returns the test
- * JSON data instead of calling OceanTEA.
+ * This When stage provides the step method test the actual harvesting
+ * (extraction and transformation) of given JSON response strings. For this a
+ * mock {@linkplain HttpRequester} is returned by a (stubbed) constructor in the
+ * Extraction class {@linkplain TimeSeriesExtractors}. This mock returns the
+ * provided JSON data from the {@linkplain TestDataProvider} instead of calling
+ * OceanTEA itself.
  *
  * @author Ingo Thomsen, Robin Weiss
  */
-public class WhenHarvesting extends Stage<WhenHarvesting>
+public class WhenExtractionAndTransformation extends Stage<WhenExtractionAndTransformation>
 {
     private static Gson GSON = new Gson();
 
@@ -64,11 +71,35 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
 
 
     /**
-     * Create a mock HttpRequester (once before calling any steps): Set up stubbed
-     * methods to return the JSON strings provided as scenario state variables.
+     * Step method for harvesting (extraction & transformation) of test JSON strings
+     */
+    public WhenExtractionAndTransformation harvested()
+    {
+        // make sure harvested documents are loaded into 'resultingIDocuments'
+        EventSystem.addSynchronousListener(CreateLoaderEvent.class, (CreateLoaderEvent e) -> new MockedLoader());
+
+        // create a configuration
+        Configuration configuration = new Configuration(null);
+        configuration.addEventListeners();
+
+        final TimeSeriesETL etl = new TimeSeriesETL();
+
+        etl.init("Dummy");
+        etl.prepareHarvest();
+        etl.harvest();
+
+        EventSystem.removeSynchronousListener(CreateLoaderEvent.class);
+        return self();
+    }
+
+
+    /**
+     * This step is called once - before any other steps in this stage - to create a
+     * mock HttpRequester to provide JSON strings. It also makes calling the
+     * {@linkplain HttpRequester} constructor returning this mock.
      */
     @BeforeStage
-    public void prepareHarvesterLibaryForMockAccess()
+    private void prepareHarvesterLibaryForMockAccess()
     {
         // create a mock HttpRequester for intercepting JSON requests
         HttpRequester mockHttpRequester = PowerMockito.mock(HttpRequester.class);
@@ -101,29 +132,6 @@ public class WhenHarvesting extends Stage<WhenHarvesting>
     {
         T value = GSON.fromJson(aJSONResponse, targetClass);
         Mockito.when(mock.getObjectFromUrl(Mockito.anyString(), ArgumentMatchers.eq(targetClass))).thenReturn(value);
-    }
-
-
-    /**
-     * Step method for harvesting (extraction & transformation) of test JSON string
-     */
-    public WhenHarvesting harvested()
-    {
-        // make sure harvested documents are loaded into 'resultingIDocuments'
-        EventSystem.addSynchronousListener(CreateLoaderEvent.class, (CreateLoaderEvent e) -> new MockedLoader());
-
-        // create a configuration
-        Configuration configuration = new Configuration(null);
-        configuration.addEventListeners();
-
-        final TimeSeriesETL etl = new TimeSeriesETL();
-
-        etl.init("Dummy");
-        etl.prepareHarvest();
-        etl.harvest();
-
-        EventSystem.removeSynchronousListener(CreateLoaderEvent.class);
-        return self();
     }
 
     /**
