@@ -36,6 +36,7 @@ public class ThenResultingIDocuments extends Stage<ThenResultingIDocuments>
     List<IDocument> resultingIDocuments;
 
     public ThenResultingIDocuments there_is_exactly_one_resulting_document()
+
     {
         assertThat(resultingIDocuments.size()).isOne();
         return self();
