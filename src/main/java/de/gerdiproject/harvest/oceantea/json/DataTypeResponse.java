@@ -10,31 +10,20 @@
  */
 package de.gerdiproject.harvest.oceantea.json;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
  * This class represents a JSON object that is part of an
- * {@linkplain AllDataTypesResponse}: The print name and the unit of a data
- * type.
+ * {@linkplain AllDataTypesResponse}: The string representation of the data type
+ * name and unit type.
  *
  * @author Ingo Thomsen
  */
 @Data
+@AllArgsConstructor
 public final class DataTypeResponse
 {
     private String printName;
     private String unit;
-
-
-    /**
-     * Constructor
-     *
-     * @param printName the string representation of the data type name
-     * @param unit the string representation of the data type unit
-     */
-    public DataTypeResponse(String printName, String unit)
-    {
-        this.printName = printName;
-        this.unit = unit;
-    }
 }
