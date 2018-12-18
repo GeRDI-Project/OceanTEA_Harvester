@@ -35,11 +35,23 @@ public class StructureOfListOfResultingIDocuments extends AbstractHarvestingScen
     @Test
     public void one_conductivity_TimeSeries_dataset()
     {
-        given().a_random_time_series_data_set();
+        given().a_random_time_series_dataset();
 
         when().harvested();
 
         then().there_is_exactly_one_resulting_document();
+    }
+
+    @Test
+    public void all_given_test_TimeSeries_datasets()
+    {
+
+        given().all_time_series_datasets();
+
+        when().harvested();
+
+        then().there_are_$_resulting_documents(164);
+
     }
 
 }

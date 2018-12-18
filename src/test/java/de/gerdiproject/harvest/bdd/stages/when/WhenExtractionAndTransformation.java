@@ -50,7 +50,7 @@ import de.gerdiproject.json.datacite.DataCiteJson;
  */
 public class WhenExtractionAndTransformation extends Stage<WhenExtractionAndTransformation>
 {
-    private static Gson GSON = new Gson();
+    private static final Gson GSON = new Gson();
 
     @ExpectedScenarioState
     String allTimeSeriesJSONResponse;

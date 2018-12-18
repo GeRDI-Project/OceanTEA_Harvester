@@ -38,7 +38,7 @@ public class PropertiesOfAHarvestedDocument extends AbstractHarvestingScenarioTe
     {
         // @formatter:off
 
-        given().a_random_time_series_data_set().
+        given().a_random_time_series_dataset().
         and ().an_expected_DataCiteJSON_named_$("constant_properties");
 
         when().harvested();
@@ -55,7 +55,7 @@ public class PropertiesOfAHarvestedDocument extends AbstractHarvestingScenarioTe
     {
         // @formatter:off
 
-        given().a_time_series_data_set_named_$("POS434-156_conductivity_215").
+        given().a_time_series_dataset_named_$("POS434-156_conductivity_215").
         and ().an_expected_DataCiteJSON_named_$("POS434-156_conductivity_215");
 
         when().harvested();

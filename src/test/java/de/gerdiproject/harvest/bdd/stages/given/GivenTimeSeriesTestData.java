@@ -1,17 +1,12 @@
 /**
- * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de) Licensed under
+ * the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License
+ * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
+ * law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
 package de.gerdiproject.harvest.bdd.stages.given;
 
@@ -61,7 +56,7 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     CurrentStep currentStep;
 
 
-    public GivenTimeSeriesTestData a_time_series_data_set_named_$(String name)
+    public GivenTimeSeriesTestData a_time_series_dataset_named_$(String name)
     {
 
         allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
@@ -84,10 +79,22 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     }
 
 
-    public GivenTimeSeriesTestData a_random_time_series_data_set()
+    public GivenTimeSeriesTestData a_random_time_series_dataset()
     {
         allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
         allTimeSeriesJSONResponse = TestDataProvider.getRandomAllTimeSeriesJSON();
+        timeSeriesDatasetJSONResponse = TestDataProvider.getTimeSeriesDatasetJSON("synthetic.no_data");
+
+        addJSONStringAsAttachmentAndDescription(allTimeSeriesJSONResponse);
+
+        return self();
+    }
+
+
+    public GivenTimeSeriesTestData all_time_series_datasets()
+    {
+        allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
+        allTimeSeriesJSONResponse = TestDataProvider.getAllTimeSeriesJSON();
         timeSeriesDatasetJSONResponse = TestDataProvider.getTimeSeriesDatasetJSON("synthetic.no_data");
 
         addJSONStringAsAttachmentAndDescription(allTimeSeriesJSONResponse);
@@ -109,4 +116,5 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
 
         currentStep.setExtendedDescription("The given resp. expected JSON strings are attached.");
     }
+
 }
