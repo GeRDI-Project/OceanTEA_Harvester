@@ -1,5 +1,5 @@
 /**
- * Copyright © 2018 Robin Weiss (http://www.gerdi-project.de)
+ * Copyright © 2018 Robin Weiss, Ingo Thomsen (http://www.gerdi-project.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
- * This package contains {@linkplain de.gerdiproject.harvest.etls.transformers.ITransformer} implementations
- * for transforming OceanTea (meta-)data to search documents.
+ * This package contains
+ * {@linkplain de.gerdiproject.harvest.etls.transformers.ITransformer}
+ * implementations for transforming OceanTea (meta-)data to search documents.
  *
  * @author Robin Weiss
  */
