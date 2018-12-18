@@ -94,6 +94,7 @@ public class WhenExtractionAndTransformation extends Stage<WhenExtractionAndTran
      * {@linkplain HttpRequester} constructor returning this mock.
      */
     @BeforeStage
+    @SuppressWarnings("PMD.UnusedPrivateMethod") // This method IS called once by JGiven
     private void prepareHarvesterLibaryForMockAccess()
     {
         // create a mock HttpRequester for intercepting JSON requests

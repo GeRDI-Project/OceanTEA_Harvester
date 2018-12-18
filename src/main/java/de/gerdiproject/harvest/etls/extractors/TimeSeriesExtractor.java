@@ -21,8 +21,6 @@ import java.util.Iterator;
 import com.google.gson.Gson;
 
 import de.gerdiproject.harvest.etls.AbstractETL;
-import de.gerdiproject.harvest.etls.extractors.AbstractIteratorExtractor;
-import de.gerdiproject.harvest.etls.extractors.ExtractorException;
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDownloaderConstants;
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;

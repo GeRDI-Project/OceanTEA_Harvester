@@ -38,6 +38,7 @@ import de.gerdiproject.harvest.oceantea.utils.TimeSeriesDataset;
  */
 @Tag("Initialization")
 @RunWith(DataProviderRunner.class)
+@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert") // The assertions are done in the stages
 public class InitializationOfATimeSeriesDataset extends ScenarioTest<GivenTimeSeriesDatasetResponse, WhenTransformation, ThenTimeSeriesDataset>
 {
 

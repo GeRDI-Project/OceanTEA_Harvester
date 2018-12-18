@@ -15,7 +15,6 @@
  */
 package de.gerdiproject.harvest.etls;
 
-import de.gerdiproject.harvest.etls.StaticIteratorETL;
 import de.gerdiproject.harvest.etls.extractors.TimeSeriesExtractor;
 import de.gerdiproject.harvest.etls.transformers.TimeSeriesTransformer;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeries;

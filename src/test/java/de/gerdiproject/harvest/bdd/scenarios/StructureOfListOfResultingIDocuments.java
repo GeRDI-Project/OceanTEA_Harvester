@@ -29,6 +29,7 @@ import de.gerdiproject.harvest.bdd.tags.Tag;
  * @author Ingo Thomsen
  */
 @Tag("IDocument")
+@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert") // The assertions are done in the stages
 public class StructureOfListOfResultingIDocuments extends AbstractHarvestingScenarioTest<GivenTimeSeriesTestData, ThenResultingIDocuments>
 {
 

@@ -30,6 +30,7 @@ import de.gerdiproject.harvest.bdd.tags.Tag;
  * @author Ingo Thomsen
  */
 @Tag("DataCite")
+@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert") // The assertions are done in the stages
 public class PropertiesOfAHarvestedDocument extends AbstractHarvestingScenarioTest<GivenTimeSeriesTestData, ThenResultingDataCiteProperties>
 {
 
