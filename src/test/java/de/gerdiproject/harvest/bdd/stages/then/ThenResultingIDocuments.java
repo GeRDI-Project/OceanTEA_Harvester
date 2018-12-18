@@ -42,6 +42,5 @@ public class ThenResultingIDocuments extends Stage<ThenResultingIDocuments>
     {
         assertThat(resultingIDocuments.size()).isEqualTo(numberOfDocuments);
         return self();
-
     }
 }

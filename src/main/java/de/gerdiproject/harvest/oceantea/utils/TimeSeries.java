@@ -1,17 +1,12 @@
 /**
- * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de) Licensed under
+ * the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License
+ * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
+ * law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
 package de.gerdiproject.harvest.oceantea.utils;
 
@@ -23,6 +18,7 @@ import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
 import de.gerdiproject.harvest.oceantea.json.DataTypeResponse;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesResponse;
 import de.gerdiproject.json.geo.Point;
+import lombok.Data;
 
 /**
  * This class represents the joint metadata collected from
@@ -30,6 +26,7 @@ import de.gerdiproject.json.geo.Point;
  *
  * @author Ingo Thomsen
  */
+@Data
 public final class TimeSeries
 {
     private String region;
@@ -42,8 +39,8 @@ public final class TimeSeries
     private String dataTypeUnit;
 
     // Using slightly more descriptive field names here and Instant instead of Date
-    private String timeSeriesType;
-    private Instant instant;
+    private String  timeSeriesType;
+    private Instant referenceInstant;
 
     // geolocation point combining longitude, latitude AND depth
     private Point geoLocationPoint;
@@ -71,7 +68,8 @@ public final class TimeSeries
         setDataType(timeSeriesData.getDataType());
 
         // creating the geolocation
-        setGeoLocationPoint(new Point(timeSeriesData.getLon(), timeSeriesData.getLat(), timeSeriesData.getDepth() * -1));
+        setGeoLocationPoint(new Point(timeSeriesData.getLon(), timeSeriesData.getLat(), timeSeriesData
+                                      .getDepth() * -1));
 
         // converting reference ISO 8601 date (example: 2012-06-01T00:00:01Z) to Instant
         setReferenceInstant(Instant.parse(timeSeriesData.getTReference()));
@@ -79,6 +77,28 @@ public final class TimeSeries
         // enrich with data type information
         setDataTypePrintName(dataTypeInfo.getPrintName());
         setDataTypeUnit(dataTypeInfo.getUnit());
+    }
+
+
+    /**
+     * Get the latitude (from the geolocation {@linkplain Point}})
+     *
+     * @return latitude
+     */
+    public double getLatitude()
+    {
+        return geoLocationPoint.getLatitude();
+    }
+
+
+    /**
+     * Get the longitude (from the geolocation {@linkplain Point}})
+     *
+     * @return longitude
+     */
+    public double getLongitude()
+    {
+        return geoLocationPoint.getLongitude();
     }
 
 
@@ -94,155 +114,13 @@ public final class TimeSeries
     }
 
 
-    //
-    // Setter and Getter
-    //
-
-    public Point getGeoLocationPoint()
-    {
-        return geoLocationPoint;
-    }
-
-
-    public void setGeoLocationPoint(Point geoLocationPoint)
-    {
-        this.geoLocationPoint = geoLocationPoint;
-    }
-
-
-    public String getTimeSeriesType()
-    {
-        return timeSeriesType;
-    }
-
-
-    public void setTimeSeriesType(String timeSeriesType)
-    {
-        this.timeSeriesType = timeSeriesType;
-    }
-
-
-    public double getLatitude()
-    {
-        return geoLocationPoint.getLatitude();
-    }
-
-
-    public double getLongitude()
-    {
-        return geoLocationPoint.getLongitude();
-    }
-
-
-    public String getRegion()
-    {
-        return region;
-    }
-
-
-    public void setRegion(String value)
-    {
-        this.region = value;
-    }
-
-
-    public String getRegionPrintName()
-    {
-        return regionPrintName;
-    }
-
-
-    public void setRegionPrintName(String value)
-    {
-        this.regionPrintName = value;
-    }
-
-
-    public String getDevice()
-    {
-        return device;
-    }
-
-
-    public void setDevice(String value)
-    {
-        this.device = value;
-    }
-
-
-    public String getStation()
-    {
-        return station;
-    }
-
-
-    public void setStation(String value)
-    {
-        this.station = value;
-    }
-
-
-    public String getDataType()
-    {
-        return dataType;
-    }
-
-
-    public void setDataType(String value)
-    {
-        this.dataType = value;
-    }
-
-
-    public String getDataTypePrintName()
-    {
-        return dataTypePrintName;
-    }
-
-
-    public void setDataTypePrintName(String dataTypePrintName)
-    {
-        this.dataTypePrintName = dataTypePrintName;
-    }
-
-
-    public String getDataTypeUnit()
-    {
-        return dataTypeUnit;
-    }
-
-
-    public void setDataTypeUnit(String dataTypeUnit)
-    {
-        this.dataTypeUnit = dataTypeUnit;
-    }
-
-
+    /**
+     * Get the reference {@linkplain Instant} as {@linkplain Date}.
+     *
+     * @return reference {@linkplain Date}
+     */
     public Date getReferenceDate()
     {
-        return Date.from(instant);
-    }
-
-
-    public Instant getReferenceInstant()
-    {
-        return instant;
-    }
-
-
-    public void setReferenceInstant(Instant instant)
-    {
-        this.instant = instant;
-    }
-
-
-    /**
-     * Returns a unique identifier of this timeseries within OceanTea.
-     *
-     * @return an unique identifier of the timeseries within OceanTea
-     */
-    public String getIdentifier()
-    {
-        return identifier;
+        return Date.from(referenceInstant);
     }
 }
