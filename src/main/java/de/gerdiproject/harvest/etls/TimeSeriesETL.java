@@ -21,15 +21,15 @@ import de.gerdiproject.harvest.oceantea.utils.TimeSeries;
 import de.gerdiproject.json.datacite.DataCiteJson;
 
 /**
- * Harvester for OceanTEA time series data
+ * An {@linkplain StaticIteratorETL} implementation for harvesting
+ * OceanTEA time series data.
  *
  * @author Ingo Thomsen
  */
 public class TimeSeriesETL extends StaticIteratorETL<TimeSeries, DataCiteJson>
 {
     /**
-     * Default constructor, naming the harvester and ensuring one document per
-     * harvested entry
+     * Constructor that initializes the extractor and transformer components.
      */
     public TimeSeriesETL()
     {

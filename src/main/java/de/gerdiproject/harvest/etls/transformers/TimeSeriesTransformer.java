@@ -16,9 +16,7 @@
 package de.gerdiproject.harvest.etls.transformers;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import com.google.gson.Gson;
 
@@ -28,9 +26,6 @@ import de.gerdiproject.harvest.oceantea.utils.TimeSeries;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeriesParser;
 import de.gerdiproject.harvest.utils.data.HttpRequester;
 import de.gerdiproject.json.datacite.DataCiteJson;
-import de.gerdiproject.json.datacite.Description;
-import de.gerdiproject.json.datacite.Subject;
-import de.gerdiproject.json.datacite.extension.generic.WebLink;
 
 /**
  * This {@linkplain AbstractIteratorTransformer} implementation transforms OceanTea
@@ -70,25 +65,14 @@ public class TimeSeriesTransformer extends AbstractIteratorTransformer<TimeSerie
         document.addContributors(OceanTeaTimeSeriesDataCiteConstants.CONTRIBUTORS);
         document.addResearchDisciplines(OceanTeaTimeSeriesDataCiteConstants.DISCIPLINES);
         document.addFormats(OceanTeaTimeSeriesDataCiteConstants.FORMATS);
+        document.addSubjects(OceanTeaTimeSeriesDataCiteConstants.SUBJECTS);
+        document.addDescriptions(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTIONS);
+        document.addWebLinks(OceanTeaTimeSeriesDataCiteConstants.WEB_LINKS);
 
-        // derived from both constants and the harvested entry
-
-        // Subjects
-        List<Subject> subjects = new ArrayList<>(OceanTeaTimeSeriesDataCiteConstants.SUBJECTS);
-        subjects.addAll(timeSeriesParser.getSubjectsStrings());
-        document.addSubjects(subjects);
-
-        // Descriptions
-        List<Description> descriptions = new ArrayList<>(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTIONS);
-        descriptions.addAll(timeSeriesParser.getDescription());
-        document.addDescriptions(descriptions);
-
-        // WebLinks
-        List<WebLink> webLinks = new ArrayList<>(OceanTeaTimeSeriesDataCiteConstants.WEB_LINKS);
-        webLinks.addAll(timeSeriesParser.getWebLinks());
-        document.addWebLinks(webLinks);
-
-        // derived exclusively from the harvested entry
+        // derived from the harvested entry
+        document.addSubjects(timeSeriesParser.getSubjectsStrings());
+        document.addDescriptions(timeSeriesParser.getDescription());
+        document.addWebLinks(timeSeriesParser.getWebLinks());
         document.addResearchData(timeSeriesParser.getResearchDataList());
         document.setPublicationYear(timeSeriesParser.getPublicationYear());
         document.addTitles(Arrays.asList(timeSeriesParser.getMainTitle()));
