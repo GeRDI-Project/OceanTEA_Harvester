@@ -20,9 +20,10 @@ import java.util.Date;
 
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
-import de.gerdiproject.harvest.utils.HashGenerator;
-import de.gerdiproject.json.GsonUtils;
+import de.gerdiproject.harvest.oceantea.json.DataTypeResponse;
+import de.gerdiproject.harvest.oceantea.json.TimeSeriesResponse;
 import de.gerdiproject.json.geo.Point;
+import lombok.Data;
 
 /**
  * This class represents the joint metadata collected from
@@ -30,210 +31,102 @@ import de.gerdiproject.json.geo.Point;
  *
  * @author Ingo Thomsen
  */
+@Data
 public final class TimeSeries
 {
-
     private String region;
     private String regionPrintName;
     private String device;
     private String station;
     private String dataType;
+
     private String dataTypePrintName;
     private String dataTypeUnit;
 
     // Using slightly more descriptive field names here and Instant instead of Date
-    private String timeSeriesType;
-    private Instant instant;
+    private String  timeSeriesType;
+    private Instant referenceInstant;
 
     // geolocation point combining longitude, latitude AND depth
     private Point geoLocationPoint;
 
-    /**
-     * Get the depth of the measurement, which is the negative elevation value of
-     * the geolocation {@linkplain Point}}.
-     *
-     * @return depth of measurement
-     */
-    public double getDepth()
-    {
-        return -1 * geoLocationPoint.getElevation();
-    }
+    private final String identifier;
+
 
     /**
-     * Set the depth of the measurement point. It is stored as a negative elevation
-     * value of the geolocation {@linkplain Point}}.
+     * Constructor that sets fields from JSON responses.
      *
-     * @param depth
-     *            a positive double value for the depth (in m)
+     * @param index the unique index of the timeseries
+     * @param timeSeriesData part of a JSON response to a timeseries request
+     * @param dataTypeInfo the corresponding data type information
      */
-    public void setDepth(double depth)
+    public TimeSeries(int index, TimeSeriesResponse timeSeriesData, DataTypeResponse dataTypeInfo)
     {
-        geoLocationPoint.setElevation(-1 * depth);
-    }
+        this.identifier = getClass().getSimpleName() + index;
 
-    //
-    // Setter and Getter
-    //
+        // fields with a direct mapping
+        setRegion(timeSeriesData.getRegion());
+        setRegionPrintName(timeSeriesData.getRegionPrintName());
+        setDevice(timeSeriesData.getDevice());
+        setTimeSeriesType(timeSeriesData.getTsType());
+        setStation(timeSeriesData.getStation());
+        setDataType(timeSeriesData.getDataType());
 
-    public Point getGeoLocationPoint()
-    {
-        return geoLocationPoint;
-    }
+        // creating the geolocation
+        setGeoLocationPoint(new Point(timeSeriesData.getLon(), timeSeriesData.getLat(), timeSeriesData
+                                      .getDepth() * -1));
 
+        // converting reference ISO 8601 date (example: 2012-06-01T00:00:01Z) to Instant
+        setReferenceInstant(Instant.parse(timeSeriesData.getTReference()));
 
-    public void setGeoLocationPoint(Point geoLocationPoint)
-    {
-        this.geoLocationPoint = geoLocationPoint;
-    }
-
-
-    public String getTimeSeriesType()
-    {
-        return timeSeriesType;
-    }
-
-
-    public void setTimeSeriesType(String timeSeriesType)
-    {
-        this.timeSeriesType = timeSeriesType;
+        // enrich with data type information
+        setDataTypePrintName(dataTypeInfo.getPrintName());
+        setDataTypeUnit(dataTypeInfo.getUnit());
     }
 
 
+    /**
+     * Get the latitude from the geolocation {@linkplain Point}}
+     *
+     * @return latitude from the geolocation {@linkplain Point}
+     */
     public double getLatitude()
     {
         return geoLocationPoint.getLatitude();
     }
 
 
-    public void setLatitude(double latitude)
-    {
-        this.geoLocationPoint.setLatitude(latitude);
-    }
-
-
+    /**
+     * Get the longitude from the geolocation {@linkplain Point}}
+     *
+     * @return longitude from the geolocation {@linkplain Point}}
+     */
     public double getLongitude()
     {
         return geoLocationPoint.getLongitude();
     }
 
 
-    public void setLongitude(double longitude)
+    /**
+     * Get the depth of the measurement, which is the negative elevation value of
+     * the geolocation {@linkplain Point}}.
+     *
+     * @return depth of measurement: a positive value, which is the negative
+     *         elevation value of the geolocation {@linkplain Point}
+     */
+    public double getDepth()
     {
-        this.geoLocationPoint.setLongitude(longitude);
-    }
-
-
-    public String getRegion()
-    {
-        return region;
-    }
-
-
-    public void setRegion(String value)
-    {
-        this.region = value;
-    }
-
-
-    public String getRegionPrintName()
-    {
-        return regionPrintName;
-    }
-
-
-    public void setRegionPrintName(String value)
-    {
-        this.regionPrintName = value;
-    }
-
-
-    public String getDevice()
-    {
-        return device;
-    }
-
-
-    public void setDevice(String value)
-    {
-        this.device = value;
-    }
-
-
-    public String getStation()
-    {
-        return station;
-    }
-
-
-    public void setStation(String value)
-    {
-        this.station = value;
-    }
-
-
-    public String getDataType()
-    {
-        return dataType;
-    }
-
-
-    public void setDataType(String value)
-    {
-        this.dataType = value;
-    }
-
-
-    public String getDataTypePrintName()
-    {
-        return dataTypePrintName;
-    }
-
-
-    public void setDataTypePrintName(String dataTypePrintName)
-    {
-        this.dataTypePrintName = dataTypePrintName;
-    }
-
-
-    public String getDataTypeUnit()
-    {
-        return dataTypeUnit;
-    }
-
-
-    public void setDataTypeUnit(String dataTypeUnit)
-    {
-        this.dataTypeUnit = dataTypeUnit;
-    }
-
-
-    public Date getReferenceDate()
-    {
-        return Date.from(instant);
-    }
-
-
-    public Instant getReferenceInstant()
-    {
-        return instant;
-    }
-
-
-    public void setReferenceInstant(Instant instant)
-    {
-        this.instant = instant;
+        return -1 * geoLocationPoint.getElevation();
     }
 
 
     /**
-     * Creates a hash value from the JSON representation of this class. Since
-     * existing timeseries are not updated in OceanTea, this serves as a unique
-     * identifier.
+     * Get the reference {@linkplain Instant} as {@linkplain Date}.
      *
-     * @return an unique identifier of the timeseries within OceanTea
+     * @return reference {@linkplain Date}
      */
-    public String createIdentifier()
+    public Date getReferenceDate()
     {
-        return HashGenerator.instance().getShaHash(GsonUtils.getGson().toJson(this, TimeSeries.class));
+        return Date.from(referenceInstant);
     }
 }

@@ -23,6 +23,7 @@ import java.util.List;
 
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDataCiteConstants;
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDownloaderConstants;
+import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 import de.gerdiproject.json.datacite.DateRange;
 import de.gerdiproject.json.datacite.Description;
 import de.gerdiproject.json.datacite.GeoLocation;
@@ -31,9 +32,9 @@ import de.gerdiproject.json.datacite.Title;
 import de.gerdiproject.json.datacite.abstr.AbstractDate;
 import de.gerdiproject.json.datacite.enums.DateType;
 import de.gerdiproject.json.datacite.enums.DescriptionType;
-import de.gerdiproject.json.datacite.extension.ResearchData;
-import de.gerdiproject.json.datacite.extension.WebLink;
-import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
+import de.gerdiproject.json.datacite.extension.generic.ResearchData;
+import de.gerdiproject.json.datacite.extension.generic.WebLink;
+import de.gerdiproject.json.datacite.extension.generic.enums.WebLinkType;
 import de.gerdiproject.json.geo.GeoJson;
 import de.gerdiproject.json.geo.Point;
 
@@ -45,9 +46,9 @@ import de.gerdiproject.json.geo.Point;
  */
 public class TimeSeriesParser
 {
-
     private TimeSeries        timeSeries;
     private TimeSeriesDataset timeSeriesDataset;
+
 
     /**
      * Set up an {@linkplain TimeSeries} object for parsing by downloading the
@@ -58,9 +59,21 @@ public class TimeSeriesParser
     public void setTimeSeries(TimeSeries timeSeries)
     {
         this.timeSeries = timeSeries;
-        this.timeSeriesDataset = OceanTeaDownloader.getTimeSeriesDataset(getDownloadUrl(),
-                                                                         timeSeries.getReferenceInstant());
+
     }
+
+
+    /**
+     * Sets up the corresponding {@linkplain TimeSeriesDataset} to the current
+     * {@linkplain TimeSeries}.
+     *
+     * @param timeSeriesDatasetResponse a server response to a timeseries request
+     */
+    public void setTimeSeriesDataset(TimeSeriesDatasetResponse timeSeriesDatasetResponse)
+    {
+        this.timeSeriesDataset = new TimeSeriesDataset(timeSeriesDatasetResponse, timeSeries.getReferenceInstant());
+    }
+
 
     /**
      * Assemble the URL for downloading the JSON representation.
@@ -69,16 +82,14 @@ public class TimeSeriesParser
      */
     public String getDownloadUrl()
     {
-        // For the link an integer depth must be inserted without ".0"
-        String depthString = Integer.toString((int) timeSeries.getDepth());
-        String url = String.format(OceanTeaTimeSeriesDownloaderConstants.DATASET_DOWNLOAD_URL,
-                                   timeSeries.getTimeSeriesType(),
-                                   timeSeries.getStation(),
-                                   timeSeries.getDataType(),
-                                   depthString);
-
-        return url;
+        return String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
+                             OceanTeaTimeSeriesDownloaderConstants.DATASET_DOWNLOAD_URL,
+                             timeSeries.getTimeSeriesType(),
+                             timeSeries.getStation(),
+                             timeSeries.getDataType(),
+                             timeSeries.getDepth());
     }
+
 
     /**
      * Assemble the DataCite description of the ResearchData for the download URL of
@@ -88,7 +99,8 @@ public class TimeSeriesParser
      */
     public List<ResearchData> getResearchDataList()
     {
-        String label = String.format(OceanTeaTimeSeriesDataCiteConstants.REASEARCH_DATA_LABEL,
+        String label = String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
+                                     OceanTeaTimeSeriesDataCiteConstants.REASEARCH_DATA_LABEL,
                                      timeSeries.getDataTypePrintName(),
                                      timeSeries.getDepth(),
                                      timeSeries.getRegionPrintName(),
@@ -100,20 +112,22 @@ public class TimeSeriesParser
         return Arrays.asList(researchData);
     }
 
+
     /**
      * The year of the publication (in OceanTEA) is not available, so the time of
      * the measurement is as close as it gets.
      *
      * @return year of publication (4 digits)
      */
-    public short getPublicationYear()
+    public int getPublicationYear()
     {
         Date date = timeSeries.getReferenceDate();
         SimpleDateFormat df = new SimpleDateFormat(
             OceanTeaTimeSeriesDataCiteConstants.PUBLICATION_YEAR_SIMPLE_DATE_FORMAT_STRING);
 
-        return Short.parseShort(df.format(date));
+        return Integer.parseInt(df.format(date));
     }
+
 
     /**
      * Get the list of strings describing the subjects
@@ -131,6 +145,7 @@ public class TimeSeriesParser
         return subjectList;
     }
 
+
     /**
      * Get DataCite description - using a template string
      *
@@ -139,11 +154,13 @@ public class TimeSeriesParser
     public List<Description> getDescription()
     {
         Point point = timeSeries.getGeoLocationPoint();
-        String geoLocationString = String.format(OceanTeaTimeSeriesDataCiteConstants.GEO_LOCATION_AS_STRING,
+        String geoLocationString = String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
+                                                 OceanTeaTimeSeriesDataCiteConstants.GEO_LOCATION_AS_STRING,
                                                  point.getLongitude(),
                                                  point.getLatitude());
 
-        String descriptionText = String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION,
+        String descriptionText = String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
+                                               OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION,
                                                timeSeries.getDataTypePrintName(),
                                                timeSeriesDataset.getStartInstant(),
                                                timeSeriesDataset.getStopInstant(),
@@ -154,16 +171,19 @@ public class TimeSeriesParser
                                                timeSeries.getDepth());
 
         if (timeSeriesDataset.getNumberOfMissingValues() > 0)
-            descriptionText += String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_MISSING_VALUES_SUFFIX,
+            descriptionText += String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
+                                             OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_MISSING_VALUES_SUFFIX,
                                              timeSeriesDataset.getNumberOfMissingValues());
 
         if (!timeSeries.getDataTypeUnit().isEmpty())
-            descriptionText += String.format(OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_MEASUREMENT_UNIT_SUFFIX,
+            descriptionText += String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
+                                             OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION_MEASUREMENT_UNIT_SUFFIX,
                                              timeSeries.getDataTypeUnit());
 
         return Arrays.asList(new Description(descriptionText, DescriptionType.Abstract,
                                              OceanTeaTimeSeriesDataCiteConstants.LANG));
     }
+
 
     /**
      * Get DataCite title.
@@ -172,7 +192,8 @@ public class TimeSeriesParser
      */
     public Title getMainTitle()
     {
-        String titleText = String.format(OceanTeaTimeSeriesDataCiteConstants.MAIN_DOCUMENT_TITLE,
+        String titleText = String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
+                                         OceanTeaTimeSeriesDataCiteConstants.MAIN_DOCUMENT_TITLE,
                                          timeSeries.getDataTypePrintName(),
                                          timeSeries.getDepth(),
                                          timeSeries.getRegionPrintName());
@@ -182,6 +203,7 @@ public class TimeSeriesParser
 
         return title;
     }
+
 
     /**
      * The WebLinks consist only of the ViewURL, which has a varying title, but the
@@ -199,6 +221,7 @@ public class TimeSeriesParser
         return Arrays.asList(webLink);
     }
 
+
     /**
      * Return the one GeoLocation associated with the measurements including
      * mentioning of the region name.
@@ -209,11 +232,13 @@ public class TimeSeriesParser
     {
         GeoLocation geoLocation = new GeoLocation();
         geoLocation.setPoint(new GeoJson(timeSeries.getGeoLocationPoint()));
-        geoLocation.setPlace(String.format(OceanTeaTimeSeriesDataCiteConstants.GEOLOCATION_PLACE_DESCRIPTION,
+        geoLocation.setPlace(String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
+                                           OceanTeaTimeSeriesDataCiteConstants.GEOLOCATION_PLACE_DESCRIPTION,
                                            timeSeries.getRegionPrintName()));
 
         return Arrays.asList(geoLocation);
     }
+
 
     /**
      * Return the DataCite dates, which here is the {@linkplain DateRange} of the

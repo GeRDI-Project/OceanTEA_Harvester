@@ -15,9 +15,14 @@
  */
 package de.gerdiproject.harvest;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.annotation.WebListener;
 
-import de.gerdiproject.harvest.harvester.OceanTeaHarvester;
+import de.gerdiproject.harvest.application.ContextListener;
+import de.gerdiproject.harvest.etls.AbstractETL;
+import de.gerdiproject.harvest.etls.TimeSeriesETL;
 
 /**
  *
@@ -26,7 +31,12 @@ import de.gerdiproject.harvest.harvester.OceanTeaHarvester;
  * @author Ingo Thomsen
  */
 @WebListener
-public class OceanTeaContextListener extends ContextListener<OceanTeaHarvester>
+public class OceanTeaContextListener extends ContextListener
 {
 
+    @Override
+    protected List<? extends AbstractETL<?, ?>> createETLs()
+    {
+        return Arrays.asList(new TimeSeriesETL());
+    }
 }

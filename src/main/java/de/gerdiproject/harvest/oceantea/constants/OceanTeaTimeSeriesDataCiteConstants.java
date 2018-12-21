@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import de.gerdiproject.json.datacite.Contributor;
 import de.gerdiproject.json.datacite.Creator;
@@ -29,10 +30,10 @@ import de.gerdiproject.json.datacite.enums.ContributorType;
 import de.gerdiproject.json.datacite.enums.DescriptionType;
 import de.gerdiproject.json.datacite.enums.NameType;
 import de.gerdiproject.json.datacite.enums.ResourceTypeGeneral;
-import de.gerdiproject.json.datacite.extension.WebLink;
-import de.gerdiproject.json.datacite.extension.abstr.AbstractResearch;
-import de.gerdiproject.json.datacite.extension.constants.ResearchDisciplineConstants;
-import de.gerdiproject.json.datacite.extension.enums.WebLinkType;
+import de.gerdiproject.json.datacite.extension.generic.AbstractResearch;
+import de.gerdiproject.json.datacite.extension.generic.WebLink;
+import de.gerdiproject.json.datacite.extension.generic.constants.ResearchDisciplineConstants;
+import de.gerdiproject.json.datacite.extension.generic.enums.WebLinkType;
 import de.gerdiproject.json.datacite.nested.PersonName;
 
 /**
@@ -104,6 +105,8 @@ public final class OceanTeaTimeSeriesDataCiteConstants
     public static final String DESCRIPTION_MISSING_VALUES_SUFFIX = " %d data points were missing ('NA').";
     public static final String PUBLICATION_YEAR_SIMPLE_DATE_FORMAT_STRING = "yyyy";
     public static final String GEOLOCATION_PLACE_DESCRIPTION = "measurement region of %s";
+
+    public static final Locale FORMATTING_LOCALE = Locale.ENGLISH;
 
     /**
      * private constructor to enforce non-instantiability

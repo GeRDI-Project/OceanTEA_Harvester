@@ -1,5 +1,5 @@
 /**
- * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de)
+ * Copyright © 2018 Ingo Thomsen, Robin Weiss (http://www.gerdi-project.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 /**
- * This package contains the actual harvester for the Ocean TEA time series
- * data, implemented as a sub harvester of
- * {@linkplain de.gerdiproject.harvest.harvester.OceanTeaHarvester}
+ * This package contains {@linkplain de.gerdiproject.harvest.etls.extractors.IExtractor} implementations
+ * for extracting OceanTea (meta-)data.
  *
- * @author Ingo Thomsen
+ * @author Robin Weiss
  */
-package de.gerdiproject.harvest.harvester.subharvester;
+package de.gerdiproject.harvest.etls.extractors;

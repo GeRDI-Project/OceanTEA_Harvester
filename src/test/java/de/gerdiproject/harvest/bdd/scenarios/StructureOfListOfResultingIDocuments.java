@@ -17,32 +17,42 @@ package de.gerdiproject.harvest.bdd.scenarios;
 
 import org.junit.Test;
 
-import com.tngtech.jgiven.junit.ScenarioTest;
-
+import de.gerdiproject.harvest.IDocument;
 import de.gerdiproject.harvest.bdd.stages.given.GivenTimeSeriesTestData;
 import de.gerdiproject.harvest.bdd.stages.then.ThenResultingIDocuments;
-import de.gerdiproject.harvest.bdd.tags.Issue;
 import de.gerdiproject.harvest.bdd.tags.Tag;
-import de.gerdiproject.harvest.harvester.subharvester.WhenHarvesting;
 
 /**
- * Scenario about the general structure of list of the resulting IDocuments.
+ * Scenario about the general structure of list of the resulting
+ * {@linkplain IDocument}s.
  *
  * @author Ingo Thomsen
  */
-@Issue("SAI-312")
 @Tag("IDocument")
-public class StructureOfListOfResultingIDocuments extends ScenarioTest<GivenTimeSeriesTestData, WhenHarvesting, ThenResultingIDocuments>
+@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert") // The assertions are done in the stages
+public class StructureOfListOfResultingIDocuments extends AbstractHarvestingScenarioTest<GivenTimeSeriesTestData, ThenResultingIDocuments>
 {
 
     @Test
     public void one_conductivity_TimeSeries_dataset()
     {
-        given().a_random_time_series_data_set();
+        given().a_random_time_series_dataset();
 
         when().harvested();
 
         then().there_is_exactly_one_resulting_document();
+    }
+
+    @Test
+    public void all_given_test_TimeSeries_datasets()
+    {
+
+        given().all_time_series_datasets();
+
+        when().harvested();
+
+        then().there_are_$_resulting_documents(164);
+
     }
 
 }

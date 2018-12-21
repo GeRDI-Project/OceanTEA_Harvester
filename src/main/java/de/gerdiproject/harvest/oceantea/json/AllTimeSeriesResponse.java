@@ -19,30 +19,17 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Data;
+
 /**
  * This class represents a JSON response to an "all time series" requests, for
  * example: http://maui.se.informatik.uni-kiel.de:9090/timeseries
  *
  * @author Ingo Thomsen
  */
+@Data
 public final class AllTimeSeriesResponse
 {
-
     @SerializedName("timeseries")
     private List<TimeSeriesResponse> allTimeSeriesResponses;
-
-    //
-    // Getter and Setter
-    //
-
-    public List<TimeSeriesResponse> getAllTimeSeriesResponses()
-    {
-        return allTimeSeriesResponses;
-    }
-
-    public void setAllTimeSeriesResponses(List<TimeSeriesResponse> value)
-    {
-        this.allTimeSeriesResponses = value;
-    }
-
 }

@@ -18,37 +18,25 @@ package de.gerdiproject.harvest.oceantea.json;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
+import lombok.Data;
+
 /**
  * This class represents a JSON response to an actual request for time series
  * data, for example:
- *
  * http://maui.se.informatik.uni-kiel.de:9090/timeseries/scalar/POS434-156/fluorescence/215
- *
  * The JSON data is represented as a list containing the pairs of time offsets
- * (in seconds) and the corresponding values.
- *
- * These pairs themselves are lists with the fixed length of 2. The value can be
- * missing (= "NA"), therefore String is used as type.
+ * (in seconds) and the corresponding values. These pairs themselves are lists
+ * with the fixed length of 2. The value can be missing (= "NA"), therefore
+ * String is used as type.
  *
  * @author Ingo Thomsen
  */
+@Data
 public final class TimeSeriesDatasetResponse
 {
-
     // This field is directly populated by GSON - accessed by name via Reflection
-    private List<List<String>> data = new ArrayList<>();
-
-    //
-    // Getter and Setter
-    //
-    public List<List<String>> getListOfPairsOfTimeOffsetAndValue()
-    {
-        return data;
-    }
-
-    public void setListOfPairsOfTimeOffsetAndValue(List<List<String>> data)
-    {
-        this.data = data;
-    }
-
+    @SerializedName("data")
+    private List<List<String>> listOfPairsOfTimeOffsetAndValue = new ArrayList<>();
 }
