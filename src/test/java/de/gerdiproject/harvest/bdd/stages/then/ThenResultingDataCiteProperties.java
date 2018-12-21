@@ -29,21 +29,24 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 
 import de.gerdiproject.harvest.IDocument;
 import de.gerdiproject.json.GsonUtils;
+import de.gerdiproject.json.datacite.Contributor;
 import de.gerdiproject.json.datacite.DataCiteJson;
 
 /**
  * This stage is for comparing the DataCite properties of the expected
  * DataCiteJson and the provided DataCiteJson (the first element of the
  * resulting IDocuments). Both is provided via ScenarioState variables.
- * Generally, there are three kinds of {@linkplain DataCiteJson} properties:
+ * Generally, there are three kinds of {@linkplain DataCiteJson} properties
+ * (which itself are are either of a type like e. g. {@linkplain Contributor} or
+ * a {@link Collection) of such objects):
+ *
  * <ul>
- * <li>"constant": (collection of) values, independent of the harvested time
- * series dataset
- * <li>"variable": (collection of) values, solely dependent of the harvested
- * time series dataset
- * <li>"partly variable": collection of values with elements dependent &
- * independent of the harvested time series dataset. For this there is a method
- * to check if the "actual DataCite fields" contain the "expected" ones.
+ *   <li> "constant": independent of the harvested time series dataset
+ *   <li> "variable": solely dependent of the harvested time series dataset
+ *   <li> "partly variable": {@linkplain Collection} of values, which is
+ *         dependent and independent of the harvested time series dataset.
+ *         For this there is a method to check if the "actual DataCite fields"
+ *         contain the "expected" ones.
  * </ul>
  *
  * @author Ingo Thomsen

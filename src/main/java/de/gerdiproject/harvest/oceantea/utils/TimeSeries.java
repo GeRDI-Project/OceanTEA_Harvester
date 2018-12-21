@@ -86,9 +86,9 @@ public final class TimeSeries
 
 
     /**
-     * Get the latitude (from the geolocation {@linkplain Point}})
+     * Get the latitude from the geolocation {@linkplain Point}}
      *
-     * @return latitude
+     * @return latitude from the geolocation {@linkplain Point}
      */
     public double getLatitude()
     {
@@ -97,9 +97,9 @@ public final class TimeSeries
 
 
     /**
-     * Get the longitude (from the geolocation {@linkplain Point}})
+     * Get the longitude from the geolocation {@linkplain Point}}
      *
-     * @return longitude
+     * @return longitude from the geolocation {@linkplain Point}}
      */
     public double getLongitude()
     {
@@ -111,7 +111,8 @@ public final class TimeSeries
      * Get the depth of the measurement, which is the negative elevation value of
      * the geolocation {@linkplain Point}}.
      *
-     * @return depth of measurement
+     * @return depth of measurement: a positive value, which is the negative
+     *         elevation value of the geolocation {@linkplain Point}
      */
     public double getDepth()
     {
