@@ -1,5 +1,5 @@
 /**
- * Copyright © 2018 Ingo Thomsen (http://www.gerdi-project.de)
+ * Copyright © 2018 Robin Weiss, Ingo Thomsen (http://www.gerdi-project.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
- * This package contains the harvester class used by
- * {@linkplain de.gerdiproject.harvest.OceanTeaContextListener} and the package
- * with the underlying sub harvester.
+ * This package contains
+ * {@linkplain de.gerdiproject.harvest.etls.transformers.ITransformer}
+ * implementations for transforming OceanTea (meta-)data to search documents.
  *
- * @author Ingo Thomsen
+ * @author Robin Weiss
  */
-package de.gerdiproject.harvest.harvester;
+package de.gerdiproject.harvest.etls.transformers;

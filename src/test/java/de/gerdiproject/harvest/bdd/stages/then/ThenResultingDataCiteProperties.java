@@ -18,12 +18,11 @@ package de.gerdiproject.harvest.bdd.stages.then;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.BeforeStage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
@@ -31,37 +30,24 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import de.gerdiproject.harvest.IDocument;
 import de.gerdiproject.json.GsonUtils;
 import de.gerdiproject.json.datacite.Contributor;
-import de.gerdiproject.json.datacite.Creator;
 import de.gerdiproject.json.datacite.DataCiteJson;
-import de.gerdiproject.json.datacite.Description;
-import de.gerdiproject.json.datacite.GeoLocation;
-import de.gerdiproject.json.datacite.ResourceType;
-import de.gerdiproject.json.datacite.Subject;
-import de.gerdiproject.json.datacite.Title;
-import de.gerdiproject.json.datacite.abstr.AbstractDate;
-import de.gerdiproject.json.datacite.extension.ResearchData;
-import de.gerdiproject.json.datacite.extension.WebLink;
-import de.gerdiproject.json.datacite.extension.abstr.AbstractResearch;
-import de.gerdiproject.json.geo.Point;
-
 
 /**
  * This stage is for comparing the DataCite properties of the expected
  * DataCiteJson and the provided DataCiteJson (the first element of the
  * resulting IDocuments). Both is provided via ScenarioState variables.
+ * Generally, there are three kinds of {@linkplain DataCiteJson} properties
+ * (which itself are are either of a type like e. g. {@linkplain Contributor} or
+ * a {@link Collection) of such objects):
  *
- * Generally, there are three kinds of properties:
- *
- * "constant": list or value that is independent of the actual time series
- * dataset
- *
- * "variable": list or value that is only dependent of the time series dataset
- *
- * "partly variable": list with elements dependent & independent of the time
- * series dataset
- *
- * There are two step methods to check the properties, depending on whether they
- * contain lists or not.
+ * <ul>
+ *   <li> "constant": independent of the harvested time series dataset
+ *   <li> "variable": solely dependent of the harvested time series dataset
+ *   <li> "partly variable": {@linkplain Collection} of values, which is
+ *         dependent and independent of the harvested time series dataset.
+ *         For this there is a method to check if the "actual DataCite fields"
+ *         contain the "expected" ones.
+ * </ul>
  *
  * @author Ingo Thomsen
  */
@@ -77,301 +63,96 @@ public class ThenResultingDataCiteProperties extends Stage<ThenResultingDataCite
     private DataCiteJson resultingDataCiteJson;
 
     // A Gson object (for creating JSON for messages)
-    private static final Gson GSON = getGson();
+    private static final Gson GSON = GsonUtils.createGerdiDocumentGsonBuilder().setPrettyPrinting().create();
 
 
-    // step method (using other step methods)
+    // step method
     public ThenResultingDataCiteProperties all_constant_DataCite_properties_equal_those_in_expected_DataCiteJSON()
     {
-        the_contributors_are_as_expected();
-        the_creators_are_as_expected();
-        the_formats_are_as_expected();
-        the_publisher_is_as_expected();
-        the_repository_identifier_as_expected();
-        the_research_disciplines_are_as_expected();
-        the_resource_type_is_as_expected();
+        assertEqualDataCiteField(DataCiteJson::getCreators);
+        assertEqualDataCiteField(DataCiteJson::getPublisher);
+        assertEqualDataCiteField(DataCiteJson::getResourceType);
+        assertEqualDataCiteField(DataCiteJson::getContributors);
+        assertEqualDataCiteField(DataCiteJson::getFormats);
+        assertEqualDataCiteField(DataCiteJson::getRepositoryIdentifier);
+        assertEqualDataCiteField(DataCiteJson::getResearchDisciplines);
 
         return self();
     }
 
 
-    // step method (using other step methods)
+    // step method
     public ThenResultingDataCiteProperties all_partly_variable_DataCite_properties_contain_those_in_expected_DataCiteJSON()
     {
-        the_descriptions_list_contains_expected();
-        the_subjects_list_contains_expected();
-        the_weblinks_list_contains_expected();
+        assertExpectedDataCiteFieldArePresent(DataCiteJson::getSubjects);
+        assertExpectedDataCiteFieldArePresent(DataCiteJson::getDescriptions);
+        assertExpectedDataCiteFieldArePresent(DataCiteJson::getWebLinks);
 
         return self();
     }
 
 
-    // step method (using other step methods)
+    // step method
     public ThenResultingDataCiteProperties all_variable_DataCite_properties_equal_those_in_expected_DataCiteJSON()
     {
-        the_dates_are_as_expected();
-        the_geolocations_are_as_expected();
-        the_publication_year_is_as_expected();
-        the_research_data_list_is_as_expected();
-        the_titles_are_as_expected();
+        assertEqualDataCiteField(DataCiteJson::getPublicationYear);
+        assertEqualDataCiteField(DataCiteJson::getDates);
+        assertEqualDataCiteField(DataCiteJson::getGeoLocations);
+        assertEqualDataCiteField(DataCiteJson::getTitles);
+        assertEqualDataCiteField(DataCiteJson::getResearchDataList);
 
         return self();
-    }
-
-
-    private void the_contributors_are_as_expected()
-    {
-        // comparator that ignores affiliations, name identifiers, family & given name
-        Comparator<Contributor> comparator = (Contributor a, Contributor b) -> {
-            return
-            a.getType() == b.getType() &&
-            a.getName().getNameType() == b.getName().getNameType() &&
-            a.getName().getValue().equals(b.getName().getValue())
-            ? 0 : 1;
-        };
-
-        assertThatResultingAndExpectedListAreEqual(comparator, (DataCiteJson x) -> x.getContributors());
-    }
-
-
-    private void the_creators_are_as_expected()
-    {
-        // comparator (ignoring affiliations, name identifiers, family & given name)
-        Comparator<Creator> comparator = (Creator a, Creator b) -> {
-            return
-            a.getName().getValue().equals(b.getName().getValue()) &&
-            a.getName().getNameType().equals(b.getName().getNameType())
-            ? 0 : 1;
-        };
-
-        assertThatResultingAndExpectedListAreEqual(comparator, (DataCiteJson x) -> x.getCreators());
-    }
-
-
-    private void the_dates_are_as_expected()
-    {
-        Comparator<AbstractDate> comparator = (AbstractDate a, AbstractDate b) -> {
-            return
-            a.getValue().equals(b.getValue()) &&
-            a.getType() == b.getType()
-            ? 0 : 1;
-        };
-
-        assertThatResultingAndExpectedListAreEqual(comparator, (DataCiteJson x) -> x.getDates());
-    }
-
-
-    private void the_descriptions_list_contains_expected()
-    {
-        Comparator<Description> comparator = (Description a, Description b) -> {
-            return
-            a.getType() == b.getType() &&
-            a.getValue().equals(b.getValue()) &&
-            a.getLang().equals(b.getLang())
-            ? 0 : 1;
-        };
-
-        assertThatResultingListContainsExpected(comparator, (DataCiteJson x) -> x.getDescriptions());
-    }
-
-
-    private void the_formats_are_as_expected()
-    {
-        List<String> resulting = resultingDataCiteJson.getFormats();
-        List<String> expected = expectedDataCiteJson.getFormats();
-
-        assertThat(resulting).
-        as("The resulting list %s does not the same elements as expected list %s",
-           GSON.toJson(resulting),
-           GSON.toJson(expected)).
-        containsAll(expected);
-    }
-
-
-    private void the_geolocations_are_as_expected()
-    {
-        Comparator<GeoLocation> comparator = (GeoLocation a, GeoLocation b) -> {
-
-            Point pointA = (Point) a.getPoint().getCoordinates();
-            Point pointB = (Point) b.getPoint().getCoordinates();
-
-            return
-            a.getPlace().equals(b.getPlace()) &&
-            pointA.getLongitude() == pointB.getLongitude() &&
-            pointA.getLatitude() == pointB.getLatitude() &&
-            pointA.getElevation() == pointB.getElevation()
-            ? 0 : 1;
-        };
-
-        assertThatResultingAndExpectedListAreEqual(comparator, (DataCiteJson x) -> x.getGeoLocations());
-    }
-
-
-    private void the_publication_year_is_as_expected()
-    {
-        assertThat(resultingDataCiteJson.getPublicationYear()).
-        as("Publication Year").
-        isEqualTo(expectedDataCiteJson.getPublicationYear());
-    }
-
-
-    private void the_publisher_is_as_expected()
-    {
-        assertThat(resultingDataCiteJson.getPublisher()).
-        as("Publisher").
-        isEqualTo(expectedDataCiteJson.getPublisher());
-    }
-
-
-    private void the_repository_identifier_as_expected()
-    {
-        assertThat(resultingDataCiteJson.getRepositoryIdentifier()).
-        as("Repository Identifier").
-        isEqualTo(expectedDataCiteJson.getRepositoryIdentifier());
-    }
-
-
-    private void the_research_data_list_is_as_expected()
-    {
-        Comparator<ResearchData> comparator = (ResearchData a, ResearchData b) -> {
-            return
-            a.getIdentifier().equals(b.getIdentifier()) &&
-            a.getLabel().equals(b.getLabel()) && a.getType().equals(b.getType()) &&
-            a.getUrl().equals(b.getUrl())
-            ? 0 : 1;
-        };
-
-        assertThatResultingAndExpectedListAreEqual(comparator, (DataCiteJson x) -> x.getResearchDataList());
-    }
-
-
-    private void the_research_disciplines_are_as_expected()
-    {
-        Comparator<AbstractResearch> comparator = (AbstractResearch a, AbstractResearch b) -> {
-            return
-            a.getAreaName().equals(b.getAreaName()) &&
-            a.getCategoryName().equals(b.getCategoryName()) &&
-            a.getDisciplineName().equals(b.getDisciplineName()) &&
-            a.getRbnr() == b.getRbnr()
-            ? 0 : 1;
-        };
-
-        assertThatResultingAndExpectedListAreEqual(comparator, (DataCiteJson x) -> x.getResearchDisciplines());
-    }
-
-
-    private void the_resource_type_is_as_expected()
-    {
-        ResourceType resultingResourceType = resultingDataCiteJson.getResourceType();
-        ResourceType exptectedResourceType = expectedDataCiteJson.getResourceType();
-
-        assertThat(resultingResourceType.getValue()).isEqualTo(exptectedResourceType.getValue());
-        assertThat(resultingResourceType.getGeneralType()).isEqualTo(exptectedResourceType.getGeneralType());
-    }
-
-
-    private void the_subjects_list_contains_expected()
-    {
-        // comparator (ignoring lang, schemeURI, subjectScheme, valueURI)
-        Comparator<Subject> comparator = (Subject a, Subject b) -> {
-            return a.getValue().equals(b.getValue()) ? 0 : 1;
-        };
-
-        assertThatResultingListContainsExpected(comparator, (DataCiteJson x) -> x.getSubjects());
-    }
-
-
-    private void the_titles_are_as_expected()
-    {
-        Comparator<Title> comparator = (Title a, Title b) -> {
-            return
-            a.getLang().equals(b.getLang()) &&
-            a.getValue().equals(b.getValue()) &&
-            a.getType() == b.getType()
-            ? 0 : 1;
-        };
-
-        assertThatResultingAndExpectedListAreEqual(comparator, (DataCiteJson x) -> x.getTitles());
-    }
-
-
-    private void the_weblinks_list_contains_expected()
-    {
-        Comparator<WebLink> comparator = (WebLink a, WebLink b) -> {
-            return
-            a.getType() == b.getType() &&
-            a.getUrl().equals(b.getUrl())
-            ? 0 : 1;
-        };
-
-        assertThatResultingListContainsExpected(comparator, (DataCiteJson x) -> x.getWebLinks());
-    }
-
-
-    /**
-     * Private generic helper to assert that a list property of the resulting and
-     * expected DataCiteJson contain the same elements.
-     *
-     * @param comparator For comparing the list elements
-     * @param getter For accessing the lists from DataCiteJson resulting & expected
-     */
-    private <T> void assertThatResultingAndExpectedListAreEqual(
-        Comparator<T> comparator,
-        Function<DataCiteJson, List<T>> getter
-    )
-    {
-        List<T> resulting = getter.apply(resultingDataCiteJson);
-        List<T> expected = getter.apply(expectedDataCiteJson);
-
-        assertThat(resulting).as("The resulting list %s does not contain the same elements as expteced list %s",
-                                 GSON.toJson(resulting),
-                                 GSON.toJson(expected)).usingElementComparator(comparator).hasSameElementsAs(expected);
-    }
-
-
-    /**
-     * Private generic helper to assert that a list property of the resulting
-     * DataCiteJson contains all the elements of the respective expected list. This
-     * is used for the partly variable list properties.
-     *
-     * @param comparator For comparing the list elements
-     * @param getter For accessing the lists from DataCiteJson resulting & expected
-     */
-    private <T> void assertThatResultingListContainsExpected(
-        Comparator<T> comparator,
-        Function<DataCiteJson, List<T>> getter
-    )
-    {
-        List<T> resulting = getter.apply(resultingDataCiteJson);
-        List<T> expected = getter.apply(expectedDataCiteJson);
-
-        assertThat(resulting).as("The resulting list %s does not contain all elements of expteced list %s",
-                                 GSON.toJson(resulting),
-                                 GSON.toJson(expected)).usingElementComparator(comparator).containsAll(expected);
     }
 
 
     /**
      * Private method to make the first document of the list resulting IDocuments
-     * available to the step methods in this state class.
-     *
-     * Because of {@linkplain BeforeStage} it is called before any other stage method.
+     * available to the step methods in this state class. Because of
+     * {@linkplain BeforeStage} it is called before any other stage method.
      */
     @BeforeStage
-    public void extractDataCiteJSONFromFirstEntry()
+    @SuppressWarnings("PMD.UnusedPrivateMethod") // This method IS called once by JGiven
+    private void extractDataCiteJSONFromFirstEntry()
     {
         resultingDataCiteJson = (DataCiteJson) resultingIDocuments.get(0);
     }
 
 
     /**
-     * Initialize Gson and return a PrettyGson object
+     * Function to check equality of DataCite fields between an expected and the
+     * actually created DataCite document, using a given {@linkplain DataCiteJson}
+     * getter.
      *
-     * @return Gson object
+     * @param getter {@linkplain DataCiteJson} getter
+     * @param <T> type of the DataCite field returned by the getter
      */
-    private static Gson getGson()
+    private <T> void assertEqualDataCiteField(Function<DataCiteJson, T> getter)
     {
-        GsonUtils.init(new GsonBuilder());
-        return GsonUtils.getPrettyGson();
+        T expected = getter.apply(expectedDataCiteJson);
+        T actual = getter.apply(resultingDataCiteJson);
+
+        assertThat(actual).as("The resulting DataCite field %s does not match the expected %s",
+                              GSON.toJson(actual),
+                              GSON.toJson(expected)).isEqualTo(expected);
+    }
+
+
+    /**
+     * Function to check for a given DataCite field - which is a collection (either
+     * Set or List) - that all expected collection items are in the actually created
+     * collection. The field is accessed using a given {@linkplain DataCiteJson}
+     * getter.
+     *
+     * @param getter {@linkplain DataCiteJson} getter for a collection
+     * @param <T> element type of the collection returned by the getter
+     */
+    private <T> void assertExpectedDataCiteFieldArePresent(Function<DataCiteJson, Collection<T>> getter)
+    {
+        Collection<T> expected = getter.apply(expectedDataCiteJson);
+        Collection<T> actual = getter.apply(resultingDataCiteJson);
+
+        expected.forEach(e -> assertThat(e).as("The resulting DataCite field %s does not contain the expected %s",
+                                               GSON.toJson(actual),
+                                               GSON.toJson(expected)).isIn(actual));
     }
 }

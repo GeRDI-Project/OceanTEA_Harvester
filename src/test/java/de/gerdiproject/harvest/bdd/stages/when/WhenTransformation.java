@@ -26,11 +26,13 @@ import de.gerdiproject.harvest.oceantea.utils.TimeSeriesDataset;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * A When stage with steps methods for the {@linkplain TimeSeriesDataset} class.
+ * A When stage with a step for the transformation of a given
+ * {@linkplain TimeSeriesDatasetResponse} to the corresponding
+ * {@linkplain TimeSeriesDataset}.
  *
  * @author Ingo Thomsen
  */
-public class WhenTimeSeriesDataset extends Stage<WhenTimeSeriesDataset>
+public class WhenTransformation extends Stage<WhenTransformation>
 {
 
     @ExpectedScenarioState
@@ -40,7 +42,8 @@ public class WhenTimeSeriesDataset extends Stage<WhenTimeSeriesDataset>
     @SuppressFBWarnings("URF_UNREAD_FIELD") // As ProvidedScenarioState this is read by another Stage class
     TimeSeriesDataset timeSeriesDataset;
 
-    public WhenTimeSeriesDataset a_TimeSeriesDataset_is_created_for_Instant(Instant referenceInstant)
+
+    public WhenTransformation a_TimeSeriesDataset_is_created_for_Instant(Instant referenceInstant)
     {
         timeSeriesDataset = new TimeSeriesDataset(timeSeriesDatasetResponse, referenceInstant);
         return self();

@@ -15,12 +15,15 @@
  */
 package de.gerdiproject.harvest.oceantea.json;
 
+import lombok.Data;
+
 /**
  * This class represents a JSON response to an "all data types" requests, for
  * example: http://maui.se.informatik.uni-kiel.de:9090/datatypes
  *
  * @author Ingo Thomsen
  */
+@Data
 public final class AllDataTypesResponse
 {
 
@@ -38,6 +41,7 @@ public final class AllDataTypesResponse
     private DataTypeResponse conservativeTemperature;
     private DataTypeResponse soundSpeed;
     private DataTypeResponse potentialDensityAnomaly;
+
 
     /**
      * Get more information (print name and unit) for a data type. Uses reflection
@@ -93,150 +97,5 @@ public final class AllDataTypesResponse
             default:
                 return new DataTypeResponse("unknown", "unknown");
         }
-
-    }
-
-    //
-    // Getter and Setter
-    //
-
-    public DataTypeResponse getConductivity()
-    {
-        return conductivity;
-    }
-
-    public void setConductivity(DataTypeResponse value)
-    {
-        this.conductivity = value;
-    }
-
-    public DataTypeResponse getTemperature()
-    {
-        return temperature;
-    }
-
-    public void setTemperature(DataTypeResponse value)
-    {
-        this.temperature = value;
-    }
-
-    public DataTypeResponse getPressure()
-    {
-        return pressure;
-    }
-
-    public void setPressure(DataTypeResponse value)
-    {
-        this.pressure = value;
-    }
-
-    public DataTypeResponse getPH()
-    {
-        return pH;
-    }
-
-    public void setPH(DataTypeResponse value)
-    {
-        this.pH = value;
-    }
-
-    public DataTypeResponse getFluorescence()
-    {
-        return fluorescence;
-    }
-
-    public void setFluorescence(DataTypeResponse value)
-    {
-        this.fluorescence = value;
-    }
-
-    public DataTypeResponse getTurbidity()
-    {
-        return turbidity;
-    }
-
-    public void setTurbidity(DataTypeResponse value)
-    {
-        this.turbidity = value;
-    }
-
-    public DataTypeResponse getOxygen()
-    {
-        return oxygen;
-    }
-
-    public void setOxygen(DataTypeResponse value)
-    {
-        this.oxygen = value;
-    }
-
-    public DataTypeResponse getSaturation()
-    {
-        return saturation;
-    }
-
-    public void setSaturation(DataTypeResponse value)
-    {
-        this.saturation = value;
-    }
-
-    public DataTypeResponse getPracticalSalinity()
-    {
-        return practicalSalinity;
-    }
-
-    public void setPracticalSalinity(DataTypeResponse value)
-    {
-        this.practicalSalinity = value;
-    }
-
-    public DataTypeResponse getAbsoluteSalinity()
-    {
-        return absoluteSalinity;
-    }
-
-    public void setAbsoluteSalinity(DataTypeResponse value)
-    {
-        this.absoluteSalinity = value;
-    }
-
-    public DataTypeResponse getPotentialTemperature()
-    {
-        return potentialTemperature;
-    }
-
-    public void setPotentialTemperature(DataTypeResponse value)
-    {
-        this.potentialTemperature = value;
-    }
-
-    public DataTypeResponse getConservativeTemperature()
-    {
-        return conservativeTemperature;
-    }
-
-    public void setConservativeTemperature(DataTypeResponse value)
-    {
-        this.conservativeTemperature = value;
-    }
-
-    public DataTypeResponse getSoundSpeed()
-    {
-        return soundSpeed;
-    }
-
-    public void setSoundSpeed(DataTypeResponse value)
-    {
-        this.soundSpeed = value;
-    }
-
-    public DataTypeResponse getPotentialDensityAnomaly()
-    {
-        return potentialDensityAnomaly;
-    }
-
-    public void setPotentialDensityAnomaly(DataTypeResponse value)
-    {
-        this.potentialDensityAnomaly = value;
     }
 }

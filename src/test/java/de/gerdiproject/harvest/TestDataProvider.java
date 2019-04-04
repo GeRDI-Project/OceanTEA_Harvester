@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
@@ -36,18 +35,13 @@ import de.gerdiproject.json.datacite.DataCiteJson;
 /**
  * Non-instantiable utility class providing test data for the various scenario
  * steps in form of strings containing JSON responses (as delivered by
- * OceanTEA).
- *
- * There are access methods for JSON strings relating to
+ * OceanTEA). There are access methods for JSON strings relating to
  * {@linkplain AllTimeSeriesResponse }, {@linkplain AllDataTypesResponse} and
- * {@linkplain TimeSeriesDatasetResponse}.
- *
- * The test data itself is read from resource files, cached in HashMaps and made
- * accessible through the file name (without .json extension).
- *
+ * {@linkplain TimeSeriesDatasetResponse}. The test data itself is read from
+ * resource files, cached in HashMaps and made accessible through the file name
+ * (without .json extension).
  *
  * @author Ingo Thomsen
- *
  */
 public final class TestDataProvider
 {
@@ -72,11 +66,11 @@ public final class TestDataProvider
     private static final Map<String, String> DATASETS_JSON_STRINGS        = assembleDatasetJSONStrings();
     private static final Map<String, String> DATACITE_JSON_STRINGS        = assembleDataCiteJsonStrings();
 
+
     /**
      * Return a allDataTypes JSON response
      *
      * @param name Name of the JSON response
-     *
      * @return JSON string
      */
     public static String getAllDataTypesJSON(String name)
@@ -87,11 +81,22 @@ public final class TestDataProvider
         return ALL_DATA_TYPES_JSON_STRINGS.get(name);
     }
 
+
+    /**
+     * Return the example JSON response containing all AllTimeSeriesResponses.
+     *
+     * @return JSON string
+     */
+    public static String getAllTimeSeriesJSON()
+    {
+        return ALL_TIME_SERIES_JSON_STRINGS.get("all");
+    }
+
+
     /**
      * Return a allTimeSeries JSON response
      *
      * @param name Name of the JSON response
-     *
      * @return JSON string
      */
     public static String getAllTimeSeriesJSON(String name)
@@ -102,11 +107,11 @@ public final class TestDataProvider
         return ALL_TIME_SERIES_JSON_STRINGS.get(name);
     }
 
+
     /**
      * Return a timeSeriesDataset JSON response
      *
      * @param name Name of the JSON response
-     *
      * @return JSON string
      */
     public static String getTimeSeriesDatasetJSON(String name)
@@ -116,6 +121,7 @@ public final class TestDataProvider
 
         return DATASETS_JSON_STRINGS.get(name);
     }
+
 
     /**
      * Returns randomly one of the JSON allTimeSeries responses.
@@ -128,11 +134,11 @@ public final class TestDataProvider
         return ALL_TIME_SERIES_JSON_STRINGS.values().stream().skip(randomIndex).findFirst().get();
     };
 
+
     /**
      * Return a DataCiteJson object
      *
      * @param name Name of the DataCiteJson string to create the object from
-     *
      * @return DataCiteJson document created from JSON string
      */
     public static DataCiteJson getExpectedtDataCiteJSON(String name)
@@ -143,12 +149,13 @@ public final class TestDataProvider
         return GSON.fromJson(DATACITE_JSON_STRINGS.get(name), DataCiteJson.class);
     }
 
+
     /**
      * private constructor to enforce non-instantiability
      */
     private TestDataProvider()
-    {
-    }
+    {}
+
 
     /**
      * Initialize Gson and return a PrettyGson object
@@ -157,9 +164,9 @@ public final class TestDataProvider
      */
     private static Gson getGson()
     {
-        GsonUtils.init(new GsonBuilder());
-        return GsonUtils.getPrettyGson();
+        return GsonUtils.createGerdiDocumentGsonBuilder().setPrettyPrinting().create();
     }
+
 
     /**
      * Private helper to get the content of a resource as string (read as input
@@ -184,11 +191,11 @@ public final class TestDataProvider
         return resourceFileString;
     }
 
+
     /**
      * Private helper to read all JSON files from a resource directory and add each
      * string content to a given HashMap using the file name as key - with the .json
      * extension removed (case-insensitive).
-     *
      *
      * @param mapping target HashMap to store the file contents in
      * @param dirWithJSONFiles directory (relative to the resource folder)
@@ -212,6 +219,7 @@ public final class TestDataProvider
             }
     }
 
+
     /**
      * Private helper to create a HashMap with the allDataTypes responses - read
      * from JSON files - using the file names (w/o extension) as key.
@@ -226,6 +234,7 @@ public final class TestDataProvider
 
         return mapping;
     }
+
 
     /**
      * Private helper to create a HashMap with the allTimeSeriesResponses responses
@@ -243,6 +252,7 @@ public final class TestDataProvider
         return mapping;
     }
 
+
     /**
      * Private helper to create a HashMap with the dataset responses - read from
      * JSON files - using the file names (w/o extension) as key.
@@ -257,6 +267,7 @@ public final class TestDataProvider
 
         return mapping;
     }
+
 
     /**
      * Private helper to create a HashMap with with the strings - read from JSON
@@ -273,4 +284,5 @@ public final class TestDataProvider
 
         return mapping;
     }
+
 }

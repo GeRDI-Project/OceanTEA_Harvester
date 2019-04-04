@@ -15,6 +15,7 @@
  */
 package de.gerdiproject.harvest.bdd.stages.given;
 
+import com.google.gson.Gson;
 import com.tngtech.jgiven.CurrentStep;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
@@ -31,16 +32,17 @@ import de.gerdiproject.json.datacite.DataCiteJson;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Each step (method) in this Given stage (class) selects the JSON responses
- * from the {@linkplain TestDataProvider} that are used to initialize
- * {@linkplain AllTimeSeriesResponse }, {@linkplain AllDataTypesResponse} and
- * {@linkplain TimeSeriesDatasetResponse}.
+ * A stage using the {@linkplain TestDataProvider} with steps to provide certain
+ * instances of {@linkplain AllTimeSeriesResponse},
+ * {@linkplain AllDataTypesResponse} and {@linkplain TimeSeriesDatasetResponse}
+ * to the When stage.
  *
  * @author Ingo Thomsen
- *
  */
 public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
 {
+    private static final Gson GSON = GsonUtils.createGerdiDocumentGsonBuilder().setPrettyPrinting().create();
+
     @ProvidedScenarioState
     String allTimeSeriesJSONResponse;
 
@@ -59,9 +61,8 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     CurrentStep currentStep;
 
 
-    public GivenTimeSeriesTestData a_time_series_data_set_named_$(String name)
+    public GivenTimeSeriesTestData a_time_series_dataset_named_$(String name)
     {
-
 
         allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
         timeSeriesDatasetJSONResponse = TestDataProvider.getTimeSeriesDatasetJSON(name);
@@ -77,16 +78,28 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
     {
         expectedDataCiteJson = TestDataProvider.getExpectedtDataCiteJSON(name);
 
-        addJSONStringAsAttachmentAndDescription(GsonUtils.getPrettyGson().toJson(expectedDataCiteJson));
+        addJSONStringAsAttachmentAndDescription(GSON.toJson(expectedDataCiteJson));
 
         return self();
     }
 
 
-    public GivenTimeSeriesTestData a_random_time_series_data_set()
+    public GivenTimeSeriesTestData a_random_time_series_dataset()
     {
         allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
         allTimeSeriesJSONResponse = TestDataProvider.getRandomAllTimeSeriesJSON();
+        timeSeriesDatasetJSONResponse = TestDataProvider.getTimeSeriesDatasetJSON("synthetic.no_data");
+
+        addJSONStringAsAttachmentAndDescription(allTimeSeriesJSONResponse);
+
+        return self();
+    }
+
+
+    public GivenTimeSeriesTestData all_time_series_datasets()
+    {
+        allDataTypesJSONResponse = TestDataProvider.getAllDataTypesJSON("all");
+        allTimeSeriesJSONResponse = TestDataProvider.getAllTimeSeriesJSON();
         timeSeriesDatasetJSONResponse = TestDataProvider.getTimeSeriesDatasetJSON("synthetic.no_data");
 
         addJSONStringAsAttachmentAndDescription(allTimeSeriesJSONResponse);
@@ -106,7 +119,7 @@ public class GivenTimeSeriesTestData extends Stage<GivenTimeSeriesTestData>
         Attachment attachment = Attachment.fromText(aJSONResponse, MediaType.JSON_UTF_8);
         currentStep.addAttachment(attachment);
 
-        currentStep.setExtendedDescription(
-            "The given resp. expected JSON strings are attached.");
+        currentStep.setExtendedDescription("The given resp. expected JSON strings are attached.");
     }
+
 }

@@ -26,8 +26,7 @@ import com.tngtech.jgiven.junit.ScenarioTest;
 
 import de.gerdiproject.harvest.bdd.stages.given.GivenTimeSeriesDatasetResponse;
 import de.gerdiproject.harvest.bdd.stages.then.ThenTimeSeriesDataset;
-import de.gerdiproject.harvest.bdd.stages.when.WhenTimeSeriesDataset;
-import de.gerdiproject.harvest.bdd.tags.Issue;
+import de.gerdiproject.harvest.bdd.stages.when.WhenTransformation;
 import de.gerdiproject.harvest.bdd.tags.Tag;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeriesDataset;
 
@@ -37,10 +36,10 @@ import de.gerdiproject.harvest.oceantea.utils.TimeSeriesDataset;
  *
  * @author Ingo Thomsen
  */
-@Issue("SAI-312")
 @Tag("Initialization")
 @RunWith(DataProviderRunner.class)
-public class InitializationOfATimeSeriesDataset extends ScenarioTest<GivenTimeSeriesDatasetResponse, WhenTimeSeriesDataset, ThenTimeSeriesDataset>
+@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert") // The assertions are done in the stages
+public class InitializationOfATimeSeriesDataset extends ScenarioTest<GivenTimeSeriesDatasetResponse, WhenTransformation, ThenTimeSeriesDataset>
 {
 
     @Test
@@ -51,6 +50,7 @@ public class InitializationOfATimeSeriesDataset extends ScenarioTest<GivenTimeSe
         then().the_TimeSeriesDataset_has_at_least_$_values(2);
     }
 
+
     @Test
     public void missing_time_series_data()
     {
@@ -59,6 +59,7 @@ public class InitializationOfATimeSeriesDataset extends ScenarioTest<GivenTimeSe
         then().the_TimeSeriesDataset_has_no_values().and().startInstant_and_stopInstant_are_equal();
     }
 
+
     @Test
     public void only_one_time_series_entry()
     {
@@ -66,6 +67,7 @@ public class InitializationOfATimeSeriesDataset extends ScenarioTest<GivenTimeSe
         when().a_TimeSeriesDataset_is_created_for_Instant(Instant.parse("2013-05-30T23:38:23Z"));
         then().startInstant_and_stopInstant_are_equal();
     }
+
 
     /**
      * The {@linkplain Instant} are given as strings in ISO-8601 format

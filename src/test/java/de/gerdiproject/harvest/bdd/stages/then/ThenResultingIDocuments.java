@@ -35,9 +35,17 @@ public class ThenResultingIDocuments extends Stage<ThenResultingIDocuments>
     @ExpectedScenarioState
     List<IDocument> resultingIDocuments;
 
+
     public ThenResultingIDocuments there_is_exactly_one_resulting_document()
     {
         assertThat(resultingIDocuments.size()).isOne();
+        return self();
+    }
+
+
+    public ThenResultingIDocuments there_are_$_resulting_documents(int numberOfDocuments)
+    {
+        assertThat(resultingIDocuments.size()).isEqualTo(numberOfDocuments);
         return self();
     }
 }

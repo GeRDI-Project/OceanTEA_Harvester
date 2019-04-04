@@ -13,32 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.gerdiproject.harvest.oceantea.json;
+package de.gerdiproject.harvest.etls;
 
-import com.google.gson.annotations.SerializedName;
-
-import lombok.Data;
+import de.gerdiproject.harvest.etls.extractors.TimeSeriesExtractor;
+import de.gerdiproject.harvest.etls.transformers.TimeSeriesTransformer;
+import de.gerdiproject.harvest.oceantea.utils.TimeSeries;
+import de.gerdiproject.json.datacite.DataCiteJson;
 
 /**
- * This class represents a JSON object that is part of an
- * {@linkplain AllTimeSeriesResponse}.
+ * An {@linkplain StaticIteratorETL} implementation for harvesting
+ * OceanTEA time series data.
  *
  * @author Ingo Thomsen
  */
-@Data
-public final class TimeSeriesResponse
+public class TimeSeriesETL extends StaticIteratorETL<TimeSeries, DataCiteJson>
 {
-    private String region;
-    private String regionPrintName;
-    private String device;
-    private String station;
-    private String dataType;
-
-    private String tsType;
-    private double depth;
-    private double lat;
-    private double lon;
-
-    @SerializedName("t_reference")
-    private String tReference;
+    /**
+     * Constructor that initializes the extractor and transformer components.
+     */
+    public TimeSeriesETL()
+    {
+        super(new TimeSeriesExtractor(), new TimeSeriesTransformer());
+    }
 }
