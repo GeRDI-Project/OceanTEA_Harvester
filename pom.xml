@@ -20,23 +20,6 @@
 	</description>
 	<inceptionYear>2018</inceptionYear>
 
-	<developers>
-		<developer>
-			<name>Ingo Thomsen</name>
-			<email>int@informatik.uni-kiel.de</email>
-			<organization>Kiel University</organization>
-			<organizationUrl>http://www.uni-kiel.de/index-e.shtml</organizationUrl>
-		</developer>
-	</developers>
-
-	<!-- Define Sonatype repository -->
-	<repositories>
-		<repository>
-			<id>Sonatype</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</repository>
-	</repositories>
-
 	<!-- Properties of the testing components -->
 	<properties>
 		<mockito.version>2.8.9</mockito.version>
@@ -45,87 +28,16 @@
 		<jgiven.report.enabled>true</jgiven.report.enabled>
 		<jgiven.report.text>false</jgiven.report.text> <!-- "true" enables reporting on stdout -->
 		<jgiven.report.dir>${project.build.directory}/bdd-reports/json</jgiven.report.dir>
-
 		<jgiven.report.htmldir>${project.build.directory}/bdd-reports/html</jgiven.report.htmldir>
-		<maven.surefire.version>2.22.0</maven.surefire.version>
 	</properties>
-
-	<dependencies>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<version>3.9.1</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!--
-		     dependendcies for BDD testing with JGiven 
-		--> 
-
-		<dependency>
-			<groupId>com.tngtech.jgiven</groupId>
-			<artifactId>jgiven-junit</artifactId>
-			<version>0.15.1</version>
-			<scope>test</scope>
-		</dependency>
-
-
-		<dependency>
-			<groupId>com.tngtech.java</groupId>
-			<artifactId>junit-dataprovider</artifactId>
-			<version>1.10.0</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.5</version>
-		</dependency>
-
-		<!-- 
-		     dependencies for mocking 
-		-->
-
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>${mockito.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-module-junit4</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito2</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>		 
-
-	</dependencies>
-
+	
 	<build>
 		<plugins>
-
 			<!-- configuring surefire to run BBD tests -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven.surefire.version}</version>
+				<version>${surefire.plugin.version}</version>
 
 				<configuration>
 					<includes>
@@ -166,4 +78,75 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.9.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- dependendcies for BDD testing with JGiven --> 
+		<dependency>
+			<groupId>com.tngtech.jgiven</groupId>
+			<artifactId>jgiven-junit</artifactId>
+			<version>0.15.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.tngtech.java</groupId>
+			<artifactId>junit-dataprovider</artifactId>
+			<version>1.10.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+
+		<!-- dependencies for mocking -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito2</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>		 
+	</dependencies>
+
+	<developers>
+		<developer>
+			<name>Ingo Thomsen</name>
+			<email>int@informatik.uni-kiel.de</email>
+			<organization>Kiel University</organization>
+			<organizationUrl>http://www.uni-kiel.de/index-e.shtml</organizationUrl>
+		</developer>
+	</developers>
+
+	<!-- Define Sonatype repository -->
+	<repositories>
+		<repository>
+			<id>Sonatype</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
 </project>
