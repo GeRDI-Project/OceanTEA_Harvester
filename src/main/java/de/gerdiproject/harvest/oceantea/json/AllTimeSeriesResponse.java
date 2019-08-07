@@ -23,7 +23,7 @@ import lombok.Data;
 
 /**
  * This class represents a JSON response to an "all time series" requests, for
- * example: http://maui.se.informatik.uni-kiel.de:9090/timeseries
+ * example: http://oceantea.uni-kiel.de/timeseries
  *
  * @author Ingo Thomsen
  */

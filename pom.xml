@@ -16,7 +16,7 @@
 	<name>OceanTEA Harvester Service</name>	
 	<description>
 		A restful harvester for the TimeSeries data provided
-		by the OceanTEA demo at http://maui.se.informatik.uni-kiel.de:9090/
+		by the OceanTEA demo at http://oceantea.uni-kiel.de/
 	</description>
 	<inceptionYear>2018</inceptionYear>
 

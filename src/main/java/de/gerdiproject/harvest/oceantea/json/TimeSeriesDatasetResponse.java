@@ -25,7 +25,7 @@ import lombok.Data;
 /**
  * This class represents a JSON response to an actual request for time series
  * data, for example:
- * http://maui.se.informatik.uni-kiel.de:9090/timeseries/scalar/POS434-156/fluorescence/215
+ * http://oceantea.uni-kiel.de/timeseries/scalar/POS434-156/fluorescence/215
  * The JSON data is represented as a list containing the pairs of time offsets
  * (in seconds) and the corresponding values. These pairs themselves are lists
  * with the fixed length of 2. The value can be missing (= "NA"), therefore
