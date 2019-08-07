@@ -40,9 +40,9 @@ public class TimeSeriesExtractor extends AbstractIteratorExtractor<TimeSeries>
 {
     private final HttpRequester httpRequester = new HttpRequester(new Gson(), StandardCharsets.UTF_8);
 
-    private Iterator<TimeSeriesResponse> timeSeriesSource;
-    private AllDataTypesResponse dataTypeInfoSource;
-    private int size;
+    protected Iterator<TimeSeriesResponse> timeSeriesSource;
+    protected AllDataTypesResponse dataTypeInfoSource;
+    private int timeSeriesCount;
 
 
     @Override
@@ -50,7 +50,7 @@ public class TimeSeriesExtractor extends AbstractIteratorExtractor<TimeSeries>
     {
         // the size should be enough for now, because existing elements never change
         // if the number of timeseries changes, the version should be different
-        return String.valueOf(size);
+        return String.valueOf(timeSeriesCount);
     }
 
 
@@ -74,14 +74,14 @@ public class TimeSeriesExtractor extends AbstractIteratorExtractor<TimeSeries>
         this.timeSeriesSource = allTimeSeriesResponse.getAllTimeSeriesResponses().iterator();
 
         // get expected size of extracted elements
-        this.size = allTimeSeriesResponse.getAllTimeSeriesResponses().size();
+        this.timeSeriesCount = allTimeSeriesResponse.getAllTimeSeriesResponses().size();
     }
 
 
     @Override
     public int size()
     {
-        return size;
+        return timeSeriesCount;
     }
 
 
@@ -100,7 +100,7 @@ public class TimeSeriesExtractor extends AbstractIteratorExtractor<TimeSeries>
      */
     private class TimeSeriesIterator implements Iterator<TimeSeries>
     {
-        private int index = 0;
+        private int index = 0; // NOPMD index explicitly starts at 0
 
 
         @Override

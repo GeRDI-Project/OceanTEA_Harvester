@@ -44,6 +44,7 @@ import de.gerdiproject.json.datacite.nested.PersonName;
  */
 public final class OceanTeaTimeSeriesDataCiteConstants
 {
+    public static final Locale FORMATTING_LOCALE = Locale.ENGLISH;
 
     // language used for data and description
     public static final String LANG = "en-US";
@@ -103,10 +104,8 @@ public final class OceanTeaTimeSeriesDataCiteConstants
                                              + " Data was collected in the open water region '%s' at geo location %s at a depth of %.1f m.";
     public static final String DESCRIPTION_MEASUREMENT_UNIT_SUFFIX = " The measurement unit is %s.";
     public static final String DESCRIPTION_MISSING_VALUES_SUFFIX = " %d data points were missing ('NA').";
-    public static final String PUBLICATION_YEAR_SIMPLE_DATE_FORMAT_STRING = "yyyy";
-    public static final String GEOLOCATION_PLACE_DESCRIPTION = "measurement region of %s";
 
-    public static final Locale FORMATTING_LOCALE = Locale.ENGLISH;
+    public static final String GEOLOCATION_PLACE_DESCRIPTION = "measurement region of %s";
 
     /**
      * private constructor to enforce non-instantiability
