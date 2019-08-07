@@ -60,7 +60,7 @@ public final class TimeSeries
      * @param timeSeriesData part of a JSON response to a timeseries request
      * @param dataTypeInfo the corresponding data type information
      */
-    public TimeSeries(int index, TimeSeriesResponse timeSeriesData, DataTypeResponse dataTypeInfo)
+    public TimeSeries(final int index, final TimeSeriesResponse timeSeriesData, final DataTypeResponse dataTypeInfo)
     {
         this.identifier = getClass().getSimpleName() + index;
 

@@ -55,7 +55,7 @@ public class TimeSeriesExtractor extends AbstractIteratorExtractor<TimeSeries>
 
 
     @Override
-    public void init(AbstractETL<?, ?> etl)
+    public void init(final AbstractETL<?, ?> etl)
     {
         super.init(etl);
 

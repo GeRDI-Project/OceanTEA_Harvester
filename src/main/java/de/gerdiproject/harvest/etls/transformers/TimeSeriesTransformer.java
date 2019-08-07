@@ -45,14 +45,14 @@ public class TimeSeriesTransformer extends AbstractIteratorTransformer<TimeSerie
 
 
     @Override
-    public void init(AbstractETL<?, ?> etl)
+    public void init(final AbstractETL<?, ?> etl)
     {
         // nothing to retrieve from the ETL
     }
 
 
     @Override
-    protected DataCiteJson transformElement(TimeSeries timeSeries) throws TransformerException
+    protected DataCiteJson transformElement(final TimeSeries timeSeries) throws TransformerException
     {
         // specify the TimeSeries objects for parsing
         timeSeriesParser.setTimeSeries(timeSeries);

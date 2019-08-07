@@ -54,18 +54,18 @@ public final class TimeSeriesDataset
      *            containing the raw values
      * @param referenceInstant reference {@linkplain Instant} for the time offsets
      */
-    public TimeSeriesDataset(TimeSeriesDatasetResponse timeSeriesDatasetResponse, Instant referenceInstant)
+    public TimeSeriesDataset(final TimeSeriesDatasetResponse timeSeriesDatasetResponse, final Instant referenceInstant)
     {
         this.referenceInstant = referenceInstant;
 
         // extract the values and time offsets in the TimeSeriesDatasetResponse
-        List<Integer> timeOffsets = new ArrayList<>();
+        final List<Integer> timeOffsets = new ArrayList<>();
 
-        for (List<String> pairOfTimeOffsetAndValue : timeSeriesDatasetResponse.getListOfPairsOfTimeOffsetAndValue())
+        for (final List<String> pairOfTimeOffsetAndValue : timeSeriesDatasetResponse.getListOfPairsOfTimeOffsetAndValue())
             try {
                 timeOffsets.add(Integer.parseInt(pairOfTimeOffsetAndValue.get(0)));
 
-            } catch (NumberFormatException e) {
+            } catch (final NumberFormatException e) {
                 numberOfMissingValues++;
             }
 

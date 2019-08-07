@@ -119,24 +119,24 @@ public final class OceanTeaTimeSeriesDataCiteConstants
     // private helper methods for List<> creation
     //
     @SafeVarargs
-    private static <T> List<T> asUnmodifiableList(T... listItems)
+    private static <T> List<T> asUnmodifiableList(final T... listItems)
     {
         return Collections.unmodifiableList(Arrays.asList(listItems));
     }
 
-    private static WebLink createTypedWebLink(String url, WebLinkType type)
+    private static WebLink createTypedWebLink(final String url, final WebLinkType type)
     {
 
-        WebLink wl = new WebLink(url);
+        final WebLink wl = new WebLink(url);
         wl.setType(type);
         return wl;
     }
 
-    private static List<Subject> createSubjects(String... subjectStrings)
+    private static List<Subject> createSubjects(final String... subjectStrings)
     {
-        List<Subject> subjects = new ArrayList<>();
+        final List<Subject> subjects = new ArrayList<>();
 
-        for (String s : subjectStrings)
+        for (final String s : subjectStrings)
             subjects.add(new Subject(s));
 
         return subjects;

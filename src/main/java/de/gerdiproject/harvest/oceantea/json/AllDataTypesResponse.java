@@ -49,7 +49,7 @@ public final class AllDataTypesResponse
      *
      * @return a {@linkplain DataTypeResponse} object
      */
-    public DataTypeResponse getDatatypeResponseByName(String name)
+    public DataTypeResponse getDatatypeResponseByName(final String name)
     {
         switch (name) {
             case "conductivity":

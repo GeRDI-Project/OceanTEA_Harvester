@@ -56,7 +56,7 @@ public class TimeSeriesParser
      *
      * @param time series a {@linkplain TimeSeries} object
      */
-    public void setTimeSeries(TimeSeries timeSeries)
+    public void setTimeSeries(final TimeSeries timeSeries)
     {
         this.timeSeries = timeSeries;
 
@@ -69,7 +69,7 @@ public class TimeSeriesParser
      *
      * @param timeSeriesDatasetResponse a server response to a timeseries request
      */
-    public void setTimeSeriesDataset(TimeSeriesDatasetResponse timeSeriesDatasetResponse)
+    public void setTimeSeriesDataset(final TimeSeriesDatasetResponse timeSeriesDatasetResponse)
     {
         this.timeSeriesDataset = new TimeSeriesDataset(timeSeriesDatasetResponse, timeSeries.getReferenceInstant());
     }
@@ -99,14 +99,14 @@ public class TimeSeriesParser
      */
     public List<ResearchData> getResearchDataList()
     {
-        String label = String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
-                                     OceanTeaTimeSeriesDataCiteConstants.REASEARCH_DATA_LABEL,
-                                     timeSeries.getDataTypePrintName(),
-                                     timeSeries.getDepth(),
-                                     timeSeries.getRegionPrintName(),
-                                     timeSeries.getDevice());
+        final String label = String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
+                                           OceanTeaTimeSeriesDataCiteConstants.REASEARCH_DATA_LABEL,
+                                           timeSeries.getDataTypePrintName(),
+                                           timeSeries.getDepth(),
+                                           timeSeries.getRegionPrintName(),
+                                           timeSeries.getDevice());
 
-        ResearchData researchData = new ResearchData(getDownloadUrl(), label);
+        final ResearchData researchData = new ResearchData(getDownloadUrl(), label);
         researchData.setType(OceanTeaTimeSeriesDataCiteConstants.JSON_MIME_MEDIA_TYPE);
 
         return Arrays.asList(researchData);
@@ -121,8 +121,8 @@ public class TimeSeriesParser
      */
     public int getPublicationYear()
     {
-        Date date = timeSeries.getReferenceDate();
-        SimpleDateFormat df = new SimpleDateFormat(
+        final Date date = timeSeries.getReferenceDate();
+        final SimpleDateFormat df = new SimpleDateFormat(
             OceanTeaTimeSeriesDataCiteConstants.PUBLICATION_YEAR_SIMPLE_DATE_FORMAT_STRING);
 
         return Integer.parseInt(df.format(date));
@@ -136,7 +136,7 @@ public class TimeSeriesParser
      */
     public List<Subject> getSubjectsStrings()
     {
-        List<Subject> subjectList = new ArrayList<>();
+        final List<Subject> subjectList = new ArrayList<>();
         subjectList.add(new Subject(OceanTeaTimeSeriesDataCiteConstants.SUBJECT_MOLAB_PREFIX + timeSeries.getDevice()));
         subjectList.add(new Subject(timeSeries.getDataTypePrintName()));
         subjectList.add(new Subject(timeSeries.getStation()));
@@ -153,11 +153,11 @@ public class TimeSeriesParser
      */
     public List<Description> getDescription()
     {
-        Point point = timeSeries.getGeoLocationPoint();
-        String geoLocationString = String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
-                                                 OceanTeaTimeSeriesDataCiteConstants.GEO_LOCATION_AS_STRING,
-                                                 point.getLongitude(),
-                                                 point.getLatitude());
+        final Point point = timeSeries.getGeoLocationPoint();
+        final String geoLocationString = String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
+                                                       OceanTeaTimeSeriesDataCiteConstants.GEO_LOCATION_AS_STRING,
+                                                       point.getLongitude(),
+                                                       point.getLatitude());
 
         String descriptionText = String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
                                                OceanTeaTimeSeriesDataCiteConstants.DESCRIPTION,
@@ -192,13 +192,13 @@ public class TimeSeriesParser
      */
     public Title getMainTitle()
     {
-        String titleText = String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
-                                         OceanTeaTimeSeriesDataCiteConstants.MAIN_DOCUMENT_TITLE,
-                                         timeSeries.getDataTypePrintName(),
-                                         timeSeries.getDepth(),
-                                         timeSeries.getRegionPrintName());
+        final String titleText = String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
+                                               OceanTeaTimeSeriesDataCiteConstants.MAIN_DOCUMENT_TITLE,
+                                               timeSeries.getDataTypePrintName(),
+                                               timeSeries.getDepth(),
+                                               timeSeries.getRegionPrintName());
 
-        Title title = new Title(titleText);
+        final Title title = new Title(titleText);
         title.setLang(OceanTeaTimeSeriesDataCiteConstants.LANG);
 
         return title;
@@ -214,7 +214,7 @@ public class TimeSeriesParser
      */
     public List<WebLink> getWebLinks()
     {
-        WebLink webLink = new WebLink(OceanTeaTimeSeriesDataCiteConstants.VIEW_URL);
+        final WebLink webLink = new WebLink(OceanTeaTimeSeriesDataCiteConstants.VIEW_URL);
         webLink.setName(getMainTitle().getValue());
         webLink.setType(WebLinkType.ViewURL);
 
@@ -230,7 +230,7 @@ public class TimeSeriesParser
      */
     public List<GeoLocation> getGeoLocations()
     {
-        GeoLocation geoLocation = new GeoLocation();
+        final GeoLocation geoLocation = new GeoLocation();
         geoLocation.setPoint(new GeoJson(timeSeries.getGeoLocationPoint()));
         geoLocation.setPlace(String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
                                            OceanTeaTimeSeriesDataCiteConstants.GEOLOCATION_PLACE_DESCRIPTION,
@@ -248,10 +248,10 @@ public class TimeSeriesParser
      */
     public List<AbstractDate> getDates()
     {
-        long epochMilliSince = timeSeriesDataset.getStartInstant().getEpochSecond() * 1000;
-        long epochMilliUntil = timeSeriesDataset.getStopInstant().getEpochSecond() * 1000;
+        final long epochMilliSince = timeSeriesDataset.getStartInstant().getEpochSecond() * 1000;
+        final long epochMilliUntil = timeSeriesDataset.getStopInstant().getEpochSecond() * 1000;
 
-        DateRange dateRange = new DateRange(epochMilliSince, epochMilliUntil, DateType.Created);
+        final DateRange dateRange = new DateRange(epochMilliSince, epochMilliUntil, DateType.Created);
 
         return Arrays.asList(dateRange);
     }
