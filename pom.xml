@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.gerdi-project</groupId>
 		<artifactId>GeRDI-parent</artifactId>
-        <version>7.4.0</version>
+        <version>4.0.0</version>
 	</parent>
 
 	<artifactId>OceanTea-HarvesterService</artifactId>
@@ -22,6 +22,7 @@
 
 	<!-- Properties of the testing components -->
 	<properties>
+		<restfulharvester.dependency.version>7.4.0</restfulharvester.dependency.version>
 		<mockito.dependency.version>2.8.9</mockito.dependency.version>
 		<powermock.dependency.version>1.7.1</powermock.dependency.version>
 		<assertj.dependency.version>3.9.1</assertj.dependency.version>
@@ -84,13 +85,18 @@
 	
 	<dependencies>
 		<dependency>
+			<groupId>de.gerdi-project</groupId>
+			<artifactId>RestfulHarvester-Library</artifactId>
+			<version>${restfulharvester.dependency.version}</version>
+		</dependency>
+		
+		<!-- dependendcies for BDD testing with JGiven --> 
+		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
 			<version>${assertj.dependency.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- dependendcies for BDD testing with JGiven --> 
 		<dependency>
 			<groupId>com.tngtech.jgiven</groupId>
 			<artifactId>jgiven-junit</artifactId>

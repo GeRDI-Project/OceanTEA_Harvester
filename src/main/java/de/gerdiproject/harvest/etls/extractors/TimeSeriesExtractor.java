@@ -120,4 +120,11 @@ public class TimeSeriesExtractor extends AbstractIteratorExtractor<TimeSeries>
         }
 
     }
+
+
+    @Override
+    public void clear()
+    {
+        // nothing to clean up
+    }
 }

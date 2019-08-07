@@ -20,6 +20,7 @@ import java.util.Arrays;
 
 import com.google.gson.Gson;
 
+import de.gerdiproject.harvest.etls.AbstractETL;
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDataCiteConstants;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeries;
@@ -41,6 +42,13 @@ public class TimeSeriesTransformer extends AbstractIteratorTransformer<TimeSerie
      *  Parser to harvest non-constant information about time series datasets
      */
     private final TimeSeriesParser timeSeriesParser = new TimeSeriesParser();
+
+
+    @Override
+    public void init(AbstractETL<?, ?> etl)
+    {
+        // nothing to retrieve from the ETL
+    }
 
 
     @Override
@@ -82,4 +90,10 @@ public class TimeSeriesTransformer extends AbstractIteratorTransformer<TimeSerie
         return document;
     }
 
+
+    @Override
+    public void clear()
+    {
+        // nothing to clean up
+    }
 }
