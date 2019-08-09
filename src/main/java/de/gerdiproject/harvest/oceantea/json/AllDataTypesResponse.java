@@ -19,7 +19,7 @@ import lombok.Data;
 
 /**
  * This class represents a JSON response to an "all data types" requests, for
- * example: http://maui.se.informatik.uni-kiel.de:9090/datatypes
+ * example: http://oceantea.uni-kiel.de/datatypes
  *
  * @author Ingo Thomsen
  */
@@ -49,7 +49,7 @@ public final class AllDataTypesResponse
      *
      * @return a {@linkplain DataTypeResponse} object
      */
-    public DataTypeResponse getDatatypeResponseByName(String name)
+    public DataTypeResponse getDatatypeResponseByName(final String name)
     {
         switch (name) {
             case "conductivity":

@@ -16,7 +16,6 @@
 package de.gerdiproject.harvest.oceantea.utils;
 
 import java.time.Instant;
-import java.util.Date;
 
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
@@ -60,7 +59,7 @@ public final class TimeSeries
      * @param timeSeriesData part of a JSON response to a timeseries request
      * @param dataTypeInfo the corresponding data type information
      */
-    public TimeSeries(int index, TimeSeriesResponse timeSeriesData, DataTypeResponse dataTypeInfo)
+    public TimeSeries(final int index, final TimeSeriesResponse timeSeriesData, final DataTypeResponse dataTypeInfo)
     {
         this.identifier = getClass().getSimpleName() + index;
 
@@ -117,16 +116,5 @@ public final class TimeSeries
     public double getDepth()
     {
         return -1 * geoLocationPoint.getElevation();
-    }
-
-
-    /**
-     * Get the reference {@linkplain Instant} as {@linkplain Date}.
-     *
-     * @return reference {@linkplain Date}
-     */
-    public Date getReferenceDate()
-    {
-        return Date.from(referenceInstant);
     }
 }

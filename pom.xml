@@ -5,127 +5,43 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.gerdi-project</groupId>
-		<artifactId>GeRDI-parent-harvester</artifactId>
-        <version>7.3.5</version>
+		<artifactId>GeRDI-parent</artifactId>
+        <version>4.0.0</version>
 	</parent>
 
 	<artifactId>OceanTea-HarvesterService</artifactId>
-	<version>7.3.2</version>
+	<version>7.4.0-SNAPSHOT</version>
 
 	<packaging>war</packaging>
 	<name>OceanTEA Harvester Service</name>	
 	<description>
 		A restful harvester for the TimeSeries data provided
-		by the OceanTEA demo at http://maui.se.informatik.uni-kiel.de:9090/
+		by the OceanTEA demo at http://oceantea.uni-kiel.de/
 	</description>
 	<inceptionYear>2018</inceptionYear>
 
-	<developers>
-		<developer>
-			<name>Ingo Thomsen</name>
-			<email>int@informatik.uni-kiel.de</email>
-			<organization>Kiel University</organization>
-			<organizationUrl>http://www.uni-kiel.de/index-e.shtml</organizationUrl>
-		</developer>
-	</developers>
-
-	<!-- Define Sonatype repository -->
-	<repositories>
-		<repository>
-			<id>Sonatype</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</repository>
-	</repositories>
-
 	<!-- Properties of the testing components -->
 	<properties>
-		<mockito.version>2.8.9</mockito.version>
-		<powermock.version>1.7.1</powermock.version>
+		<restfulharvester.dependency.version>7.4.0</restfulharvester.dependency.version>
+		<mockito.dependency.version>2.8.9</mockito.dependency.version>
+		<powermock.dependency.version>1.7.1</powermock.dependency.version>
+		<assertj.dependency.version>3.9.1</assertj.dependency.version>
+		<jgiven.dependency.version>0.15.1</jgiven.dependency.version>
+		<junit.dataprovider.dependency.version>1.10.0</junit.dataprovider.dependency.version>
 
 		<jgiven.report.enabled>true</jgiven.report.enabled>
 		<jgiven.report.text>false</jgiven.report.text> <!-- "true" enables reporting on stdout -->
 		<jgiven.report.dir>${project.build.directory}/bdd-reports/json</jgiven.report.dir>
-
 		<jgiven.report.htmldir>${project.build.directory}/bdd-reports/html</jgiven.report.htmldir>
-		<maven.surefire.version>2.22.0</maven.surefire.version>
 	</properties>
-
-	<dependencies>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<version>3.9.1</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!--
-		     dependendcies for BDD testing with JGiven 
-		--> 
-
-		<dependency>
-			<groupId>com.tngtech.jgiven</groupId>
-			<artifactId>jgiven-junit</artifactId>
-			<version>0.15.1</version>
-			<scope>test</scope>
-		</dependency>
-
-
-		<dependency>
-			<groupId>com.tngtech.java</groupId>
-			<artifactId>junit-dataprovider</artifactId>
-			<version>1.10.0</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.5</version>
-		</dependency>
-
-		<!-- 
-		     dependencies for mocking 
-		-->
-
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>${mockito.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-module-junit4</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito2</artifactId>
-			<version>${powermock.version}</version>
-			<scope>test</scope>
-		</dependency>		 
-
-	</dependencies>
-
+	
 	<build>
 		<plugins>
-
 			<!-- configuring surefire to run BBD tests -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven.surefire.version}</version>
+				<version>${surefire.plugin.version}</version>
 
 				<configuration>
 					<includes>
@@ -166,4 +82,74 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<dependencies>
+		<dependency>
+			<groupId>de.gerdi-project</groupId>
+			<artifactId>RestfulHarvester-Library</artifactId>
+			<version>${restfulharvester.dependency.version}</version>
+		</dependency>
+		
+		<!-- dependendcies for BDD testing with JGiven --> 
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${assertj.dependency.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.tngtech.jgiven</groupId>
+			<artifactId>jgiven-junit</artifactId>
+			<version>${jgiven.dependency.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.tngtech.java</groupId>
+			<artifactId>junit-dataprovider</artifactId>
+			<version>${junit.dataprovider.dependency.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.dependency.version}</version>
+		</dependency>
+
+		<!-- dependencies for mocking -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.dependency.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock.dependency.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito2</artifactId>
+			<version>${powermock.dependency.version}</version>
+			<scope>test</scope>
+		</dependency>		 
+	</dependencies>
+
+	<developers>
+		<developer>
+			<name>Ingo Thomsen</name>
+			<email>int@informatik.uni-kiel.de</email>
+			<organization>Kiel University</organization>
+			<organizationUrl>http://www.uni-kiel.de/index-e.shtml</organizationUrl>
+		</developer>
+	</developers>
+
+	<!-- Define Sonatype repository -->
+	<repositories>
+		<repository>
+			<id>Sonatype</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
 </project>

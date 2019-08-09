@@ -38,9 +38,9 @@ import lombok.Setter;
 public final class TimeSeriesDataset
 {
     @Setter(AccessLevel.NONE)
-    private int numberOfMissingValues = 0;
+    private int numberOfMissingValues;
 
-    private final int     numberOfValues;
+    private final int numberOfValues;
     private final Instant referenceInstant;
     private final Instant startInstant;
     private final Instant stopInstant;
@@ -54,30 +54,33 @@ public final class TimeSeriesDataset
      *            containing the raw values
      * @param referenceInstant reference {@linkplain Instant} for the time offsets
      */
-    public TimeSeriesDataset(TimeSeriesDatasetResponse timeSeriesDatasetResponse, Instant referenceInstant)
+    public TimeSeriesDataset(final TimeSeriesDatasetResponse timeSeriesDatasetResponse, final Instant referenceInstant)
     {
         this.referenceInstant = referenceInstant;
 
         // extract the values and time offsets in the TimeSeriesDatasetResponse
-        List<Integer> timeOffsets = new ArrayList<>();
+        final List<Integer> timeOffsets = new ArrayList<>();
 
-        for (List<String> pairOfTimeOffsetAndValue : timeSeriesDatasetResponse.getListOfPairsOfTimeOffsetAndValue())
+        this.numberOfMissingValues = 0;
+
+        for (final List<String> pairOfTimeOffsetAndValue : timeSeriesDatasetResponse.getListOfPairsOfTimeOffsetAndValue())
             try {
                 timeOffsets.add(Integer.parseInt(pairOfTimeOffsetAndValue.get(0)));
 
-            } catch (NumberFormatException e) {
-                numberOfMissingValues++;
+            } catch (final NumberFormatException e) {
+                this.numberOfMissingValues++;
             }
 
         // extract info from values and time offsets
-        numberOfValues = timeOffsets.size();
+        this.numberOfValues = timeOffsets.size();
 
-        if (numberOfValues > 0) {
-            startInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.min(timeOffsets));
-            stopInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.max(timeOffsets));
+        if (this.numberOfValues > 0) {
+            this.startInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.min(timeOffsets));
+            this.stopInstant = Instant.ofEpochSecond(referenceInstant.getEpochSecond() + Collections.max(timeOffsets));
+
         } else {
-            startInstant = referenceInstant;
-            stopInstant = referenceInstant;
+            this.startInstant = referenceInstant;
+            this.stopInstant = referenceInstant;
         }
     }
 }

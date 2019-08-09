@@ -20,6 +20,7 @@ import java.util.Arrays;
 
 import com.google.gson.Gson;
 
+import de.gerdiproject.harvest.etls.AbstractETL;
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDataCiteConstants;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
 import de.gerdiproject.harvest.oceantea.utils.TimeSeries;
@@ -44,7 +45,14 @@ public class TimeSeriesTransformer extends AbstractIteratorTransformer<TimeSerie
 
 
     @Override
-    protected DataCiteJson transformElement(TimeSeries timeSeries) throws TransformerException
+    public void init(final AbstractETL<?, ?> etl)
+    {
+        // nothing to retrieve from the ETL
+    }
+
+
+    @Override
+    protected DataCiteJson transformElement(final TimeSeries timeSeries) throws TransformerException
     {
         // specify the TimeSeries objects for parsing
         timeSeriesParser.setTimeSeries(timeSeries);
@@ -82,4 +90,10 @@ public class TimeSeriesTransformer extends AbstractIteratorTransformer<TimeSerie
         return document;
     }
 
+
+    @Override
+    public void clear()
+    {
+        // nothing to clean up
+    }
 }

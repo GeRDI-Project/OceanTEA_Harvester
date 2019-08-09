@@ -44,6 +44,7 @@ import de.gerdiproject.json.datacite.nested.PersonName;
  */
 public final class OceanTeaTimeSeriesDataCiteConstants
 {
+    public static final Locale FORMATTING_LOCALE = Locale.ENGLISH;
 
     // language used for data and description
     public static final String LANG = "en-US";
@@ -103,10 +104,8 @@ public final class OceanTeaTimeSeriesDataCiteConstants
                                              + " Data was collected in the open water region '%s' at geo location %s at a depth of %.1f m.";
     public static final String DESCRIPTION_MEASUREMENT_UNIT_SUFFIX = " The measurement unit is %s.";
     public static final String DESCRIPTION_MISSING_VALUES_SUFFIX = " %d data points were missing ('NA').";
-    public static final String PUBLICATION_YEAR_SIMPLE_DATE_FORMAT_STRING = "yyyy";
-    public static final String GEOLOCATION_PLACE_DESCRIPTION = "measurement region of %s";
 
-    public static final Locale FORMATTING_LOCALE = Locale.ENGLISH;
+    public static final String GEOLOCATION_PLACE_DESCRIPTION = "measurement region of %s";
 
     /**
      * private constructor to enforce non-instantiability
@@ -119,24 +118,24 @@ public final class OceanTeaTimeSeriesDataCiteConstants
     // private helper methods for List<> creation
     //
     @SafeVarargs
-    private static <T> List<T> asUnmodifiableList(T... listItems)
+    private static <T> List<T> asUnmodifiableList(final T... listItems)
     {
         return Collections.unmodifiableList(Arrays.asList(listItems));
     }
 
-    private static WebLink createTypedWebLink(String url, WebLinkType type)
+    private static WebLink createTypedWebLink(final String url, final WebLinkType type)
     {
 
-        WebLink wl = new WebLink(url);
+        final WebLink wl = new WebLink(url);
         wl.setType(type);
         return wl;
     }
 
-    private static List<Subject> createSubjects(String... subjectStrings)
+    private static List<Subject> createSubjects(final String... subjectStrings)
     {
-        List<Subject> subjects = new ArrayList<>();
+        final List<Subject> subjects = new ArrayList<>();
 
-        for (String s : subjectStrings)
+        for (final String s : subjectStrings)
             subjects.add(new Subject(s));
 
         return subjects;

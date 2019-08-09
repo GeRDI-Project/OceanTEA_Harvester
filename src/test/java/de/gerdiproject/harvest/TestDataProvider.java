@@ -177,12 +177,11 @@ public final class TestDataProvider
      */
     private static String getResourceFileAsString(String filePath)
     {
-        InputStream is = CLASS_LOADER.getResourceAsStream(filePath);
-
         String resourceFileString;
 
         try
-            (BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
+            (InputStream is = CLASS_LOADER.getResourceAsStream(filePath);
+             BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"))) {
             resourceFileString = br.lines().collect(Collectors.joining());
         } catch (IOException e) {
             resourceFileString = null;
