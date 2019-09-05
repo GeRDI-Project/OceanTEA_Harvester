@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.vividsolutions.jts.geom.Point;
+
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDataCiteConstants;
 import de.gerdiproject.harvest.oceantea.constants.OceanTeaTimeSeriesDownloaderConstants;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesDatasetResponse;
@@ -35,8 +37,6 @@ import de.gerdiproject.json.datacite.enums.DescriptionType;
 import de.gerdiproject.json.datacite.extension.generic.ResearchData;
 import de.gerdiproject.json.datacite.extension.generic.WebLink;
 import de.gerdiproject.json.datacite.extension.generic.enums.WebLinkType;
-import de.gerdiproject.json.geo.GeoJson;
-import de.gerdiproject.json.geo.Point;
 
 /**
  * A Parser for creating elements for a (GeRDI) DataCite document from a
@@ -151,8 +151,8 @@ public class TimeSeriesParser
         final Point point = timeSeries.getGeoLocationPoint();
         final String geoLocationString = String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
                                                        OceanTeaTimeSeriesDataCiteConstants.GEO_LOCATION_AS_STRING,
-                                                       point.getLongitude(),
-                                                       point.getLatitude());
+                                                       point.getX(),
+                                                       point.getY());
 
         final StringBuilder sb = new StringBuilder();
         sb.append(String.format(
@@ -232,7 +232,7 @@ public class TimeSeriesParser
     public List<GeoLocation> getGeoLocations()
     {
         final GeoLocation geoLocation = new GeoLocation();
-        geoLocation.setPoint(new GeoJson(timeSeries.getGeoLocationPoint()));
+        geoLocation.setPoint(timeSeries.getGeoLocationPoint());
         geoLocation.setPlace(String.format(OceanTeaTimeSeriesDataCiteConstants.FORMATTING_LOCALE,
                                            OceanTeaTimeSeriesDataCiteConstants.GEOLOCATION_PLACE_DESCRIPTION,
                                            timeSeries.getRegionPrintName()));
