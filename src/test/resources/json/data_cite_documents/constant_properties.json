@@ -7,7 +7,9 @@
       }
     }
   ],
-  "publisher": "OceanTEA demo, Software Engineering, Computer Science, Kiel University",
+  "publisher": {
+  	"value":"OceanTEA demo, Software Engineering, Computer Science, Kiel University"
+  },
   "resourceType": {
     "value": "JSON",
     "resourceTypeGeneral": "Dataset"
