@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>OceanTea-HarvesterService</artifactId>
-	<version>8.1.0</version>
+	<version>8.1.1</version>
 	<packaging>war</packaging>
 	<name>OceanTEA Harvester Service</name>	
 	<description>
@@ -21,7 +21,7 @@
 
 	<!-- Properties of the testing components -->
 	<properties>
-		<restfulharvester.dependency.version>8.1.0</restfulharvester.dependency.version>
+		<restfulharvester.dependency.version>8.1.1</restfulharvester.dependency.version>
 		<mockito.dependency.version>2.8.9</mockito.dependency.version>
 		<powermock.dependency.version>1.7.1</powermock.dependency.version>
 		<assertj.dependency.version>3.9.1</assertj.dependency.version>
