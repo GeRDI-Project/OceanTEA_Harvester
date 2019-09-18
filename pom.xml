@@ -1,17 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-	http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	     http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>de.gerdi-project</groupId>
 		<artifactId>GeRDI-parent</artifactId>
-        <version>4.0.0</version>
+		<version>4.1.0</version>
 	</parent>
 
 	<artifactId>OceanTea-HarvesterService</artifactId>
-	<version>7.4.0-SNAPSHOT</version>
-
+	<version>8.1.1</version>
 	<packaging>war</packaging>
 	<name>OceanTEA Harvester Service</name>	
 	<description>
@@ -22,7 +21,7 @@
 
 	<!-- Properties of the testing components -->
 	<properties>
-		<restfulharvester.dependency.version>7.4.0</restfulharvester.dependency.version>
+		<restfulharvester.dependency.version>8.1.1</restfulharvester.dependency.version>
 		<mockito.dependency.version>2.8.9</mockito.dependency.version>
 		<powermock.dependency.version>1.7.1</powermock.dependency.version>
 		<assertj.dependency.version>3.9.1</assertj.dependency.version>

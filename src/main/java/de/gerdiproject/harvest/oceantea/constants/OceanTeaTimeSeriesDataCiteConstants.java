@@ -35,6 +35,7 @@ import de.gerdiproject.json.datacite.extension.generic.WebLink;
 import de.gerdiproject.json.datacite.extension.generic.constants.ResearchDisciplineConstants;
 import de.gerdiproject.json.datacite.extension.generic.enums.WebLinkType;
 import de.gerdiproject.json.datacite.nested.PersonName;
+import de.gerdiproject.json.datacite.nested.Publisher;
 
 /**
  * Non-instantiable utility class providing constants and some template strings used for
@@ -64,7 +65,7 @@ public final class OceanTeaTimeSeriesDataCiteConstants
     // OceanTEA demo as repository (+ GEOMAR for MoLab reference)
     //
     public static final String BASE_URL = "http://oceantea.uni-kiel.de/";
-    public static final String PROVIDER = "OceanTEA demo, Software Engineering, Computer Science, Kiel University";
+    public static final Publisher PROVIDER = new Publisher("OceanTEA demo, Software Engineering, Computer Science, Kiel University");
     public static final String REPOSITORY_ID = "OCEANTEA";
     public static final String VIEW_URL = BASE_URL;
     public static final List<WebLink> WEB_LINKS = asUnmodifiableList(

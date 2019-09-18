@@ -13,7 +13,9 @@
       "lang": "en-US"
     }
   ],
-  "publisher": "OceanTEA demo, Software Engineering, Computer Science, Kiel University",
+  "publisher": {
+  	"value":"OceanTEA demo, Software Engineering, Computer Science, Kiel University"
+  },
   "publicationYear": 2012,
   "resourceType": {
     "value": "JSON",

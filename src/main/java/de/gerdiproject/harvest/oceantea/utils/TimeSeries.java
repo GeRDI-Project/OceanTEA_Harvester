@@ -17,11 +17,14 @@ package de.gerdiproject.harvest.oceantea.utils;
 
 import java.time.Instant;
 
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
+
 import de.gerdiproject.harvest.oceantea.json.AllDataTypesResponse;
 import de.gerdiproject.harvest.oceantea.json.AllTimeSeriesResponse;
 import de.gerdiproject.harvest.oceantea.json.DataTypeResponse;
 import de.gerdiproject.harvest.oceantea.json.TimeSeriesResponse;
-import de.gerdiproject.json.geo.Point;
 import lombok.Data;
 
 /**
@@ -33,6 +36,8 @@ import lombok.Data;
 @Data
 public final class TimeSeries
 {
+    private static final GeometryFactory GEO_FACTORY = new GeometryFactory();
+
     private String region;
     private String regionPrintName;
     private String device;
@@ -72,8 +77,12 @@ public final class TimeSeries
         setDataType(timeSeriesData.getDataType());
 
         // creating the geolocation
-        setGeoLocationPoint(new Point(timeSeriesData.getLon(), timeSeriesData.getLat(), timeSeriesData
-                                      .getDepth() * -1));
+        final Coordinate pointCoordinate = new Coordinate(
+            timeSeriesData.getLon(),
+            timeSeriesData.getLat(),
+            timeSeriesData.getDepth() * -1);
+
+        setGeoLocationPoint(GEO_FACTORY.createPoint(pointCoordinate));
 
         // converting reference ISO 8601 date (example: 2012-06-01T00:00:01Z) to Instant
         setReferenceInstant(Instant.parse(timeSeriesData.getTReference()));
@@ -91,7 +100,7 @@ public final class TimeSeries
      */
     public double getLatitude()
     {
-        return geoLocationPoint.getLatitude();
+        return geoLocationPoint.getY();
     }
 
 
@@ -102,7 +111,7 @@ public final class TimeSeries
      */
     public double getLongitude()
     {
-        return geoLocationPoint.getLongitude();
+        return geoLocationPoint.getX();
     }
 
 
@@ -115,6 +124,6 @@ public final class TimeSeries
      */
     public double getDepth()
     {
-        return -1 * geoLocationPoint.getElevation();
+        return -1.0 * geoLocationPoint.getCoordinate().z;
     }
 }
